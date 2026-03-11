@@ -138,23 +138,47 @@ public class KnifeController : MonoBehaviour
     {
         _state = KnifeState.Stuck;
 
-        // Dừng hoàn toàn
         _rb.velocity = Vector2.zero;
-        _rb.isKinematic = true;  // Không bị vật lý ảnh hưởng nữa
+        _rb.isKinematic = true;
 
-        // Ghi nhớ vị trí & góc tương đối so với Log
+        // Lấy radius thực tế của Log
+        CircleCollider2D logCollider =
+            logTransform.GetComponent<CircleCollider2D>();
+        float logRadius = logCollider != null
+            ? logCollider.radius * logTransform.localScale.x
+            : 0.95f * logTransform.localScale.x;
+
+        // Hướng từ tâm Log → ra ngoài
+        Vector2 dirFromCenter = (transform.position
+                                - logTransform.position).normalized;
+
+        // Điểm cắm = mép Log
+        // +0.15f = lưỡi dao lộ ra ngoài một chút
+        Vector3 stickPosition = logTransform.position
+                               + (Vector3)(dirFromCenter
+                               * (logRadius + 1.05f));
+
+        transform.position = stickPosition;
+
+        // Xoay mũi dao hướng VÀO tâm Log
+        float angle = Mathf.Atan2(dirFromCenter.y,
+                                   dirFromCenter.x)
+                                   * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0f, 0f, angle + 90f);
+
+        // Ghi nhớ vị trí & góc tương đối với Log
         _logTransform = logTransform;
         _localOffset = logTransform.InverseTransformPoint(
                             transform.position);
         _localAngle = transform.eulerAngles.z
                         - logTransform.eulerAngles.z;
 
-        // Đổi tag → Dao tiếp theo sẽ nhận diện đây là vật cản
         gameObject.tag = "StuckKnife";
 
-        Debug.Log("Knife: Stuck in Log!");
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddKnifeThrown();
 
-        // Thông báo cho KnifeThrower
+        Debug.Log("Knife: Stuck at Log edge!");
         OnStuckInLog?.Invoke();
     }
 

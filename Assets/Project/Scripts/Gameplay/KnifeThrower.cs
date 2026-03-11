@@ -17,7 +17,7 @@ public class KnifeThrower : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [Header("── Cấu hình màn ──")]
-    [SerializeField] private int totalKnives = 5;
+    [SerializeField] private int totalKnives = 7;
     [SerializeField] private float spawnDelay = 0.2f;
 
     // ═══════════════════════════════════════════
@@ -32,9 +32,9 @@ public class KnifeThrower : MonoBehaviour
     // ═══════════════════════════════════════════
     // EVENTS
     // ═══════════════════════════════════════════
-    public System.Action<int> OnKnifeCountChanged;  // Số dao còn lại
-    public System.Action OnAllKnivesStuck;     // Hết dao → qua màn
-    public System.Action OnGameOver;           // Trúng dao → thua
+    public System.Action<int> OnKnifeCountChanged; // Số dao còn lại
+    public System.Action OnAllKnivesStuck;    // Hết dao → qua màn
+    public System.Action OnGameOver;          // Trúng dao → thua
 
     // ═══════════════════════════════════════════
     // UNITY LIFECYCLE
@@ -42,6 +42,11 @@ public class KnifeThrower : MonoBehaviour
     private void Start()
     {
         _knivesRemaining = totalKnives;
+
+        // Setup HUD queue ngay từ đầu
+        if (HUDManager.Instance != null)
+            HUDManager.Instance.SetupKnifeQueue(totalKnives);
+
         SpawnNextKnife();
     }
 
@@ -50,7 +55,6 @@ public class KnifeThrower : MonoBehaviour
         if (!_canThrow) return;
         if (_isGameOver) return;
 
-        // Input: Tap (mobile) hoặc Click chuột (editor)
         if (Input.GetMouseButtonDown(0))
         {
             TryThrow();
@@ -66,7 +70,6 @@ public class KnifeThrower : MonoBehaviour
     /// </summary>
     public void SetupLevel(int knifeCount)
     {
-        // Xóa dao cũ còn sót
         ClearAllKnives();
 
         totalKnives = knifeCount;
@@ -74,13 +77,13 @@ public class KnifeThrower : MonoBehaviour
         _isGameOver = false;
         _canThrow = false;
 
+        // Reset HUD queue
+        if (HUDManager.Instance != null)
+            HUDManager.Instance.SetupKnifeQueue(knifeCount);
+
         SpawnNextKnife();
     }
 
-    /// <summary>
-    /// Cho phép hoặc khóa input
-    /// Dùng khi hiện UI, pause game
-    /// </summary>
     public void SetCanThrow(bool value)
     {
         _canThrow = value;
@@ -89,22 +92,25 @@ public class KnifeThrower : MonoBehaviour
     // ═══════════════════════════════════════════
     // PRIVATE METHODS
     // ═══════════════════════════════════════════
-
     private void TryThrow()
     {
         if (_currentKnife == null) return;
         if (!_currentKnife.IsWaiting) return;
 
-        _canThrow = false;  // Khóa input cho đến khi spawn dao mới
+        _canThrow = false;
         _currentKnife.Launch();
+
+        // Cập nhật HUD icon dao
+        if (HUDManager.Instance != null)
+            HUDManager.Instance.OnKnifeThrown();
     }
 
     private void SpawnNextKnife()
     {
         if (_isGameOver) return;
+
         if (_knivesRemaining <= 0)
         {
-            // Hết dao → Thắng màn
             Debug.Log("KnifeThrower: All knives thrown! Stage Clear!");
             OnAllKnivesStuck?.Invoke();
             return;
@@ -115,7 +121,6 @@ public class KnifeThrower : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
-        // Chờ một chút trước khi spawn dao mới
         yield return new WaitForSeconds(spawnDelay);
 
         if (_isGameOver) yield break;
@@ -127,7 +132,6 @@ public class KnifeThrower : MonoBehaviour
             Quaternion.identity
         );
 
-        // Lấy KnifeController
         _currentKnife = knifeObj.GetComponent<KnifeController>();
 
         if (_currentKnife == null)
@@ -144,25 +148,19 @@ public class KnifeThrower : MonoBehaviour
         // Trừ dao
         _knivesRemaining--;
 
-        // Cập nhật HUD
+        // Cập nhật HUD số dao
         OnKnifeCountChanged?.Invoke(_knivesRemaining);
 
-        Debug.Log($"KnifeThrower: Spawned knife. " +
-                  $"Remaining: {_knivesRemaining}");
+        Debug.Log($"KnifeThrower: Spawned knife. Remaining: {_knivesRemaining}");
 
-        // Cho phép ném
         _canThrow = true;
     }
 
     private void HandleStuck()
     {
         if (_currentKnife != null)
-        {
-            // Lưu dao đã cắm để xóa sau
             _stuckKnives.Add(_currentKnife.gameObject);
-        }
 
-        // Spawn dao tiếp theo
         SpawnNextKnife();
     }
 
@@ -174,26 +172,20 @@ public class KnifeThrower : MonoBehaviour
         _canThrow = false;
 
         Debug.Log("KnifeThrower: Game Over!");
-
         OnGameOver?.Invoke();
     }
 
     private void HandleOutOfBounds()
     {
-        // Dao bay ra ngoài → Spawn lại
         Debug.LogWarning("KnifeThrower: Knife out of bounds, respawning...");
-        _knivesRemaining++; // Hoàn lại dao
+        _knivesRemaining++;
         SpawnNextKnife();
     }
 
     private void ClearAllKnives()
     {
-        // Xóa tất cả dao cũ khi reset màn
         foreach (var knife in _stuckKnives)
-        {
-            if (knife != null)
-                Destroy(knife);
-        }
+            if (knife != null) Destroy(knife);
         _stuckKnives.Clear();
 
         if (_currentKnife != null)

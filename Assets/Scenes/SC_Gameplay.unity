@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 64995626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -5}
+  m_LocalPosition: {x: 0, y: -2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,6 +486,8 @@ GameObject:
   - component: {fileID: 210132706}
   - component: {fileID: 210132705}
   - component: {fileID: 210132708}
+  - component: {fileID: 210132709}
+  - component: {fileID: 210132710}
   m_Layer: 6
   m_Name: Log
   m_TagString: Log
@@ -527,7 +529,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 0.95
 --- !u!212 &210132706
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -568,7 +570,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1945268871, guid: c0d5ebdadb5572c4eac92febce5f9ae9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -637,6 +639,36 @@ MonoBehaviour:
   loopPattern: 1
   canReverse: 0
   reverseInterval: 2
+--- !u!114 &210132709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210132704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00ef5c34b7d45448744ecea1f63b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifePrefab: {fileID: 6972274481219020665, guid: 7f9f9eed240053242b6fa839c50bfb23, type: 3}
+  preplacedCount: 0
+  logRadius: 0.95
+--- !u!114 &210132710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210132704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911174947d849ab429bc045277e3d544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applePrefab: {fileID: 695951544371601681, guid: 5676f34b90acdc5448e3b212bde19f39, type: 3}
+  appleCount: 2
+  logRadius: 0.95
 --- !u!1 &216999743
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 19.86, y: -360}
+  m_AnchoredPosition: {x: 19.860008, y: -247.6}
   m_SizeDelta: {x: 48.35, y: 51.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216999745
@@ -1206,7 +1238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 19.86, y: -251}
+  m_AnchoredPosition: {x: 19.1, y: -356.5}
   m_SizeDelta: {x: 48.35, y: 51.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649675122
@@ -1332,6 +1364,8 @@ GameObject:
   m_Component:
   - component: {fileID: 714142389}
   - component: {fileID: 714142388}
+  - component: {fileID: 714142390}
+  - component: {fileID: 714142391}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1353,7 +1387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knifePrefab: {fileID: 6972274481219020665, guid: 7f9f9eed240053242b6fa839c50bfb23, type: 3}
   spawnPoint: {fileID: 64995627}
-  totalKnives: 5
+  totalKnives: 7
   spawnDelay: 0.2
 --- !u!4 &714142389
 Transform:
@@ -1364,12 +1398,50 @@ Transform:
   m_GameObject: {fileID: 714142387}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6115197, y: 3.3970237, z: -4.9790473}
+  m_LocalPosition: {x: -0.04, y: -2.66, z: -4.9790473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &714142390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714142387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282ae82fbb0b7064abbe6813bee2ed57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtAppleCount: {fileID: 1432136710}
+  txtKnifeThrown: {fileID: 422178217}
+--- !u!114 &714142391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714142387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98db188c43f63204d9bb144b6fc6a347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIcons:
+  - {fileID: 649675122}
+  - {fileID: 1517425342}
+  - {fileID: 216999745}
+  - {fileID: 2060354177}
+  - {fileID: 370208409}
+  - {fileID: 1547561245}
+  - {fileID: 2084866860}
+  knifeIconActive: {fileID: 21300000, guid: d130ffc23e46dca40976f625b7eb7d1b, type: 3}
+  knifeIconUsed: {fileID: 21300000, guid: d130ffc23e46dca40976f625b7eb7d1b, type: 3}
+  activeColor: {r: 1, g: 1, b: 1, a: 1}
+  usedColor: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0.78431374}
 --- !u!1 &737118906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +1776,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 76
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3073cbb797b32414c8a0548a8bb42310, type: 2}
   m_sharedMaterial: {fileID: 9187654312033471670, guid: 3073cbb797b32414c8a0548a8bb42310, type: 2}
