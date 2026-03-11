@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,9 +106,367 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: knife_logo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 449
+        width: 85
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 30.5, y: 4.5}
+        - {x: 25.5, y: 5.5}
+        - {x: 8.5, y: 13.5}
+        - {x: -7.5, y: 15.5}
+        - {x: -18.5, y: 15.5}
+        - {x: -21.5, y: 17.5}
+        - {x: -25.5, y: 23.5}
+        - {x: -28.5, y: 24.5}
+        - {x: -32.5, y: 22.5}
+        - {x: -37.5, y: 15.5}
+        - {x: -39.5, y: 8.5}
+        - {x: -40.5, y: 1.5}
+        - {x: -39.5, y: -4.5}
+        - {x: -36.5, y: -7.5}
+        - {x: -34.5, y: -7.5}
+        - {x: -32.5, y: -6.5}
+        - {x: -29.5, y: -4.5}
+        - {x: -24.5, y: -4.5}
+        - {x: -16.5, y: -10.5}
+        - {x: -7.5, y: -15.5}
+        - {x: 2.5, y: -18.5}
+        - {x: 21.5, y: -22.5}
+        - {x: 32.5, y: -28.5}
+        - {x: 41.5, y: 3.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dddddc7dfaa2d2e419803f57d27e6484
+      internalID: 723553262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_1
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 432
+        width: 29
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2.5, y: 30}
+        - {x: -13.5, y: -22}
+        - {x: -13.5, y: -26}
+        - {x: -9.5, y: -30}
+        - {x: -1.5, y: -30}
+        - {x: 14.5, y: 23}
+        - {x: 13.823448, y: 27.73584}
+        - {x: 11.5, y: 30}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52d07f296df7b0c4eaca0bae123c6ebb
+      internalID: 391198592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_2
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 411
+        width: 156
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 32.5}
+        - {x: -76, y: -7.5}
+        - {x: -60, y: -11}
+        - {x: 17, y: -32.5}
+        - {x: 42, y: -33.5}
+        - {x: 64, y: -27.5}
+        - {x: 78, y: -19.5}
+        - {x: 78, y: -16.5}
+        - {x: 21, y: 8.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb2431086a7cdc34ea428830773b3f09
+      internalID: 359413572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_3
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 474
+        width: 236
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93e2022842db135479a220bfd111937d
+      internalID: 1654806927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_4
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 261
+        width: 209
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e692b2beba6d7c43b73a0ed54cee61e
+      internalID: 1210477976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_5
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 252
+        width: 191
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43866dc0808a674e90e8621692273b7
+      internalID: -874660580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_6
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 413
+        width: 255
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 246c4062c409c3146a3ce955023b9dbc
+      internalID: -1578812040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 296
+        width: 560
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839ea61fa7e3aa2459c1262f93bf8e9f
+      internalID: 797713498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 242
+        height: 292
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e3b7ab373236da44b8d5295a8d8c127
+      internalID: 1714885939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_9
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 2
+        width: 219
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0742c4f26053dc347a44cd8238d61057
+      internalID: -2121633082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_10
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 2
+        width: 222
+        height: 257
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f28df505a527ed84b9a96850b119083a
+      internalID: -1287988099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knife_logo_11
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 2
+        width: 205
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81bfdeab8f6dbc1438c238ce7056d1c1
+      internalID: -1126424608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +477,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      knife_logo_0: 723553262
+      knife_logo_1: 391198592
+      knife_logo_10: -1287988099
+      knife_logo_11: -1126424608
+      knife_logo_2: 359413572
+      knife_logo_3: 1654806927
+      knife_logo_4: 1210477976
+      knife_logo_5: -874660580
+      knife_logo_6: -1578812040
+      knife_logo_7: 797713498
+      knife_logo_8: 1714885939
+      knife_logo_9: -2121633082
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

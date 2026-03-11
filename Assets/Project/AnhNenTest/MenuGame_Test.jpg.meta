@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0679967596f5a5b4ba62fbd6d42aaec0
+guid: 1bcb96fb861669744aa185433ff637ed
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -94,7 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -107,7 +107,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -173,133 +173,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: become_vip_0
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 3
-        width: 645
-        height: 237
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 20e854fe2791adc448256db89a951b3e
-      internalID: -1978864907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: become_vip_1
-      rect:
-        serializedVersion: 2
-        x: 652
-        y: 202
-        width: 89
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04a5533b91087864e8eff0c4056550a4
-      internalID: 2021838559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: become_vip_2
-      rect:
-        serializedVersion: 2
-        x: 652
-        y: 48
-        width: 150
-        height: 150
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b45d9b3211f2684ead87cb7cb85dee2
-      internalID: 504457324
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: become_vip_3
-      rect:
-        serializedVersion: 2
-        x: 806
-        y: 92
-        width: 46
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d96f6c8f7d21fd54194322efb94b124d
-      internalID: -814859648
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: become_vip_4
-      rect:
-        serializedVersion: 2
-        x: 806
-        y: 48
-        width: 88
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e062f2ee00863c446a6db07e06055524
-      internalID: -2044924200
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: become_vip_5
-      rect:
-        serializedVersion: 2
-        x: 652
-        y: 3
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6525a0ac1c655984fb7774f07125f366
-      internalID: 1205375531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -310,21 +184,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      become_vip_0: -1978864907
-      become_vip_1: 2021838559
-      become_vip_10: 1404465942
-      become_vip_11: 1593939014
-      become_vip_12: -848586841
-      become_vip_13: 978625237
-      become_vip_2: 504457324
-      become_vip_3: -814859648
-      become_vip_4: -2044924200
-      become_vip_5: 1205375531
-      become_vip_6: 1172480789
-      become_vip_7: -963037526
-      become_vip_8: 897554255
-      become_vip_9: -19321624
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
