@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7292717115303207715}
   - component: {fileID: 161250989104106712}
   - component: {fileID: 6318868705525565045}
-  m_Layer: 0
+  - component: {fileID: 818197692323420793}
+  m_Layer: 7
   m_Name: PRE_Knife
   m_TagString: Knife
   m_Icon: {fileID: 0}
@@ -158,3 +159,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &818197692323420793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972274481219020665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d594f20ef823e2d45b45c4a0e9874572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flySpeed: 18
+  bounceSpeed: 8
+  bounceTime: 0.6
