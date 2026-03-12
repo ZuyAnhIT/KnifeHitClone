@@ -47,18 +47,12 @@ public class LogSetup : MonoBehaviour
     private void PlaceKnives()
     {
         if (preplacedCount <= 0) return;
-        if (knifePrefab == null)
-        {
-            Debug.LogError("LogSetup: Chưa gắn knifePrefab!");
-            return;
-        }
+        if (knifePrefab == null) return;
 
-        // Tính radius thực tế theo scale
         float actualRadius = _collider != null
             ? _collider.radius * transform.localScale.x
             : logRadius * transform.localScale.x;
 
-        // Chia đều góc
         float angleStep = 360f / preplacedCount;
 
         for (int i = 0; i < preplacedCount; i++)
@@ -66,30 +60,26 @@ public class LogSetup : MonoBehaviour
             float angle = i * angleStep;
             float rad = angle * Mathf.Deg2Rad;
             Vector2 dir = new Vector2(
-                                 Mathf.Cos(rad),
-                                 Mathf.Sin(rad));
+                                Mathf.Cos(rad),
+                                Mathf.Sin(rad));
 
-            // Vị trí mép Log
+            // Vị trí giống KnifeController.StickToLog
             Vector3 pos = transform.position
-                         + (Vector3)(dir * (actualRadius + 0.3f));
+                         + (Vector3)(dir * (actualRadius + 1.05f));
 
-            // Tạo dao
             GameObject knife = Instantiate(knifePrefab, pos,
                                            Quaternion.identity);
 
-            // Xoay hướng vào tâm
+            // Xoay ĐÚNG như dao cắm thật
+            // Mũi dao hướng vào tâm Log
             float rotAngle = Mathf.Atan2(dir.y, dir.x)
                              * Mathf.Rad2Deg;
             knife.transform.eulerAngles =
-                new Vector3(0f, 0f, rotAngle - 90f);
+                new Vector3(0f, 0f, rotAngle + 90f); // ← +90f giống StickToLog
 
-            // Đặt làm con của Log → xoay cùng Log
             knife.transform.SetParent(transform);
-
-            // Gắn tag StuckKnife → Dao mới trúng = Game Over
             knife.tag = "StuckKnife";
 
-            // Tắt Rigidbody → Không cần vật lý
             Rigidbody2D rb = knife.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
@@ -97,14 +87,10 @@ public class LogSetup : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
 
-            // Tắt KnifeController → Không cần logic bay
-            KnifeController kc =
-                knife.GetComponent<KnifeController>();
+            KnifeController kc = knife.GetComponent<KnifeController>();
             if (kc != null) kc.enabled = false;
 
             _preplacedKnives.Add(knife);
         }
-
-        Debug.Log($"LogSetup: Placed {preplacedCount} knives");
     }
 }

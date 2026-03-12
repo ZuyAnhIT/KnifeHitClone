@@ -39,16 +39,16 @@ public class KnifeThrower : MonoBehaviour
     // ═══════════════════════════════════════════
     // UNITY LIFECYCLE
     // ═══════════════════════════════════════════
-    private void Start()
-    {
-        _knivesRemaining = totalKnives;
+    //private void Start()
+    //{
+    //    _knivesRemaining = totalKnives;
 
-        // Setup HUD queue ngay từ đầu
-        if (HUDManager.Instance != null)
-            HUDManager.Instance.SetupKnifeQueue(totalKnives);
+    //    // Setup HUD queue ngay từ đầu
+    //    if (HUDManager.Instance != null)
+    //        HUDManager.Instance.SetupKnifeQueue(totalKnives);
 
-        SpawnNextKnife();
-    }
+    //    SpawnNextKnife();
+    //}
 
     private void Update()
     {
