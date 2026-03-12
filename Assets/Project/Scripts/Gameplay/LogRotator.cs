@@ -114,6 +114,23 @@ public class LogRotator : MonoBehaviour
                   $"Reverse={canReverse}");
     }
 
+    public void SetPattern(LevelData data)
+    {
+        baseSpeed = data.logSpeed;
+        canReverse = data.canReverse;
+        reverseInterval = data.reverseInterval;
+        clockwise = Random.value > 0.5f; // Random chiều mỗi màn
+
+        // Reset timers
+        _patternTimer = 0f;
+        _reverseTimer = 0f;
+        _currentDir = clockwise ? -1f : 1f;
+
+        Debug.Log($"LogRotator: Speed={baseSpeed} | " +
+                  $"Reverse={canReverse} | " +
+                  $"CW={clockwise}");
+    }
+
     /// <summary>
     /// Dừng/tiếp tục xoay log (dùng khi Game Over hoặc Stage Complete)
     /// </summary>

@@ -66,10 +66,21 @@ public class LogAppleSpawner : MonoBehaviour
             Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
             Vector3 pos = transform.position
-                        + (Vector3)(dir * (actualRadius + 0.1f));
+                        + (Vector3)(dir * (actualRadius + 1.03f));
 
             GameObject apple = Instantiate(applePrefab, pos,
                                            Quaternion.identity);
+            // ── THÊM ĐOẠN NÀY ── Xoay táo đúng hướng
+            // Dít táo hướng VÀO tâm Log
+            // Lá táo hướng RA NGOÀI
+            float rotAngle = Mathf.Atan2(dir.y, dir.x)
+                             * Mathf.Rad2Deg;
+
+            // +90f vì sprite táo đứng dọc
+            // Lá táo ở trên (Y cao) → hướng ra ngoài
+            apple.transform.eulerAngles =
+                new Vector3(0f, 0f, rotAngle - 90f);
+            // ── HẾT ĐOẠN THÊM ──
 
             apple.transform.SetParent(transform);
             apple.tag = "Apple";
