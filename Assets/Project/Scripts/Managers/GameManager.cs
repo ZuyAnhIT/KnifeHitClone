@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float stageClearDelay = 1.5f;
     [SerializeField] private float gameOverDelay = 1.0f;
 
+    [Header("── Break Effect ──")]
+    [SerializeField] private LogBreakEffect logBreakEffect;
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
@@ -105,45 +107,56 @@ public class GameManager : MonoBehaviour
     // ═══════════════════════════════════════════
     private void StartStage()
     {
-        // Generate level mới
         _currentLevel = LevelGenerator.Instance.GenerateNext();
         _state = GameState.Playing;
 
-        // ── Setup Log ──
         logRotator.SetPattern(_currentLevel);
         logRotator.SetActive(true);
 
         logItemPlacer.Setup(
-        _currentLevel.preplacedCount,
-        _currentLevel.appleCount
+            _currentLevel.preplacedCount,
+            _currentLevel.appleCount
         );
 
-        // ── Setup KnifeThrower ──
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
-
-        // ── Cập nhật HUD ──
         UpdateStageHUD(_currentLevel);
 
-        // ── Reset Score ──
-        ScoreManager.Instance?.ResetScore();
+
 
         OnStageStarted?.Invoke(_currentLevel);
 
         Debug.Log($"GameManager: Started {_currentLevel}");
     }
 
+    // Sửa HandleStageClear()
     private void HandleStageClear()
     {
         if (_state != GameState.Playing) return;
 
         _state = GameState.StageClear;
         logRotator.SetActive(false);
+        knifeThrower.SetCanThrow(false);
 
         Debug.Log("GameManager: Stage Clear!");
-        OnStageClear?.Invoke();
 
-        // Tự động sang màn tiếp sau delay
-        StartCoroutine(NextStageRoutine());
+        // Lấy list dao đã cắm
+        List<GameObject> stuck = knifeThrower.GetStuckKnives();
+
+        // Đăng ký event 1 lần
+        logBreakEffect.OnBreakComplete += HandleBreakComplete;
+        logBreakEffect.PlayBreak(stuck);
+    }
+
+    private void HandleBreakComplete()
+    {
+        // Hủy đăng ký tránh gọi nhiều lần
+        logBreakEffect.OnBreakComplete -= HandleBreakComplete;
+
+        // Xóa dao cũ
+        knifeThrower.ClearAllKnivesPublic();
+
+        // Load màn mới
+        StartStage();
     }
 
     private void HandleGameOver()
@@ -157,8 +170,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager: Game Over!");
         OnGameOver?.Invoke();
 
-        // TODO: Hiện panel Game Over sau
         StartCoroutine(GameOverRoutine());
+    }
+
+    private IEnumerator GameOverRoutine()
+    {
+        yield return new WaitForSeconds(gameOverDelay);
+
+        // ✅ Reset score khi Game Over
+        ScoreManager.Instance?.ResetScore();
+
+        // Reset level generator về stage 1
+        LevelGenerator.Instance.Reset();
+
+        // Restart từ stage 1
+        StartStage();
     }
 
     private IEnumerator NextStageRoutine()
@@ -167,13 +193,6 @@ public class GameManager : MonoBehaviour
         StartStage();
     }
 
-    private IEnumerator GameOverRoutine()
-    {
-        yield return new WaitForSeconds(gameOverDelay);
-        // TODO: Hiện panel Game Over
-        // Tạm thời restart luôn
-        RestartCurrentStage();
-    }
 
     // ═══════════════════════════════════════════
     // PRIVATE — HUD UPDATE

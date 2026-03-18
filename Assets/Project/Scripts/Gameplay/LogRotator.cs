@@ -1,39 +1,35 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Điều khiển xoay Log theo pattern từ LevelPatternData.
-/// Gắn trực tiếp vào GameObject "Log" trong scene.
-/// </summary>
 public class LogRotator : MonoBehaviour
 {
     // ═══════════════════════════════════════════
-    // INSPECTOR — Chỉnh trực tiếp để test
+    // INSPECTOR
     // ═══════════════════════════════════════════
-    [Header("─── Base Rotation ───")]
-    [Range(20f, 300f)]
-    [SerializeField] private float baseSpeed = 100f;
+    [Header("── Tốc độ ──")]
+    [SerializeField] private float baseSpeed = 80f;
     [SerializeField] private bool clockwise = true;
 
-    [Header("─── Animation Pattern ───")]
-    [SerializeField]
-    private AnimationCurve speedCurve
-        = AnimationCurve.Linear(0f, 1f, 1f, 1f);
-    [Range(0.5f, 10f)]
-    [SerializeField] private float patternDuration = 2f;
-    [SerializeField] private bool loopPattern = true;
-
-    [Header("─── Reverse Settings ───")]
+    [Header("── Đảo chiều ──")]
     [SerializeField] private bool canReverse = false;
-    [Range(0.5f, 10f)]
     [SerializeField] private float reverseInterval = 2f;
 
     // ═══════════════════════════════════════════
-    // PRIVATE VARIABLES
+    // PRIVATE
     // ═══════════════════════════════════════════
-    private float _patternTimer = 0f;  // Timer cho curve
-    private float _reverseTimer = 0f;  // Timer đảo chiều
-    private float _currentDir = -1f; // -1 = CW, +1 = CCW
     private bool _isActive = true;
+    private float _currentDir;        // +1 hoặc -1
+    private float _currentSpeed;      // Tốc độ hiện tại
+    private float _targetSpeed;       // Tốc độ mục tiêu
+
+    // Đảo chiều
+    private float _rotatedAngle = 0f; // Góc đã xoay trong lượt này
+    private float _targetAngle = 360f; // Mỗi lượt xoay đủ 1 vòng
+    private bool _isDecelerating = false; // Đang giảm tốc
+
+    // Tốc độ lerp
+    private const float ACCEL_SPEED = 120f; // Tăng tốc
+    private const float DECEL_SPEED = 80f;  // Giảm tốc
+    private const float MIN_SPEED = 5f;   // Tốc độ tối thiểu
 
     // ═══════════════════════════════════════════
     // UNITY LIFECYCLE
@@ -41,125 +37,168 @@ public class LogRotator : MonoBehaviour
     private void Start()
     {
         _currentDir = clockwise ? -1f : 1f;
+        _currentSpeed = baseSpeed;
+        _targetSpeed = baseSpeed;
+        _rotatedAngle = 0f;
     }
 
     private void Update()
     {
         if (!_isActive) return;
 
-        // 1. Cập nhật timer pattern
-        _patternTimer += Time.deltaTime;
-        if (_patternTimer >= patternDuration)
-        {
-            _patternTimer = loopPattern ? 0f : patternDuration;
-        }
+        if (canReverse)
+            UpdateReverseRotation();
+        else
+            UpdateNormalRotation();
+    }
 
-        // 2. Lấy hệ số tốc độ từ curve
-        float t = _patternTimer / patternDuration;
-        float curveValue = speedCurve.Evaluate(t);
+    // ═══════════════════════════════════════════
+    // ROTATION MODES
+    // ═══════════════════════════════════════════
 
-        // 3. Tính tốc độ thực tế
-        float currentSpeed = baseSpeed * curveValue;
-
-        // 4. Xoay Log
-        transform.Rotate(
-            0f,
-            0f,
-            _currentDir * currentSpeed * Time.deltaTime
+    /// Quay bình thường — không đảo chiều
+    private void UpdateNormalRotation()
+    {
+        // Lerp tốc độ về target
+        _currentSpeed = Mathf.MoveTowards(
+            _currentSpeed,
+            _targetSpeed,
+            ACCEL_SPEED * Time.deltaTime
         );
 
-        // 5. Xử lý đảo chiều
-        if (canReverse)
+        transform.Rotate(
+            0f, 0f,
+            _currentDir * _currentSpeed * Time.deltaTime
+        );
+    }
+
+    /// Quay đảo chiều — mỗi lượt xoay đủ 1 vòng rồi đổi chiều
+    private void UpdateReverseRotation()
+    {
+        float deltaAngle = _currentSpeed * Time.deltaTime;
+
+        if (!_isDecelerating)
         {
-            _reverseTimer += Time.deltaTime;
-            if (_reverseTimer >= reverseInterval)
-            {
-                _currentDir *= -1f;
-                _reverseTimer = 0f;
-            }
+            // Đang tăng/giữ tốc
+            _currentSpeed = Mathf.MoveTowards(
+                _currentSpeed,
+                baseSpeed,
+                ACCEL_SPEED * Time.deltaTime
+            );
+
+            // Kiểm tra còn bao nhiêu góc để xoay
+            float remaining = _targetAngle - _rotatedAngle;
+
+            // Tính quãng đường cần để dừng (v²/2a)
+            float stopDistance = (_currentSpeed * _currentSpeed)
+                                 / (2f * DECEL_SPEED);
+
+            // Bắt đầu giảm tốc khi sắp đủ vòng
+            if (remaining <= stopDistance + 5f)
+                _isDecelerating = true;
         }
+        else
+        {
+            // Đang giảm tốc
+            _currentSpeed = Mathf.MoveTowards(
+                _currentSpeed,
+                MIN_SPEED,
+                DECEL_SPEED * Time.deltaTime
+            );
+        }
+
+        // Xoay log
+        deltaAngle = _currentSpeed * Time.deltaTime;
+        transform.Rotate(0f, 0f,
+            _currentDir * deltaAngle);
+        _rotatedAngle += deltaAngle;
+
+        // Đã xoay đủ vòng → Đảo chiều
+        if (_rotatedAngle >= _targetAngle
+            && _currentSpeed <= MIN_SPEED + 1f)
+        {
+            SwitchDirection();
+        }
+    }
+
+    // ═══════════════════════════════════════════
+    // PRIVATE
+    // ═══════════════════════════════════════════
+    private void SwitchDirection()
+    {
+        _currentDir *= -1f;          // Đảo chiều
+        _rotatedAngle = 0f;           // Reset góc
+        _isDecelerating = false;        // Reset giảm tốc
+        _currentSpeed = MIN_SPEED;    // Bắt đầu từ tốc độ thấp
+
+        // Random target angle 360~540 độ để không đều đặn
+        _targetAngle = Random.Range(360f, 540f);
+
+        Debug.Log($"LogRotator: Switched! " +
+                  $"Dir={_currentDir} | " +
+                  $"Target={_targetAngle:F0}°");
     }
 
     // ═══════════════════════════════════════════
     // PUBLIC METHODS
     // ═══════════════════════════════════════════
-
-    /// <summary>
-    /// Gọi từ LevelManager để load pattern theo level
-    /// </summary>
-    public void SetPattern(LevelPatternData data)
-    {
-        if (data == null)
-        {
-            Debug.LogWarning("LogRotator: LevelPatternData is null!");
-            return;
-        }
-
-        baseSpeed = data.speed;
-        clockwise = data.startClockwise;
-        canReverse = data.canReverse;
-        reverseInterval = data.reverseInterval;
-        speedCurve = data.speedCurve;
-        patternDuration = data.patternDuration;
-        loopPattern = data.loopPattern;
-
-        // Reset timers
-        _patternTimer = 0f;
-        _reverseTimer = 0f;
-        _currentDir = clockwise ? -1f : 1f;
-
-        Debug.Log($"LogRotator: Pattern loaded — " +
-                  $"Speed={baseSpeed} | " +
-                  $"CW={clockwise} | " +
-                  $"Reverse={canReverse}");
-    }
-
     public void SetPattern(LevelData data)
     {
         baseSpeed = data.logSpeed;
         canReverse = data.canReverse;
         reverseInterval = data.reverseInterval;
-        clockwise = Random.value > 0.5f; // Random chiều mỗi màn
+        clockwise = Random.value > 0.5f;
 
-        // Reset timers
-        _patternTimer = 0f;
-        _reverseTimer = 0f;
+        // Reset
         _currentDir = clockwise ? -1f : 1f;
+        _currentSpeed = canReverse ? MIN_SPEED : baseSpeed;
+        _targetSpeed = baseSpeed;
+        _rotatedAngle = 0f;
+        _isDecelerating = false;
+        _targetAngle = Random.Range(360f, 540f);
 
-        Debug.Log($"LogRotator: Speed={baseSpeed} | " +
+        Debug.Log($"LogRotator: Pattern set | " +
+                  $"Speed={baseSpeed} | " +
                   $"Reverse={canReverse} | " +
                   $"CW={clockwise}");
     }
 
-    /// <summary>
-    /// Dừng/tiếp tục xoay log (dùng khi Game Over hoặc Stage Complete)
-    /// </summary>
+    public void SetPattern(LevelPatternData data)
+    {
+        if (data == null) return;
+
+        baseSpeed = data.speed;
+        clockwise = data.startClockwise;
+        canReverse = data.canReverse;
+        reverseInterval = data.reverseInterval;
+
+        _currentDir = clockwise ? -1f : 1f;
+        _currentSpeed = canReverse ? MIN_SPEED : baseSpeed;
+        _targetSpeed = baseSpeed;
+        _rotatedAngle = 0f;
+        _isDecelerating = false;
+        _targetAngle = Random.Range(360f, 540f);
+    }
+
     public void SetActive(bool active)
     {
         _isActive = active;
-
         if (!active)
         {
-            // Dừng hoàn toàn khi inactive
-            _patternTimer = 0f;
-            _reverseTimer = 0f;
+            _currentSpeed = 0f;
+            _rotatedAngle = 0f;
         }
     }
 
-    /// <summary>
-    /// Đảo chiều ngay lập tức (dùng cho effect đặc biệt)
-    /// </summary>
     public void ForceReverse()
     {
-        _currentDir *= -1f;
-        _reverseTimer = 0f;
+        SwitchDirection();
     }
 
     // ═══════════════════════════════════════════
     // GETTERS
     // ═══════════════════════════════════════════
     public bool IsActive => _isActive;
-    public float CurrentSpeed => baseSpeed *
-        speedCurve.Evaluate(_patternTimer / patternDuration);
     public bool IsClockwise => _currentDir < 0;
+    public float CurrentSpeed => _currentSpeed;
 }
