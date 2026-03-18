@@ -27,6 +27,10 @@ public class KnifeController : MonoBehaviour
     [Header("── Bounce khi thua ──")]
     [SerializeField] private float bounceSpeed = 8f;
     [SerializeField] private float bounceTime = 0.6f;
+    // Thêm vào phần INSPECTOR
+    [Header("── Effects ──")]
+    [SerializeField] private LogHitEffect logHitEffect;
+    [SerializeField] private WoodChipsEffect woodChipsEffect;
 
     // ═══════════════════════════════════════════
     // PRIVATE VARIABLES
@@ -137,48 +141,64 @@ public class KnifeController : MonoBehaviour
     private void StickToLog(Transform logTransform)
     {
         _state = KnifeState.Stuck;
-
         _rb.velocity = Vector2.zero;
         _rb.isKinematic = true;
 
-        // Lấy radius thực tế của Log
         CircleCollider2D logCollider =
             logTransform.GetComponent<CircleCollider2D>();
+
         float logRadius = logCollider != null
             ? logCollider.radius * logTransform.localScale.x
             : 0.95f * logTransform.localScale.x;
 
-        // Hướng từ tâm Log → ra ngoài
         Vector2 dirFromCenter = (transform.position
                                 - logTransform.position).normalized;
 
-        // Điểm cắm = mép Log
-        // +0.15f = lưỡi dao lộ ra ngoài một chút
+        // Vị trí cắm — KHÔNG THAY ĐỔI
         Vector3 stickPosition = logTransform.position
                                + (Vector3)(dirFromCenter
                                * (logRadius + 1.05f));
-
         transform.position = stickPosition;
 
-        // Xoay mũi dao hướng VÀO tâm Log
+        // Góc xoay — KHÔNG THAY ĐỔI
         float angle = Mathf.Atan2(dirFromCenter.y,
                                    dirFromCenter.x)
                                    * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0f, 0f, angle + 90f);
 
-        // Ghi nhớ vị trí & góc tương đối với Log
         _logTransform = logTransform;
         _localOffset = logTransform.InverseTransformPoint(
                             transform.position);
         _localAngle = transform.eulerAngles.z
                         - logTransform.eulerAngles.z;
 
+        // ── CHỈ SỬA PHẦN NÀY ──
+        // rawRadius = radius chưa nhân scale
+        // = vị trí mép Log thực tế nhìn thấy
+        float rawRadius = logCollider != null
+            ? logCollider.radius
+            : 0.95f;
+
+        Vector3 contactPoint = logTransform.position
+                              + (Vector3)(dirFromCenter
+                              * (rawRadius + 0.05f));
+        // ── HẾT PHẦN SỬA ──
+
+        LogHitEffect hitEffect =
+            logTransform.GetComponent<LogHitEffect>();
+        if (hitEffect != null)
+            hitEffect.PlayHitEffect();
+
+        WoodChipsEffect woodEffect =
+            logTransform.GetComponentInChildren<WoodChipsEffect>();
+        if (woodEffect != null)
+            woodEffect.Play(contactPoint);
+
         gameObject.tag = "StuckKnife";
 
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.AddKnifeThrown();
 
-        Debug.Log("Knife: Stuck at Log edge!");
         OnStuckInLog?.Invoke();
     }
 
@@ -227,6 +247,35 @@ public class KnifeController : MonoBehaviour
             OnOutOfBounds?.Invoke();
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Gọi khi Log vỡ → Dao thoát khỏi Log
+    /// Dừng FollowLog, chuyển sang trạng thái tự do
+    /// </summary>
+    public void StopFollowing()
+    {
+        // Xóa reference Log
+        _logTransform = null;
+
+        // Đổi state → không còn Stuck
+        _state = KnifeState.Bouncing;
+
+        // Bật lại Rigidbody
+        if (_rb != null)
+        {
+            _rb.isKinematic = false;
+            _rb.gravityScale = 0.3f;
+
+            // Hướng bay từ tâm Log ra ngoài
+            // Tính từ vị trí hiện tại
+            Vector2 dir = Random.insideUnitCircle.normalized;
+            _rb.velocity = dir * Random.Range(4f, 8f);
+            _rb.angularVelocity = Random.Range(-400f, 400f);
+        }
+
+        // Tag đổi lại để không gây collision
+        gameObject.tag = "Untagged";
     }
 
     // ═══════════════════════════════════════════

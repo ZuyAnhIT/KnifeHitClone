@@ -157,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.8}
+  m_Size: {x: 0.3, y: 2.4}
   m_EdgeRadius: 0
 --- !u!114 &818197692323420793
 MonoBehaviour:
@@ -174,3 +174,5 @@ MonoBehaviour:
   flySpeed: 18
   bounceSpeed: 8
   bounceTime: 0.6
+  logHitEffect: {fileID: 0}
+  woodChipsEffect: {fileID: 0}

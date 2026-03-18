@@ -195,6 +195,16 @@ public class KnifeThrower : MonoBehaviour
         }
     }
 
+    public List<GameObject> GetStuckKnives()
+    {
+        return new List<GameObject>(_stuckKnives);
+    }
+
+    public void ClearAllKnivesPublic()
+    {
+        ClearAllKnives();
+    }
+
     // ═══════════════════════════════════════════
     // GETTERS
     // ═══════════════════════════════════════════
