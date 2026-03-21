@@ -61,6 +61,7 @@ public class KnifeSlotUI : MonoBehaviour
     void OnSlotClicked()
     {
         // Gửi ảnh ĐANG HIỂN THỊ (màu hoặc bóng) lên Manager
-        manager.SelectKnife(myKnifeImage.sprite, myRect);
+        //manager.SelectKnife(myKnifeImage.sprite, myRect);
+        manager.SelectKnife(this);
     }
 }
