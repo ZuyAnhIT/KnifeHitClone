@@ -220,19 +220,42 @@ public class KnifeController : MonoBehaviour
     private void HitOtherKnife()
     {
         _state = KnifeState.Bouncing;
-        _rb.velocity = Vector2.down * bounceSpeed;
+
+        // MỞ KHÓA XOAY TRƯỚC KHI SET VELOCITY
+        _rb.constraints = RigidbodyConstraints2D.None;
+
+        // Văng xuống + lệch ngẫu nhiên
+        float randomX = Random.Range(-2f, 2f);
+        float randomY = Random.Range(-3f, -5f);
+        _rb.velocity = new Vector2(randomX, randomY);
+        _rb.isKinematic = false;
+        _rb.gravityScale = 1.5f;
+
+        // Xoay theo quán tính
+        _rb.angularVelocity = Random.Range(-500f, 500f);
+
         _bounceTimer = 0f;
 
-        Debug.Log("Knife: Hit another knife! Game Over!");
+        // Hiệu ứng
+        Vector3 contactPoint = transform.position;
+        if (KnifeHitEffect.Instance != null)
+            KnifeHitEffect.Instance
+                .PlayHitEffect(contactPoint);
 
-        // Thông báo Game Over
+        gameObject.tag = "Untagged";
+
+        Debug.Log("Knife: Hit! Game Over!");
         OnHitKnife?.Invoke();
     }
 
     private void HandleBouncing()
     {
         _bounceTimer += Time.deltaTime;
-        if (_bounceTimer >= bounceTime)
+
+        // Destroy khi ra ngoài màn hình
+        // hoặc sau thời gian tối đa
+        if (_bounceTimer >= bounceTime ||
+            transform.position.y < -8f)
         {
             Destroy(gameObject);
         }
@@ -277,6 +300,7 @@ public class KnifeController : MonoBehaviour
         // Tag đổi lại để không gây collision
         gameObject.tag = "Untagged";
     }
+
 
     // ═══════════════════════════════════════════
     // GETTERS

@@ -34,21 +34,29 @@ public class GameManager : MonoBehaviour
 
     [Header("── HUD References ──")]
     [SerializeField] private TextMeshProUGUI txtStageName;
+    [SerializeField] private TextMeshProUGUI txtBossName;
     [SerializeField] private List<Image> stageDots;
     [SerializeField] private Image bossDotIcon;
+    [SerializeField] private GameObject stageProgressGroup;
+    [SerializeField] private GameObject bossIconCenter;
+
+    [Header("── Break Effect ──")]
+    [SerializeField] private LogBreakEffect logBreakEffect;
+
+    [Header("── Boss ──")]
+    [SerializeField] private BossLogManager bossLogManager;
+    [SerializeField] private SpriteRenderer logSpriteRenderer;
+    [SerializeField] private Sprite defaultLogSprite;
 
     [Header("── Delay Settings ──")]
     [SerializeField] private float stageClearDelay = 1.5f;
     [SerializeField] private float gameOverDelay = 1.0f;
 
-    [Header("── Break Effect ──")]
-    [SerializeField] private LogBreakEffect logBreakEffect;
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
     private GameState _state = GameState.Idle;
     private LevelData _currentLevel;
-    private int _stageInCycle = 0; // 0-3 = thường, 4 = boss
 
     // ═══════════════════════════════════════════
     // EVENTS
@@ -72,11 +80,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Đăng ký events từ KnifeThrower
         knifeThrower.OnAllKnivesStuck += HandleStageClear;
         knifeThrower.OnGameOver += HandleGameOver;
-
-        // Bắt đầu màn 1
         StartStage();
     }
 
@@ -91,12 +96,11 @@ public class GameManager : MonoBehaviour
 
     public void RestartCurrentStage()
     {
-        if (_state == GameState.GameOver)
-        {
-            LevelGenerator.Instance.Reset();
-            ScoreManager.Instance?.ResetScore();
-            StartStage();
-        }
+        if (_state != GameState.GameOver) return;
+
+        LevelGenerator.Instance.Reset();
+        ScoreManager.Instance?.ResetScore();
+        StartStage();
     }
 
     public GameState CurrentState => _state;
@@ -110,6 +114,22 @@ public class GameManager : MonoBehaviour
         _currentLevel = LevelGenerator.Instance.GenerateNext();
         _state = GameState.Playing;
 
+        if (_currentLevel.isBossStage)
+            StartBossStage();
+        else
+            StartNormalStage();
+
+        UpdateStageHUD(_currentLevel);
+        OnStageStarted?.Invoke(_currentLevel);
+
+        Debug.Log($"GameManager: Started {_currentLevel}");
+    }
+
+    private void StartNormalStage()
+    {
+        // Reset log về sprite thường
+        ResetLogSprite();
+
         logRotator.SetPattern(_currentLevel);
         logRotator.SetActive(true);
 
@@ -119,16 +139,29 @@ public class GameManager : MonoBehaviour
         );
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
-        UpdateStageHUD(_currentLevel);
-
-
-
-        OnStageStarted?.Invoke(_currentLevel);
-
-        Debug.Log($"GameManager: Started {_currentLevel}");
     }
 
-    // Sửa HandleStageClear()
+    private void StartBossStage()
+    {
+        // Random + apply boss log đặc biệt
+        BossLogData boss = bossLogManager.GetRandomBoss();
+        bossLogManager.ApplyBossLog(boss);
+        logRotator.SetActive(true);
+
+        logItemPlacer.Setup(
+            _currentLevel.preplacedCount,
+            _currentLevel.appleCount
+        );
+
+        knifeThrower.SetupLevel(_currentLevel.knifeCount);
+
+        // Hiện tên boss — gọi trước UpdateStageHUD
+        UpdateBossNameHUD(boss);
+    }
+
+    // ═══════════════════════════════════════════
+    // PRIVATE — STAGE CLEAR
+    // ═══════════════════════════════════════════
     private void HandleStageClear()
     {
         if (_state != GameState.Playing) return;
@@ -138,27 +171,29 @@ public class GameManager : MonoBehaviour
         knifeThrower.SetCanThrow(false);
 
         Debug.Log("GameManager: Stage Clear!");
+        OnStageClear?.Invoke();
 
-        // Lấy list dao đã cắm
         List<GameObject> stuck = knifeThrower.GetStuckKnives();
-
-        // Đăng ký event 1 lần
         logBreakEffect.OnBreakComplete += HandleBreakComplete;
         logBreakEffect.PlayBreak(stuck);
     }
 
     private void HandleBreakComplete()
     {
-        // Hủy đăng ký tránh gọi nhiều lần
         logBreakEffect.OnBreakComplete -= HandleBreakComplete;
-
-        // Xóa dao cũ
         knifeThrower.ClearAllKnivesPublic();
 
-        // Load màn mới
+        // Nếu vừa xong boss → Reset log về sprite thường
+        if (_currentLevel.isBossStage)
+            ResetLogSprite();
+
+        // Stage tự tăng tiếp, KHÔNG reset LevelGenerator
         StartStage();
     }
 
+    // ═══════════════════════════════════════════
+    // PRIVATE — GAME OVER
+    // ═══════════════════════════════════════════
     private void HandleGameOver()
     {
         if (_state != GameState.Playing) return;
@@ -177,75 +212,110 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(gameOverDelay);
 
-        // ✅ Reset score khi Game Over
+        // Reset score + stage CHỈ KHI GAME OVER
         ScoreManager.Instance?.ResetScore();
-
-        // Reset level generator về stage 1
         LevelGenerator.Instance.Reset();
+        ResetLogSprite();
 
-        // Restart từ stage 1
         StartStage();
     }
-
-    private IEnumerator NextStageRoutine()
-    {
-        yield return new WaitForSeconds(stageClearDelay);
-        StartStage();
-    }
-
 
     // ═══════════════════════════════════════════
     // PRIVATE — HUD UPDATE
     // ═══════════════════════════════════════════
     private void UpdateStageHUD(LevelData data)
     {
-        // ── Stage Name ──
-        if (txtStageName != null)
-        {
-            txtStageName.text = data.isBossStage
-                ? "BOSS STAGE"
-                : $"STAGE {data.stageNumber}";
-        }
-
-        // ── Stage Dots ──
-        // 4 chấm thường + 1 icon boss
-        UpdateStageDots(data.stageInCycle, data.isBossStage);
+        if (data.isBossStage)
+            UpdateHUDBoss();
+        else
+            UpdateHUDNormal(data);
     }
 
-    private void UpdateStageDots(int currentPos, bool isBoss)
+    private void UpdateHUDBoss()
     {
-        // currentPos: 1-4 = thường, 5 = boss
+        // ẨN toàn bộ HUD_StageProgress
+        if (stageProgressGroup != null)
+            stageProgressGroup.SetActive(false);
+
+        // HIỆN BossIconCenter căn giữa + đỏ
+        if (bossIconCenter != null)
+            bossIconCenter.SetActive(true);
+
+        // ẨN Stage Name thường
+        if (txtStageName != null)
+            txtStageName.gameObject.SetActive(false);
+
+        // txtBossName đã được set trong UpdateBossNameHUD()
+        // được gọi trước UpdateStageHUD trong StartBossStage()
+    }
+
+    private void UpdateHUDNormal(LevelData data)
+    {
+        // HIỆN lại HUD_StageProgress
+        if (stageProgressGroup != null)
+            stageProgressGroup.SetActive(true);
+
+        // ẨN BossIconCenter
+        if (bossIconCenter != null)
+            bossIconCenter.SetActive(false);
+
+        // ẨN Boss Name
+        if (txtBossName != null)
+            txtBossName.gameObject.SetActive(false);
+
+        // HIỆN Stage Name
+        if (txtStageName != null)
+        {
+            txtStageName.gameObject.SetActive(true);
+            txtStageName.text = $"STAGE {data.stageNumber}";
+            txtStageName.color = Color.white;
+        }
+
+        // Cập nhật màu Dots
+        UpdateStageDots(data.stageInCycle);
+    }
+
+    private void UpdateStageDots(int currentPos)
+    {
         for (int i = 0; i < stageDots.Count; i++)
         {
             if (stageDots[i] == null) continue;
 
-            // i+1 <= currentPos → đã qua hoặc đang ở stage này
             bool isPassed = (i + 1) < currentPos;
-            bool isCurrent = (i + 1) == currentPos && !isBoss;
+            bool isCurrent = (i + 1) == currentPos;
 
             if (isCurrent)
-            {
-                // Chấm hiện tại: vàng đậm
-                stageDots[i].color = new Color(1f, 0.7f, 0f, 1f);
-            }
+                stageDots[i].color =
+                    new Color(1f, 0.7f, 0f, 1f);   // Vàng
             else if (isPassed)
-            {
-                // Chấm đã qua: trắng mờ
-                stageDots[i].color = new Color(1f, 1f, 1f, 0.4f);
-            }
+                stageDots[i].color =
+                    new Color(1f, 1f, 1f, 0.4f);   // Trắng mờ
             else
-            {
-                // Chấm chưa tới: trắng bình thường
-                stageDots[i].color = new Color(1f, 1f, 1f, 0.8f);
-            }
+                stageDots[i].color =
+                    new Color(1f, 1f, 1f, 0.8f);   // Trắng
         }
 
-        // Boss icon: highlight khi đang ở boss stage
+        // Boss icon luôn trắng ở màn thường
         if (bossDotIcon != null)
-        {
-            bossDotIcon.color = isBoss
-                ? new Color(1f, 0.3f, 0f, 1f)  // Cam đỏ khi boss
-                : new Color(1f, 1f, 1f, 0.8f);  // Trắng bình thường
-        }
+            bossDotIcon.color = new Color(1f, 1f, 1f, 0.8f);
+    }
+
+    private void UpdateBossNameHUD(BossLogData boss)
+    {
+        if (txtBossName == null || boss == null) return;
+
+        txtBossName.text = $"BOSS: {boss.bossName}";
+        txtBossName.color = new Color(1f, 0.2f, 0.2f, 1f);
+        txtBossName.gameObject.SetActive(true);
+    }
+
+    // ═══════════════════════════════════════════
+    // PRIVATE — HELPERS
+    // ═══════════════════════════════════════════
+    private void ResetLogSprite()
+    {
+        if (logSpriteRenderer != null &&
+            defaultLogSprite != null)
+            logSpriteRenderer.sprite = defaultLogSprite;
     }
 }

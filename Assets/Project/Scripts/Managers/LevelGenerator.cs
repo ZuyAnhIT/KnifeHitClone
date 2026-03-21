@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 public class LevelGenerator : MonoBehaviour
 {
     public static LevelGenerator Instance { get; private set; }
@@ -21,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int appleMax = 3;
 
     [Header("── Log Speed ──")]
-    [SerializeField] private float stage1Speed = 80f;  // Tốc độ cố định màn 1
+    [SerializeField] private float stage1Speed = 80f;
     [SerializeField] private float baseSpeed = 80f;
     [SerializeField] private float speedIncrease = 15f;
     [SerializeField] private float speedMaxCap = 220f;
@@ -50,12 +51,21 @@ public class LevelGenerator : MonoBehaviour
     // ═══════════════════════════════════════════
     // PUBLIC
     // ═══════════════════════════════════════════
+
+    /// <summary>
+    /// Tăng stage lên 1 và generate data
+    /// KHÔNG reset — stage tăng liên tục qua boss
+    /// Chỉ Reset() khi Game Over
+    /// </summary>
     public LevelData GenerateNext()
     {
         _currentStage++;
         return GenerateForStage(_currentStage);
     }
 
+    /// <summary>
+    /// Generate data cho stage cụ thể
+    /// </summary>
     public LevelData GenerateForStage(int stageNumber)
     {
         LevelData data = new LevelData();
@@ -75,9 +85,14 @@ public class LevelGenerator : MonoBehaviour
         return data;
     }
 
+    /// <summary>
+    /// Chỉ gọi khi Game Over
+    /// Reset về stage 1
+    /// </summary>
     public void Reset()
     {
         _currentStage = 0;
+        Debug.Log("LevelGenerator: Reset to Stage 1");
     }
 
     public int CurrentStage => _currentStage;
@@ -92,27 +107,28 @@ public class LevelGenerator : MonoBehaviour
         int pos = data.stageInCycle;
 
         // ════════════════════════════════
-        // STAGE 1 — Đặc biệt riêng
+        // STAGE 1 — Đặc biệt, dễ nhất
         // ════════════════════════════════
         if (stageNum == 1)
         {
             data.knifeCount = Random.Range(
-                                      baseKnifeMin,
-                                      baseKnifeMax + 1);
-            data.preplacedCount = 0;    // Không có dao sẵn
-            data.appleCount = 0;    // Không có táo
-            data.logSpeed = stage1Speed; // Tốc độ cố định
-            data.canReverse = false;        // Không đảo chiều
+                                       baseKnifeMin,
+                                       baseKnifeMax + 1);
+            data.preplacedCount = 0;
+            data.appleCount = 0;
+            data.logSpeed = stage1Speed;
+            data.canReverse = false;
             data.reverseInterval = 0f;
             data.logSpriteIndex = 0;
             return;
         }
 
         // ════════════════════════════════
-        // STAGE 2, 3, 4 — Random logic
+        // STAGE 2+ — Random logic
         // ════════════════════════════════
 
         // ── Knife Count ──
+        // Tăng dần theo cycle và vị trí trong cycle
         int minKnife = baseKnifeMin
                       + (cycle - 1) * knifeIncreasePerCycle
                       + (pos - 1);
@@ -124,16 +140,16 @@ public class LevelGenerator : MonoBehaviour
         maxKnife = Mathf.Min(maxKnife, knifeMaxCap);
         data.knifeCount = Random.Range(minKnife, maxKnife + 1);
 
-        // ── Items trên Log (3 trường hợp) ──
-        // Case 0: Chỉ có táo
-        // Case 1: Chỉ có dao sẵn
+        // ── Items trên Log ──
+        // Case 0: Chỉ táo
+        // Case 1: Chỉ dao sẵn
         // Case 2: Cả táo và dao sẵn
         int randomCase = Random.Range(0, 3);
-
         switch (randomCase)
         {
             case 0:
-                data.appleCount = Random.Range(appleMin,
+                data.appleCount = Random.Range(
+                                          appleMin,
                                           appleMax + 1);
                 data.preplacedCount = 0;
                 break;
@@ -141,35 +157,38 @@ public class LevelGenerator : MonoBehaviour
             case 1:
                 data.appleCount = 0;
                 data.preplacedCount = Random.Range(1,
-                                          Mathf.Min(cycle + 1,
-                                          preplacedMax) + 1);
+                                          Mathf.Min(
+                                              cycle + 1,
+                                              preplacedMax) + 1);
                 break;
 
             case 2:
-                data.appleCount = Random.Range(appleMin,
+                data.appleCount = Random.Range(
+                                          appleMin,
                                           appleMax + 1);
                 data.preplacedCount = Random.Range(1,
-                                          Mathf.Min(cycle + 1,
-                                          preplacedMax) + 1);
+                                          Mathf.Min(
+                                              cycle + 1,
+                                              preplacedMax) + 1);
                 break;
         }
 
         // ── Log Speed ──
-        // Tăng nhẹ theo stage, thêm chút random
+        // Tăng nhẹ theo stage + random nhỏ
         float speed = baseSpeed
                          + (stageNum - 2) * (speedIncrease / 4f)
                          + Random.Range(-8f, 8f);
-        data.logSpeed = Mathf.Clamp(speed, baseSpeed, speedMaxCap);
+        data.logSpeed = Mathf.Clamp(
+                              speed, baseSpeed, speedMaxCap);
 
-        // ── Rotation Logic (3 kiểu) ──
-        // Type 0: Quay bình thường (nhanh hơn stage 1 chút)
-        // Type 1: Quay ngược chiều
+        // ── Rotation Logic ──
+        // Type 0: Quay bình thường
+        // Type 1: Quay đảo chiều
         // Type 2: Quay nhanh hơn
         int rotationType = Random.Range(0, 3);
-
         switch (rotationType)
         {
-            case 0: // Quay bình thường
+            case 0:
                 data.canReverse = false;
                 data.reverseInterval = 0f;
                 data.logSpeed = Mathf.Clamp(
@@ -178,12 +197,12 @@ public class LevelGenerator : MonoBehaviour
                                            baseSpeed + 20f);
                 break;
 
-            case 1: // Quay đảo chiều
+            case 1:
                 data.canReverse = true;
                 data.reverseInterval = Random.Range(1.5f, 3.0f);
                 break;
 
-            case 2: // Quay nhanh hơn
+            case 2:
                 data.canReverse = false;
                 data.reverseInterval = 0f;
                 data.logSpeed = Mathf.Clamp(
@@ -197,6 +216,7 @@ public class LevelGenerator : MonoBehaviour
         data.logSpriteIndex = Random.Range(0, 5);
 
         Debug.Log($"Stage {stageNum} | " +
+                  $"Cycle={cycle} | " +
                   $"RotType={rotationType} | " +
                   $"Speed={data.logSpeed:F0} | " +
                   $"Reverse={data.canReverse} | " +
@@ -206,19 +226,29 @@ public class LevelGenerator : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
-    // PRIVATE — BOSS STAGE (Chưa làm đầy đủ)
+    // PRIVATE — BOSS STAGE
     // ═══════════════════════════════════════════
     private void GenerateBossStage(LevelData data)
     {
-        // TODO: Làm sau theo yêu cầu riêng
-        data.knifeCount = Random.Range(bossKnifeMin,
-                                            bossKnifeMax + 1);
-        data.preplacedCount = Random.Range(2, 4);
+        // Boss: nhiều dao hơn, nhanh hơn, đảo chiều
+        // Sprite do BossLogManager quản lý riêng
+        data.knifeCount = Random.Range(
+                                   bossKnifeMin,
+                                   bossKnifeMax + 1);
+        data.preplacedCount = Random.Range(0, 3);
         data.appleCount = Random.Range(1, 3);
-        data.logSpeed = Random.Range(bossSpeedMin,
-                                            bossSpeedMax);
+        data.logSpeed = Random.Range(
+                                   bossSpeedMin,
+                                   bossSpeedMax);
         data.canReverse = true;
         data.reverseInterval = Random.Range(0.8f, 1.5f);
-        data.logSpriteIndex = Random.Range(5, 9);
+        data.logSpriteIndex = -1; // BossLogManager tự xử lý
+
+        Debug.Log($"BOSS Stage {data.stageNumber} | " +
+                  $"Cycle={data.cycleNumber} | " +
+                  $"Speed={data.logSpeed:F0} | " +
+                  $"Knives={data.knifeCount} | " +
+                  $"Preplaced={data.preplacedCount} | " +
+                  $"Apples={data.appleCount}");
     }
 }
