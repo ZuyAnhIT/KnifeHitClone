@@ -1,43 +1,59 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Táo gắn trên Log
-/// Dao cắm trúng → Cộng điểm + Destroy
-/// </summary>
 public class Apple : MonoBehaviour
 {
-    [Header("── Điểm thưởng ──")]
+    [Header("── Điểm ──")]
     [SerializeField] private int scoreValue = 10;
 
-    // Event báo cho ScoreManager
     public System.Action<int> OnCollected;
 
     private bool _collected = false;
+    private AppleHitEffect _hitEffect;
+    private AppleBreakEffect _breakEffect;
+
+    private void Awake()
+    {
+        _hitEffect = GetComponent<AppleHitEffect>();
+        _breakEffect = GetComponent<AppleBreakEffect>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (_collected) return;
+        if (other.gameObject.tag != "Knife") return;
 
-        // Dao đang bay trúng táo
-        if (other.CompareTag("Knife") ||
-            other.gameObject.tag == "Knife")
-        {
-            Collect();
-        }
+        Collect();
     }
 
     private void Collect()
     {
         _collected = true;
 
-        Debug.Log($"Apple: Collected! +{scoreValue}");
+        // Tắt collider ngay
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
 
-        // Báo điểm
+        Vector3 pos = transform.position;
+
+        // Ẩn táo gốc
+        SpriteRenderer sr =
+            GetComponent<SpriteRenderer>();
+        if (sr != null) sr.enabled = false;
+
+        // 1. Hiệu ứng flash + ngôi sao
+        if (_hitEffect != null)
+            _hitEffect.Play(pos);
+
+        // 2. Táo vỡ 2 mảnh bay ra
+        if (_breakEffect != null)
+            _breakEffect.PlayBreak(pos);
+
+        // 3. Cộng điểm
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddAppleScore(scoreValue);
+
         OnCollected?.Invoke(scoreValue);
 
-        // TODO: Thêm particle effect sau
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
-
-    public int ScoreValue => scoreValue;
 }

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8546868533119634318}
   - component: {fileID: 8668596383304996911}
   - component: {fileID: 1311376751541160134}
+  - component: {fileID: -7998351650404281739}
+  - component: {fileID: -2784814196639073665}
   m_Layer: 0
   m_Name: PRE_Apple
   m_TagString: Apple
@@ -134,3 +136,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 2
+--- !u!114 &-7998351650404281739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695951544371601681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a070781f7e80f42b61ee0aa19f38b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteGlow: {fileID: 1284387238, guid: 1947b0bfaaeee9b4b90980eaf27bce8a, type: 3}
+  spriteStar: {fileID: 1090011104, guid: dc8ee3ae97ffa4a4483906d91c0e38b1, type: 3}
+  spriteV: {fileID: -740494053, guid: dc8ee3ae97ffa4a4483906d91c0e38b1, type: 3}
+  phase1Duration: 0.06
+  phase2Duration: 0.08
+  phase3Duration: 0.12
+  glowStartScale: 0.3
+  glowEndScale: 1.2
+  starMaxScale: 2
+  vMaxScale: 1.8
+--- !u!114 &-2784814196639073665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695951544371601681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364904217186c6348a81d065d6e16401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appleHalfLeft: {fileID: 4115820391030641378, guid: 2b7b804de7868804f8fba30c1840f30f, type: 3}
+  appleHalfRight: {fileID: 1794739283917779039, guid: 5fc0800aea901a94998fa8ea100464f8, type: 3}
