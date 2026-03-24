@@ -13,7 +13,7 @@ public class LogItemPlacer : MonoBehaviour
 
     [Header("── Cấu hình ──")]
     [SerializeField] private float minAngleBetween = 35f; // Góc tối thiểu giữa 2 item
-    [SerializeField] private float knifeOffset = 1.05f;
+    [SerializeField] private float knifeOffset = 0.8f;
     [SerializeField] private float appleOffset = 1.03f;
 
     private CircleCollider2D _collider;

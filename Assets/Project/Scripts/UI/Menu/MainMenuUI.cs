@@ -10,14 +10,14 @@ public class MainMenuUI : MonoBehaviour
     private void Start()
     {
         // 1. Đăng ký lắng nghe sự kiện từ GameManager
-        if (GameManager.Instance != null)
+        if (GameManagerMenu.Instance != null)
         {
-            GameManager.Instance.KnifeChangedEvent += UpdateMainKnifeImage;
+            GameManagerMenu.Instance.KnifeChangedEvent += UpdateMainKnifeImage;
 
             // 2. Thiết lập hình ảnh ban đầu (Nếu GameManager đã có sẵn dao)
-            if (GameManager.Instance.currentSelectedKnifeSprite != null)
+            if (GameManagerMenu.Instance.currentSelectedKnifeSprite != null)
             {
-                UpdateMainKnifeImage(GameManager.Instance.currentSelectedKnifeSprite);
+                UpdateMainKnifeImage(GameManagerMenu.Instance.currentSelectedKnifeSprite);
             }
         }
     }
@@ -27,7 +27,7 @@ public class MainMenuUI : MonoBehaviour
         // Hủy đăng ký để tránh lỗi bộ nhớ
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.KnifeChangedEvent -= UpdateMainKnifeImage;
+            GameManagerMenu.Instance.KnifeChangedEvent -= UpdateMainKnifeImage;
         }
     }
 

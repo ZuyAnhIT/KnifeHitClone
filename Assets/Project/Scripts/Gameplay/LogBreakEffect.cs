@@ -10,8 +10,8 @@ public class LogBreakEffect : MonoBehaviour
     [Header("── Mảnh vỡ ──")]
     [SerializeField] private List<GameObject> breakPiecePrefabs;
     [SerializeField] private int pieceCount = 8;
-    [SerializeField] private float pieceSpeed = 5f;
-    [SerializeField] private float pieceDuration = 0.9f;
+    [SerializeField] private float pieceSpeed = 8f;
+    [SerializeField] private float pieceDuration = 0.5f;
 
     [Header("── Flash trắng ──")]
     [SerializeField] private SpriteRenderer flashOverlay;
@@ -19,8 +19,8 @@ public class LogBreakEffect : MonoBehaviour
     [SerializeField] private float flashOutDuration = 0.25f;
 
     [Header("── Timing ──")]
-    [SerializeField] private float delayBeforeBreak = 0.15f;
-    [SerializeField] private float delayBeforeNew = 1.0f;
+    [SerializeField] private float delayBeforeBreak = 0.05f;
+    [SerializeField] private float delayBeforeNew = 0.6f;
 
     // ── Private ──
     private SpriteRenderer _sr;
@@ -218,7 +218,7 @@ public class LogBreakEffect : MonoBehaviour
                 if (rb != null)
                 {
                     rb.isKinematic = false;
-                    rb.gravityScale = 0.3f;
+                    rb.gravityScale = 0.8f;
                     rb.velocity =
                         Random.insideUnitCircle.normalized
                         * Random.Range(4f, 8f);
@@ -360,7 +360,7 @@ public class LogBreakEffect : MonoBehaviour
                 rb.gravityScale = 0.3f;
                 rb.velocity = dir * Random.Range(
                                          pieceSpeed,
-                                         pieceSpeed + 3f);
+                                         pieceSpeed + 5f);
                 rb.angularVelocity = Random.Range(
                                          -400f, 400f);
             }

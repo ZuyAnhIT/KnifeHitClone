@@ -48,10 +48,10 @@ public class BreakPiece : MonoBehaviour
             transform.Rotate(0f, 0f,
                 rotSpeed * Time.deltaTime);
 
-            // Mờ dần từ 60% thời gian
-            if (t > 0.6f && _sr != null)
+            // Mờ dần từ 40% thời gian
+            if (t > 0.4f && _sr != null)
             {
-                float fadeT = (t - 0.6f) / 0.4f;
+                float fadeT = (t - 0.4f) / 0.6f;
                 Color c = startColor;
                 c.a = Mathf.Lerp(1f, 0f, fadeT);
                 _sr.color = c;

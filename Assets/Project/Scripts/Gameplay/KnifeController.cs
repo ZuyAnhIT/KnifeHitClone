@@ -154,13 +154,13 @@ public class KnifeController : MonoBehaviour
         Vector2 dirFromCenter = (transform.position
                                 - logTransform.position).normalized;
 
-        // Vị trí cắm — KHÔNG THAY ĐỔI
+        // Vị trí cắm
         Vector3 stickPosition = logTransform.position
                                + (Vector3)(dirFromCenter
-                               * (logRadius + 1.05f));
+                               * (logRadius + 0.8f));
         transform.position = stickPosition;
 
-        // Góc xoay — KHÔNG THAY ĐỔI
+        // Góc xoay 
         float angle = Mathf.Atan2(dirFromCenter.y,
                                    dirFromCenter.x)
                                    * Mathf.Rad2Deg;
@@ -172,7 +172,6 @@ public class KnifeController : MonoBehaviour
         _localAngle = transform.eulerAngles.z
                         - logTransform.eulerAngles.z;
 
-        // ── CHỈ SỬA PHẦN NÀY ──
         // rawRadius = radius chưa nhân scale
         // = vị trí mép Log thực tế nhìn thấy
         float rawRadius = logCollider != null
@@ -182,7 +181,6 @@ public class KnifeController : MonoBehaviour
         Vector3 contactPoint = logTransform.position
                               + (Vector3)(dirFromCenter
                               * (rawRadius + 0.05f));
-        // ── HẾT PHẦN SỬA ──
 
         LogHitEffect hitEffect =
             logTransform.GetComponent<LogHitEffect>();

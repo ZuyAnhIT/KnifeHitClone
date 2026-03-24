@@ -1,32 +1,22 @@
 ﻿using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// Quản lý điểm số toàn game
-/// Singleton — gọi từ bất kỳ đâu
-/// </summary>
 public class ScoreManager : MonoBehaviour
 {
-    // ── SINGLETON ───────────────────────────
     public static ScoreManager Instance { get; private set; }
 
-    // ── INSPECTOR ───────────────────────────
     [Header("── HUD References ──")]
     [SerializeField] private TextMeshProUGUI txtAppleCount;
     [SerializeField] private TextMeshProUGUI txtKnifeThrown;
 
-    // ── PRIVATE ─────────────────────────────
     private int _appleScore = 0;
     private int _knifeThrown = 0;
 
-    // ── EVENTS ──────────────────────────────
     public System.Action<int> OnAppleScoreChanged;
     public System.Action<int> OnKnifeThrownChanged;
 
-    // ── UNITY LIFECYCLE ─────────────────────
     private void Awake()
     {
-        // Singleton setup
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -35,55 +25,78 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
     }
 
-    // ── PUBLIC ──────────────────────────────
+    private void Start()
+    {
+        // Load tổng táo từ SaveManager ngay khi vào game
+        LoadAppleFromSave();
+    }
 
-    /// <summary>
-    /// Gọi khi dao cắm vào Log thành công
-    /// </summary>
+    // ═══════════════════════════════════════════
+    // LOAD
+    // ═══════════════════════════════════════════
+    private void LoadAppleFromSave()
+    {
+        if (SaveManager.Instance == null)
+        {
+            Debug.LogWarning("ScoreManager: SaveManager chưa sẵn sàng!");
+            return;
+        }
+
+        _appleScore = SaveManager.Instance.TotalApple;
+
+        if (txtAppleCount != null)
+            txtAppleCount.text = _appleScore.ToString();
+
+        Debug.Log($"ScoreManager: Loaded apple = {_appleScore}");
+    }
+
+    // ═══════════════════════════════════════════
+    // ADD
+    // ═══════════════════════════════════════════
     public void AddKnifeThrown()
     {
         _knifeThrown++;
 
-        // Cập nhật HUD
         if (txtKnifeThrown != null)
             txtKnifeThrown.text = _knifeThrown.ToString();
 
         OnKnifeThrownChanged?.Invoke(_knifeThrown);
-
-        Debug.Log($"Score: Knife thrown = {_knifeThrown}");
     }
 
-    /// <summary>
-    /// Gọi khi thu thập táo
-    /// </summary>
     public void AddAppleScore(int value)
     {
         _appleScore += value;
 
-        // Cập nhật HUD
         if (txtAppleCount != null)
             txtAppleCount.text = _appleScore.ToString();
 
-        OnAppleScoreChanged?.Invoke(_appleScore);
+        // Lưu vào SaveManager → Tích lũy mãi mãi
+        if (SaveManager.Instance != null)
+            SaveManager.Instance.AddApple(value);
 
-        Debug.Log($"Score: Apple score = {_appleScore}");
+        OnAppleScoreChanged?.Invoke(_appleScore);
     }
 
-    /// <summary>
-    /// Reset điểm khi bắt đầu màn mới
-    /// </summary>
+    // ═══════════════════════════════════════════
+    // RESET — Chỉ reset KnifeThrown khi Game Over
+    // ═══════════════════════════════════════════
     public void ResetScore()
     {
-        _appleScore = 0;
+        // Chỉ reset dao
         _knifeThrown = 0;
-
-        if (txtAppleCount != null)
-            txtAppleCount.text = "0";
         if (txtKnifeThrown != null)
             txtKnifeThrown.text = "0";
+
+        // Reload táo từ SaveManager
+        // Đảm bảo hiện đúng tổng sau khi restart
+        LoadAppleFromSave();
+
+        Debug.Log("ScoreManager: Reset knife, reload apple");
     }
 
-    // ── GETTERS ─────────────────────────────
+    // ═══════════════════════════════════════════
+    // GETTERS
+    // ═══════════════════════════════════════════
     public int AppleScore => _appleScore;
     public int KnifeThrown => _knifeThrown;
 }

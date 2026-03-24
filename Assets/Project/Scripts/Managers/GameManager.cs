@@ -96,11 +96,24 @@ public class GameManager : MonoBehaviour
 
     public void RestartCurrentStage()
     {
-        if (_state != GameState.GameOver) return;
+        // XÓA điều kiện check state
+        // Cho phép gọi từ bất kỳ đâu
 
-        LevelGenerator.Instance.Reset();
+        _state = GameState.Playing;
+
+        // Reset tất cả
         ScoreManager.Instance?.ResetScore();
+        LevelGenerator.Instance.Reset();
+        ResetLogSprite();
+
+        // Cho phép ném dao
+        if (knifeThrower != null)
+            knifeThrower.SetCanThrow(true);
+
+        // Bắt đầu lại Stage 1
         StartStage();
+
+        Debug.Log("GameManager: Restarted!");
     }
 
     public GameState CurrentState => _state;
@@ -170,7 +183,11 @@ public class GameManager : MonoBehaviour
         logRotator.SetActive(false);
         knifeThrower.SetCanThrow(false);
 
-        Debug.Log("GameManager: Stage Clear!");
+        // ── Lưu Best Stage ──
+        if (SaveManager.Instance != null)
+            SaveManager.Instance.UpdateBestStage(
+                _currentLevel.stageNumber);
+
         OnStageClear?.Invoke();
 
         List<GameObject> stuck = knifeThrower.GetStuckKnives();
@@ -212,12 +229,15 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(gameOverDelay);
 
-        // Reset score + stage CHỈ KHI GAME OVER
-        ScoreManager.Instance?.ResetScore();
-        LevelGenerator.Instance.Reset();
-        ResetLogSprite();
+        // Lưu best score
+        if (SaveManager.Instance != null &&
+            ScoreManager.Instance != null)
+            SaveManager.Instance.UpdateBestScore(
+                ScoreManager.Instance.KnifeThrown);
 
-        StartStage();
+        // KHÔNG tự restart nữa
+        // GameOverUI sẽ xử lý khi người chơi nhấn RESTART
+        OnGameOver?.Invoke(); // Báo cho GameOverUI hiện panel
     }
 
     // ═══════════════════════════════════════════
