@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManagerMenu : MonoBehaviour
 {
     // Tạo Singleton để dễ dàng gọi GameManager từ mọi nơi
-    public static GameManager Instance { get; private set; }
+    public static GameManagerMenu Instance { get; private set; }
 
     [Header("Dữ liệu Trò chơi")]
     // Biến lưu trữ ảnh con dao mà người chơi đang sử dụng (Chỉ lưu dao ĐÃ SỞ HỮU)
