@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: TOMATO
   logSprite: {fileID: 1032263081, guid: e585b23553e7866419a3085452329f29, type: 3}
+  explodeColor: {r: 1, g: 0.03402463, b: 0.015686274, a: 1}
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2

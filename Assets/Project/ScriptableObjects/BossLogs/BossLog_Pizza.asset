@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: PIZZA
   logSprite: {fileID: -373363967, guid: 048e099b09d23df4f8ea54fc89b3a00f, type: 3}
+  explodeColor: {r: 1, g: 0.48651767, b: 0.015686274, a: 1}
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2

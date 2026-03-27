@@ -654,6 +654,8 @@ GameObject:
   - component: {fileID: 210132709}
   - component: {fileID: 210132710}
   - component: {fileID: 210132711}
+  - component: {fileID: 210132712}
+  - component: {fileID: 210132713}
   m_Layer: 6
   m_Name: Log
   m_TagString: Log
@@ -841,6 +843,41 @@ MonoBehaviour:
   flashOutDuration: 0.25
   delayBeforeBreak: 0.05
   delayBeforeNew: 0.6
+  ringEffect: {fileID: 210132713}
+  bossExplodeEffect: {fileID: 210132712}
+--- !u!114 &210132712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210132704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a677df8c65396a4f9ec0b4a29a1c47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dotSprite: {fileID: 21300000, guid: b07ca8a6170be5d4595b1018c2b1ac7a, type: 3}
+  dotCount: 80
+  dotMinSize: 0.35
+  dotMaxSize: 1.2
+  dotMinSpeed: 4
+  dotMaxSpeed: 10
+  dotDuration: 1
+--- !u!114 &210132713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210132704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e0f299af6ebcc43810a63518da5e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ringSprite: {fileID: 21300000, guid: 7653db3789f36a941a3bd96a3f4e0863, type: 3}
+  ringDuration: 0.5
 --- !u!1 &236225597
 GameObject:
   m_ObjectHideFlags: 0
