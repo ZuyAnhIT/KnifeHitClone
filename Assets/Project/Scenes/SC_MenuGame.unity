@@ -1195,6 +1195,9 @@ MonoBehaviour:
   imgMainKnifeOnMainMenu: {fileID: 1346092760}
   txtKnifeCount: {fileID: 1778541634}
   contentContainer: {fileID: 781340489}
+  txtRandomPrice: {fileID: 0}
+  currentApples: 1000
+  pagePrices: fa000000f4010000
 --- !u!1 &80696513
 GameObject:
   m_ObjectHideFlags: 0
@@ -7964,6 +7967,7 @@ MonoBehaviour:
   dots:
   - {fileID: 2023808948}
   - {fileID: 1906566755}
+  knifeMenuManager: {fileID: 0}
   activeColor: {r: 0.10613209, g: 0.47056085, b: 0.5, a: 1}
   inactiveColor: {r: 0.29237494, g: 0.28190637, b: 0.3301887, a: 1}
   snapSpeed: 10
@@ -11275,7 +11279,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1502309118}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1935833309}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: GoToChallenge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1502309118
 MonoBehaviour:
   m_ObjectHideFlags: 0
