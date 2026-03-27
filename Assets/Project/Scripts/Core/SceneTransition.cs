@@ -14,6 +14,7 @@ public class SceneTransition : MonoBehaviour
     private const string SCENE_MENU = "SC_MenuGame";
     private const string SCENE_GAMEPLAY = "SC_Gameplay";
     private const string SCENE_STORE = "SC_MenuStore";
+    private const string SCENE_CHALLENGE = "SC_Challenge";
 
     // ═══════════════════════════════════════════
     // PUBLIC — Gọi từ Button.OnClick()
@@ -41,5 +42,9 @@ public class SceneTransition : MonoBehaviour
     public void GoToStore()
     {
         SceneManager.LoadScene(SCENE_STORE);
+    }
+    public void GoToChallenge()
+    {
+        SceneManager.LoadScene(SCENE_CHALLENGE);
     }
 }
