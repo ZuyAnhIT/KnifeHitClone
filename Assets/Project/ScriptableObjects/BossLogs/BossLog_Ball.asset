@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fafc2867a065614f85aa7e8d85bce81, type: 3}
   m_Name: BossLog_Ball
   m_EditorClassIdentifier: 
-  bossName: LEMON
+  bossName: 'Ball '
   logSprite: {fileID: 1222467534, guid: 1c5e903346f3a2a4498cfb427218dbb3, type: 3}
+  explodeColor: {r: 0.8490566, g: 0.6537537, b: 0.42052332, a: 1}
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2
