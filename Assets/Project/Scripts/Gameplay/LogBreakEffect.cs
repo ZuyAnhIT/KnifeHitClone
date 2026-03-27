@@ -7,7 +7,7 @@ public class LogBreakEffect : MonoBehaviour
     // ═══════════════════════════════════════════
     // INSPECTOR
     // ═══════════════════════════════════════════
-    [Header("── Mảnh vỡ ──")]
+    [Header("── Mảnh vỡ (Màn thường) ──")]
     [SerializeField] private List<GameObject> breakPiecePrefabs;
     [SerializeField] private int pieceCount = 8;
     [SerializeField] private float pieceSpeed = 8f;
@@ -22,8 +22,14 @@ public class LogBreakEffect : MonoBehaviour
     [SerializeField] private float delayBeforeBreak = 0.05f;
     [SerializeField] private float delayBeforeNew = 0.6f;
 
+    [Header("── Extra Effects ──")]
+    [SerializeField] private LogBreakRingEffect ringEffect;
+    [SerializeField] private BossExplodeEffect bossExplodeEffect;
+
     // ── Private ──
     private SpriteRenderer _sr;
+    private bool _isBossStage = false;
+    private Color _bossColor = Color.yellow;
 
     // ── Event ──
     public System.Action OnBreakComplete;
@@ -41,20 +47,27 @@ public class LogBreakEffect : MonoBehaviour
         StartCoroutine(BreakSequence(stuckKnives));
     }
 
+    /// <summary>
+    /// Gọi từ GameManager khi bắt đầu boss/normal stage
+    /// </summary>
+    public void SetBossMode(bool isBoss, Color color)
+    {
+        _isBossStage = isBoss;
+        _bossColor = color;
+        Debug.Log($"LogBreakEffect: BossMode={isBoss} | Color={color}");
+    }
+
     // ═══════════════════════════════════════════
     // SEQUENCE
     // ═══════════════════════════════════════════
     private IEnumerator BreakSequence(
-    List<GameObject> stuckKnives)
+        List<GameObject> stuckKnives)
     {
         yield return new WaitForSeconds(delayBeforeBreak);
 
-        // Gom TẤT CẢ object cần bay ra:
-        // 1. Dao phi vào (stuckKnives từ KnifeThrower)
-        // 2. Dao cắm sẵn (con của Log, tag StuckKnife)
-        // 3. Táo (con của Log, tag Apple)
-        List<GameObject> allItems = GatherAllLogItems(
-                                        stuckKnives);
+        // Gom tất cả item: dao phi + dao sẵn + táo
+        List<GameObject> allItems =
+            GatherAllLogItems(stuckKnives);
 
         // Tách tất cả ra khỏi Log
         DetachAllItems(allItems);
@@ -66,40 +79,43 @@ public class LogBreakEffect : MonoBehaviour
         if (_sr != null)
             _sr.enabled = false;
 
-        // Spawn mảnh vỡ
-        SpawnBreakPieces();
+        // ── Vòng tròn TẤT CẢ màn ──
+        if (ringEffect != null)
+            ringEffect.Play(transform.position);
+        else
+            Debug.LogWarning("LogBreakEffect: ringEffect = NULL!");
 
-        // Bay tứ phía
+        if (_isBossStage)
+        {
+            // ── BOSS: Chấm màu nổ tứ phía ──
+            if (bossExplodeEffect != null)
+            {
+                Debug.Log($"LogBreakEffect: " +
+                          $"Calling BossExplode | " +
+                          $"Color={_bossColor}");
+                bossExplodeEffect.Play(
+                    transform.position, _bossColor);
+            }
+            else
+                Debug.LogError("LogBreakEffect: " +
+                               "bossExplodeEffect = NULL!");
+        }
+        else
+        {
+            // ── THƯỜNG: Mảnh vỡ gỗ ──
+            SpawnBreakPieces();
+        }
+
+        // Tất cả items bay tứ phía
         LaunchAllItems(allItems);
 
         yield return new WaitForSeconds(delayBeforeNew);
 
+        // Hiện lại Log cho màn tiếp
         if (_sr != null)
             _sr.enabled = true;
 
         OnBreakComplete?.Invoke();
-    }
-
-    /// Tách dao ra khỏi Log sớm
-    /// Tránh bị ẩn theo Log
-    private void DetachKnivesFromLog(
-    List<GameObject> stuckKnives)
-    {
-        if (stuckKnives == null) return;
-
-        foreach (var knife in stuckKnives)
-        {
-            if (knife == null) continue;
-
-            // Tách khỏi Log
-            knife.transform.SetParent(null);
-
-            // Dừng KnifeController nếu có
-            KnifeController kc =
-                knife.GetComponent<KnifeController>();
-            if (kc != null)
-                kc.enabled = false; // Tắt Update() luôn
-        }
     }
 
     // ═══════════════════════════════════════════
@@ -112,25 +128,21 @@ public class LogBreakEffect : MonoBehaviour
         Color clear = new Color(1f, 1f, 1f, 0f);
         Color white = new Color(1f, 1f, 1f, 0.85f);
 
-        // Sáng nhanh
         float t = 0f;
         while (t < flashInDuration)
         {
             t += Time.deltaTime;
             flashOverlay.color = Color.Lerp(
-                clear, white,
-                t / flashInDuration);
+                clear, white, t / flashInDuration);
             yield return null;
         }
 
-        // Mờ dần
         t = 0f;
         while (t < flashOutDuration)
         {
             t += Time.deltaTime;
             flashOverlay.color = Color.Lerp(
-                white, clear,
-                t / flashOutDuration);
+                white, clear, t / flashOutDuration);
             yield return null;
         }
 
@@ -138,31 +150,30 @@ public class LogBreakEffect : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
-    // SPAWN MẢNH VỠ
+    // SPAWN MẢNH VỠ (Chỉ màn thường)
     // ═══════════════════════════════════════════
     private void SpawnBreakPieces()
     {
         if (breakPiecePrefabs == null ||
-            breakPiecePrefabs.Count == 0) return;
+            breakPiecePrefabs.Count == 0)
+        {
+            Debug.LogWarning("LogBreakEffect: " +
+                             "Không có breakPiecePrefabs!");
+            return;
+        }
 
-        // Chia đều góc cho đúng số mảnh
-        // Mỗi prefab spawn đúng 1 lần
-        int total = breakPiecePrefabs.Count; // = 3
-
+        int total = breakPiecePrefabs.Count;
         float angleStep = 360f / total;
 
         for (int i = 0; i < total; i++)
         {
-            // Góc chia đều + random nhỏ tự nhiên
             float angle = i * angleStep
-                         + Random.Range(-20f, 20f);
+                           + Random.Range(-20f, 20f);
             float rad = angle * Mathf.Deg2Rad;
             Vector2 dir = new Vector2(
-                              Mathf.Cos(rad),
-                              Mathf.Sin(rad));
+                                Mathf.Cos(rad),
+                                Mathf.Sin(rad));
 
-            // Lấy đúng prefab theo thứ tự
-            // Không random → Mỗi loại 1 cái
             GameObject prefab = breakPiecePrefabs[i];
             if (prefab == null) continue;
 
@@ -188,153 +199,65 @@ public class LogBreakEffect : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
-    // DAO BAY RA
+    // GATHER ALL ITEMS
     // ═══════════════════════════════════════════
-    private void LaunchStuckKnives(
-    List<GameObject> stuckKnives)
-    {
-        if (stuckKnives == null) return;
-
-        foreach (var knife in stuckKnives)
-        {
-            if (knife == null) continue;
-
-            // Gọi StopFollowing trước
-            // → Dừng FollowLog() trong Update()
-            KnifeController kc =
-                knife.GetComponent<KnifeController>();
-            if (kc != null)
-            {
-                kc.StopFollowing();
-            }
-            else
-            {
-                // Dao cắm sẵn (không có KnifeController)
-                // → Xử lý thủ công
-                knife.transform.SetParent(null);
-
-                Rigidbody2D rb =
-                    knife.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    rb.isKinematic = false;
-                    rb.gravityScale = 0.8f;
-                    rb.velocity =
-                        Random.insideUnitCircle.normalized
-                        * Random.Range(4f, 8f);
-                    rb.angularVelocity =
-                        Random.Range(-400f, 400f);
-                }
-            }
-
-            // Mờ dần rồi destroy
-            StartCoroutine(FadeAndDestroy(
-                knife, pieceDuration + 0.2f));
-        }
-    }
-
-    private IEnumerator FadeAndDestroy(
-        GameObject obj, float duration)
-    {
-        SpriteRenderer sr =
-            obj.GetComponent<SpriteRenderer>();
-        float elapsed = 0f;
-        float fadeStart = duration * 0.5f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-
-            if (sr != null && elapsed > fadeStart)
-            {
-                float t = (elapsed - fadeStart)
-                           / (duration - fadeStart);
-                Color c = sr.color;
-                c.a = Mathf.Lerp(1f, 0f, t);
-                sr.color = c;
-            }
-
-            yield return null;
-        }
-
-        if (obj != null)
-            Destroy(obj);
-    }
-
-    /// <summary>
-    /// Gom tất cả item cần bay ra khi Log vỡ:
-    /// Dao phi vào + Dao cắm sẵn + Táo
-    /// </summary>
     private List<GameObject> GatherAllLogItems(
         List<GameObject> stuckKnives)
     {
         List<GameObject> all = new List<GameObject>();
 
-        // 1. Dao đã phi vào (từ KnifeThrower)
+        // Dao đã phi vào
         if (stuckKnives != null)
             all.AddRange(stuckKnives);
 
-        // 2. Tìm tất cả CHILDREN của Log
-        //    Bao gồm: dao cắm sẵn + táo
+        // Children của Log: dao sẵn + táo
         foreach (Transform child in transform)
         {
             GameObject obj = child.gameObject;
 
-            // Bỏ qua LogOverlay và PS_WoodChips
             if (obj.name == "LogOverlay") continue;
             if (obj.name == "PS_WoodChips") continue;
 
-            // Lấy dao cắm sẵn
-            if (obj.CompareTag("StuckKnife"))
+            if (obj.CompareTag("StuckKnife") ||
+                obj.CompareTag("Apple"))
             {
                 if (!all.Contains(obj))
                     all.Add(obj);
-                continue;
-            }
-
-            // Lấy táo
-            if (obj.CompareTag("Apple"))
-            {
-                if (!all.Contains(obj))
-                    all.Add(obj);
-                continue;
             }
         }
 
         Debug.Log($"LogBreakEffect: " +
-                  $"Gathered {all.Count} items to launch");
+                  $"Gathered {all.Count} items");
         return all;
     }
 
+    // ═══════════════════════════════════════════
+    // DETACH ALL ITEMS
+    // ═══════════════════════════════════════════
     private void DetachAllItems(List<GameObject> items)
     {
         foreach (var item in items)
         {
             if (item == null) continue;
 
-            // Tách khỏi Log
             item.transform.SetParent(null);
 
-            // Tắt KnifeController nếu có
             KnifeController kc =
                 item.GetComponent<KnifeController>();
-            if (kc != null)
-                kc.enabled = false;
+            if (kc != null) kc.enabled = false;
 
-            // Tắt Apple script nếu có
-            // Tránh trigger nhặt táo sau khi Log vỡ
             Apple apple = item.GetComponent<Apple>();
-            if (apple != null)
-                apple.enabled = false;
+            if (apple != null) apple.enabled = false;
 
-            // Tắt Collider
             Collider2D col =
                 item.GetComponent<Collider2D>();
-            if (col != null)
-                col.enabled = false;
+            if (col != null) col.enabled = false;
         }
     }
 
+    // ═══════════════════════════════════════════
+    // LAUNCH ALL ITEMS
+    // ═══════════════════════════════════════════
     private void LaunchAllItems(List<GameObject> items)
     {
         if (items == null) return;
@@ -343,11 +266,8 @@ public class LogBreakEffect : MonoBehaviour
         {
             if (item == null) continue;
 
-            // Hướng bay từ tâm Log ra ngoài
             Vector2 dir = (item.transform.position
                           - transform.position).normalized;
-
-            // Thêm random
             dir = (dir + Random.insideUnitCircle * 0.4f)
                   .normalized;
 
@@ -361,25 +281,55 @@ public class LogBreakEffect : MonoBehaviour
                 rb.velocity = dir * Random.Range(
                                          pieceSpeed,
                                          pieceSpeed + 5f);
-                rb.angularVelocity = Random.Range(
-                                         -400f, 400f);
+                rb.angularVelocity = Random.Range(-400f, 400f);
             }
             else
             {
-                // Táo không có Rigidbody → Thêm vào
                 Rigidbody2D newRb =
                     item.AddComponent<Rigidbody2D>();
                 newRb.gravityScale = 0.3f;
                 newRb.velocity = dir * Random.Range(
                                             pieceSpeed,
                                             pieceSpeed + 3f);
-                newRb.angularVelocity = Random.Range(
-                                            -400f, 400f);
+                newRb.angularVelocity = Random.Range(-400f, 400f);
             }
 
-            // Mờ dần rồi destroy
             StartCoroutine(FadeAndDestroy(
                 item, pieceDuration + 0.2f));
         }
+    }
+
+    // ═══════════════════════════════════════════
+    // FADE AND DESTROY
+    // ═══════════════════════════════════════════
+    private IEnumerator FadeAndDestroy(
+        GameObject obj, float duration)
+    {
+        if (obj == null) yield break;
+
+        SpriteRenderer sr =
+            obj.GetComponent<SpriteRenderer>();
+        float elapsed = 0f;
+        float fadeStart = duration * 0.5f;
+
+        while (elapsed < duration)
+        {
+            if (obj == null) yield break;
+
+            elapsed += Time.deltaTime;
+
+            if (sr != null && elapsed > fadeStart)
+            {
+                float t = (elapsed - fadeStart)
+                         / (duration - fadeStart);
+                Color c = sr.color;
+                c.a = Mathf.Lerp(1f, 0f, t);
+                sr.color = c;
+            }
+
+            yield return null;
+        }
+
+        if (obj != null) Destroy(obj);
     }
 }

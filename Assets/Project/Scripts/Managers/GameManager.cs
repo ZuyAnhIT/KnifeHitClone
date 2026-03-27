@@ -138,38 +138,40 @@ public class GameManager : MonoBehaviour
         Debug.Log($"GameManager: Started {_currentLevel}");
     }
 
+    private void StartBossStage()
+    {
+        BossLogData boss = bossLogManager.GetRandomBoss();
+        bossLogManager.ApplyBossLog(boss);
+        logRotator.SetActive(true);
+
+        // Set boss mode cho LogBreakEffect
+        if (logBreakEffect != null)
+            logBreakEffect.SetBossMode(true, boss.explodeColor);
+
+        logItemPlacer.Setup(
+            _currentLevel.preplacedCount,
+            _currentLevel.appleCount);
+
+        knifeThrower.SetupLevel(_currentLevel.knifeCount);
+        UpdateBossNameHUD(boss);
+    }
+
     private void StartNormalStage()
     {
-        // Reset log về sprite thường
         ResetLogSprite();
+
+        // Reset về normal mode
+        if (logBreakEffect != null)
+            logBreakEffect.SetBossMode(false, Color.white);
 
         logRotator.SetPattern(_currentLevel);
         logRotator.SetActive(true);
 
         logItemPlacer.Setup(
             _currentLevel.preplacedCount,
-            _currentLevel.appleCount
-        );
+            _currentLevel.appleCount);
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
-    }
-
-    private void StartBossStage()
-    {
-        // Random + apply boss log đặc biệt
-        BossLogData boss = bossLogManager.GetRandomBoss();
-        bossLogManager.ApplyBossLog(boss);
-        logRotator.SetActive(true);
-
-        logItemPlacer.Setup(
-            _currentLevel.preplacedCount,
-            _currentLevel.appleCount
-        );
-
-        knifeThrower.SetupLevel(_currentLevel.knifeCount);
-
-        // Hiện tên boss — gọi trước UpdateStageHUD
-        UpdateBossNameHUD(boss);
     }
 
     // ═══════════════════════════════════════════

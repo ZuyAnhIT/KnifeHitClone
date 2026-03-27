@@ -12,6 +12,10 @@ public class BossLogData : ScriptableObject
     public string bossName = "LEMON";  // Tên hiển thị
     public Sprite logSprite;            // Sprite log boss
 
+    // THÊM MÀU ĐẶC TRƯNG
+    [Header("── Hiệu ứng nổ ──")]
+    public Color explodeColor = Color.yellow; // Màu chấm nổ
+
     [Header("── Độ khó ──")]
     public float logSpeed = 160f;
     public bool canReverse = true;
