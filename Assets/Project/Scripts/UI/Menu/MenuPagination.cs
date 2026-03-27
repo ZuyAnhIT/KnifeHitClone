@@ -8,6 +8,10 @@ public class MenuPagination : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public ScrollRect scrollRect;
     public Image[] dots; // Khai báo mảng chứa các dấu chấm
 
+    // --- THÊM DÒNG NÀY ĐỂ LIÊN KẾT VỚI BỘ NÃO GACHA ---
+    [Header("Liên kết Hệ thống Gacha")]
+    public KnifeMenuManager knifeMenuManager;
+
     [Header("Cài đặt Màu sắc")]
     public Color activeColor = Color.white;   // Màu khi đang ở trang đó
     public Color inactiveColor = Color.gray;  // Màu khi không ở trang đó
@@ -77,6 +81,12 @@ public class MenuPagination : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         for (int i = 0; i < dots.Length; i++)
         {
             dots[i].color = (i == activeIndex) ? activeColor : inactiveColor;
+        }
+        // --- THÊM ĐOẠN NÀY ĐỂ ĐỒNG BỘ GIÁ TIỀN GACHA ---
+        // Báo cho KnifeMenuManager biết người chơi đang đứng ở trang nào
+        if (knifeMenuManager != null)
+        {
+            knifeMenuManager.OnPageChanged(activeIndex);
         }
     }
 }
