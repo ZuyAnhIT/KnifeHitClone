@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float stageClearDelay = 1.5f;
     [SerializeField] private float gameOverDelay = 1.0f;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip targetAppearSound;
+
+    [Header("── Boss Transition UI ──")]
+    [SerializeField] private BossTransitionUI bossTransitionUI;
+
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
@@ -127,13 +134,41 @@ public class GameManager : MonoBehaviour
         _currentLevel = LevelGenerator.Instance.GenerateNext();
         _state = GameState.Playing;
 
-        if (_currentLevel.isBossStage)
-            StartBossStage();
-        else
-            StartNormalStage();
-
         UpdateStageHUD(_currentLevel);
-        OnStageStarted?.Invoke(_currentLevel);
+
+        if (_currentLevel.isBossStage)
+        {
+            // Ẩn khúc gỗ đi để màn hình trống trải khi đao bay lên
+            if (logSpriteRenderer != null)
+                logSpriteRenderer.enabled = false;
+
+            if (bossTransitionUI != null)
+            {
+                bossTransitionUI.PlayTransition(() =>
+                {
+                    // BƯỚC QUAN TRỌNG 2: Hiện lại khúc gỗ sau khi 2 thanh đao đã rớt xuống
+                    if (logSpriteRenderer != null)
+                        logSpriteRenderer.enabled = true;
+
+                    StartBossStage();
+                    OnStageStarted?.Invoke(_currentLevel);
+                });
+            }
+            else
+            {
+                // Fallback an toàn
+                if (logSpriteRenderer != null) logSpriteRenderer.enabled = true;
+                StartBossStage();
+                OnStageStarted?.Invoke(_currentLevel);
+            }
+        }
+        else
+        {
+            // Nếu là màn thường thì luôn luôn hiển thị khúc gỗ
+            if (logSpriteRenderer != null) logSpriteRenderer.enabled = true;
+            StartNormalStage();
+            OnStageStarted?.Invoke(_currentLevel);
+        }
 
         Debug.Log($"GameManager: Started {_currentLevel}");
     }
@@ -154,6 +189,12 @@ public class GameManager : MonoBehaviour
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
         UpdateBossNameHUD(boss);
+
+        // Phát âm thanh khi Log Boss từ từ hiện lên
+        if (audioSource != null && targetAppearSound != null)
+        {
+            audioSource.PlayOneShot(targetAppearSound);
+        }
     }
 
     private void StartNormalStage()
@@ -172,6 +213,11 @@ public class GameManager : MonoBehaviour
             _currentLevel.appleCount);
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
+
+        if (audioSource != null && targetAppearSound != null)
+        {
+            audioSource.PlayOneShot(targetAppearSound);
+        }
     }
 
     // ═══════════════════════════════════════════
@@ -185,13 +231,12 @@ public class GameManager : MonoBehaviour
         logRotator.SetActive(false);
         knifeThrower.SetCanThrow(false);
 
-        // ── Lưu Best Stage ──
         if (SaveManager.Instance != null)
-            SaveManager.Instance.UpdateBestStage(
-                _currentLevel.stageNumber);
+            SaveManager.Instance.UpdateBestStage(_currentLevel.stageNumber);
 
         OnStageClear?.Invoke();
 
+        // CHỈ CÒN NHƯ THẾ NÀY (Đã xóa đoạn bossTransitionUI đi)
         List<GameObject> stuck = knifeThrower.GetStuckKnives();
         logBreakEffect.OnBreakComplete += HandleBreakComplete;
         logBreakEffect.PlayBreak(stuck);

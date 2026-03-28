@@ -20,4 +20,7 @@ public class BossLogData : ScriptableObject
     public float logSpeed = 160f;
     public bool canReverse = true;
     public float reverseInterval = 1.2f;
+
+    [Header("── Âm thanh Boss ──")]
+    public AudioClip[] hitSounds;
 }

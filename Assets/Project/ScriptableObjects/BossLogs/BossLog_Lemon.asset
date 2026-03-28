@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: LEMON
   logSprite: {fileID: 691531706, guid: 734419f1e8f34bb41a388198f19b88c7, type: 3}
+  explodeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2
+  hitSounds:
+  - {fileID: 8300000, guid: e45383a5b8afdc04a8350e557140021f, type: 3}
