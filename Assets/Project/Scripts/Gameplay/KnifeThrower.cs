@@ -20,6 +20,10 @@ public class KnifeThrower : MonoBehaviour
     [SerializeField] private int totalKnives = 7;
     [SerializeField] private float spawnDelay = 0.2f;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip throwSound;
+
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
@@ -99,6 +103,11 @@ public class KnifeThrower : MonoBehaviour
 
         _canThrow = false;
         _currentKnife.Launch();
+
+        if (audioSource != null && throwSound != null)
+        {
+            audioSource.PlayOneShot(throwSound);
+        }
 
         // Cập nhật HUD icon dao
         if (HUDManager.Instance != null)

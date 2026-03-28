@@ -14,6 +14,10 @@ public class LogHitEffect : MonoBehaviour
     [SerializeField] private float overlayInDuration = 0.05f;
     [SerializeField] private float overlayOutDuration = 0.15f;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip normalHitSound;
+
     private Vector3 _originalScale;
     private Coroutine _scaleRoutine;
     private Coroutine _overlayRoutine;
@@ -33,6 +37,32 @@ public class LogHitEffect : MonoBehaviour
 
     public void PlayHitEffect()
     {
+
+        if (audioSource != null)
+        {
+            // Kiểm tra xem có đang ở màn Boss không thông qua GameManager
+            bool isBossStage = GameManager.Instance != null && GameManager.Instance.CurrentLevel.isBossStage;
+
+            if (isBossStage && BossLogManager.Instance != null && BossLogManager.Instance.CurrentBoss != null)
+            {
+                // Lấy mảng âm thanh của Boss hiện tại
+                AudioClip[] bossSounds = BossLogManager.Instance.CurrentBoss.hitSounds;
+
+                if (bossSounds != null && bossSounds.Length > 0)
+                {
+                    // Random 1 tiếng trong mảng và phát
+                    int rand = Random.Range(0, bossSounds.Length);
+                    audioSource.PlayOneShot(bossSounds[rand]);
+                }
+                else if (normalHitSound != null)
+                    audioSource.PlayOneShot(normalHitSound); // Fallback nếu boss lỡ quên chưa cấu hình tiếng
+            }
+            else if (normalHitSound != null)
+            {
+                audioSource.PlayOneShot(normalHitSound); // Phát tiếng gỗ thường nếu là màn bình thường
+            }
+        }
+
         if (_scaleRoutine != null)
             StopCoroutine(_scaleRoutine);
         if (_overlayRoutine != null)

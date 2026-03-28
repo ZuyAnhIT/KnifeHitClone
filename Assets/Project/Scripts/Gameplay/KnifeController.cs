@@ -32,6 +32,11 @@ public class KnifeController : MonoBehaviour
     [SerializeField] private LogHitEffect logHitEffect;
     [SerializeField] private WoodChipsEffect woodChipsEffect;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitLogSound;
+    [SerializeField] private AudioClip hitKnifeSound;
+
     // ═══════════════════════════════════════════
     // PRIVATE VARIABLES
     // ═══════════════════════════════════════════
@@ -217,6 +222,11 @@ public class KnifeController : MonoBehaviour
 
     private void HitOtherKnife()
     {
+        if (audioSource != null && hitKnifeSound != null)
+        {
+            audioSource.PlayOneShot(hitKnifeSound);
+        }
+
         _state = KnifeState.Bouncing;
 
         // MỞ KHÓA XOAY TRƯỚC KHI SET VELOCITY
