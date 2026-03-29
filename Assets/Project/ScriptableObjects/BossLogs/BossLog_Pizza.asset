@@ -18,3 +18,5 @@ MonoBehaviour:
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2
+  hitSounds:
+  - {fileID: 8300000, guid: 4951f90280279fe48ba3af7cf5b5c1bd, type: 3}

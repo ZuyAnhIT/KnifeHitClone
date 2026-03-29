@@ -5,6 +5,10 @@ public class Apple : MonoBehaviour
     [Header("── Điểm ──")]
     [SerializeField] private int scoreValue = 10;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip collectSound;
+
     public System.Action<int> OnCollected;
 
     private bool _collected = false;
@@ -51,6 +55,12 @@ public class Apple : MonoBehaviour
         // 3. Cộng điểm
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.AddAppleScore(scoreValue);
+
+        // THÊM ĐOẠN NÀY: Phát âm thanh ăn táo
+        if (audioSource != null && collectSound != null)
+        {
+            audioSource.PlayOneShot(collectSound);
+        }
 
         OnCollected?.Invoke(scoreValue);
 

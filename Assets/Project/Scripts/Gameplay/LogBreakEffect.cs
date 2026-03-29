@@ -26,6 +26,10 @@ public class LogBreakEffect : MonoBehaviour
     [SerializeField] private LogBreakRingEffect ringEffect;
     [SerializeField] private BossExplodeEffect bossExplodeEffect;
 
+    [Header("── Âm thanh ──")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip logBreakSound;
+
     // ── Private ──
     private SpriteRenderer _sr;
     private bool _isBossStage = false;
@@ -64,6 +68,11 @@ public class LogBreakEffect : MonoBehaviour
         List<GameObject> stuckKnives)
     {
         yield return new WaitForSeconds(delayBeforeBreak);
+
+        if (audioSource != null && logBreakSound != null)
+        {
+            audioSource.PlayOneShot(logBreakSound);
+        }
 
         // Gom tất cả item: dao phi + dao sẵn + táo
         List<GameObject> allItems =

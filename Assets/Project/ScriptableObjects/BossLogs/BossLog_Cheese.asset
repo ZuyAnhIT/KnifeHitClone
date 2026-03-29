@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossName: CHEESE
   logSprite: {fileID: -1574236241, guid: 41d9c1eb1a238a641997041d7c3361af, type: 3}
+  explodeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   logSpeed: 160
   canReverse: 1
   reverseInterval: 1.2
+  hitSounds:
+  - {fileID: 8300000, guid: 378e7dded3926124583e57b18e653cfa, type: 3}

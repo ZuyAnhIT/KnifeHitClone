@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/SC_MenuStore.unity
     guid: 890fccabac7b96c45827d41ce292a214
+  - enabled: 1
+    path: Assets/Project/Scenes/SC_Challenge.unity
+    guid: d76f4261bb8feed489eaf3ae29d8ad49
   m_configObjects: {}
