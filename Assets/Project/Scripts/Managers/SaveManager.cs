@@ -12,6 +12,8 @@ public class SaveManager : MonoBehaviour
     private const string KEY_BEST_STAGE = "BestStage";
     private const string KEY_BEST_SCORE = "BestScore";
     private const string KEY_TOTAL_APPLE = "TotalApple";
+    private const string KEY_GIFT_CLOSE_TIME = "GiftCloseTime";
+    private const string KEY_GIFT_TIME_REMAINING = "GiftTimeRemaining";
 
     // ── Cached values ──
     private int _bestStage;
@@ -98,6 +100,39 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log($"SaveManager: TotalApple = {_totalApple}");
+    }
+
+    // ═══════════════════════════════════════════
+    // SAVE — GIFT BOX TIMER
+    // ═══════════════════════════════════════════
+    public void SaveGiftTimer(float timeRemaining)
+    {
+        PlayerPrefs.SetString(KEY_GIFT_CLOSE_TIME,
+            System.DateTime.UtcNow.ToString("o"));
+        PlayerPrefs.SetFloat(KEY_GIFT_TIME_REMAINING, timeRemaining);
+        PlayerPrefs.Save();
+    }
+
+    public float LoadGiftTimer(float defaultDuration)
+    {
+        string savedTime = PlayerPrefs.GetString(
+            KEY_GIFT_CLOSE_TIME, "");
+
+        if (string.IsNullOrEmpty(savedTime))
+            return defaultDuration;
+
+        System.DateTime closeTime =
+            System.DateTime.Parse(savedTime,
+                null,
+                System.Globalization.DateTimeStyles
+                      .RoundtripKind);
+
+        float elapsed = (float)(System.DateTime.UtcNow
+                               - closeTime).TotalSeconds;
+        float saved = PlayerPrefs.GetFloat(
+            KEY_GIFT_TIME_REMAINING, defaultDuration);
+
+        return Mathf.Max(0f, saved - elapsed);
     }
 
     // ═══════════════════════════════════════════
