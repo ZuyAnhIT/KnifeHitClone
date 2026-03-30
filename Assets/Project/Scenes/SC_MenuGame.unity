@@ -2796,6 +2796,7 @@ MonoBehaviour:
   countdownText: {fileID: 1462556722}
   glowEffect: {fileID: 710778712}
   giftAnimator: {fileID: 0}
+  txtCurrency: {fileID: 1845062469}
 --- !u!1 &147497138
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class GiftBoxController : MonoBehaviour
     public TextMeshProUGUI countdownText;
     public GameObject glowEffect;       // Image màu vàng nhấp nháy
     public Animator giftAnimator;       // Animator trên GiftIcon
+    public TextMeshProUGUI txtCurrency;
 
     // ═══════════════════════════════════════════
     // PRIVATE
@@ -31,6 +32,7 @@ public class GiftBoxController : MonoBehaviour
     private float _timeRemaining;
     private bool _isReady = false;
     private bool _isCollecting = false;
+    private int currentCurrency = 0;
 
     // ═══════════════════════════════════════════
     // UNITY LIFECYCLE
@@ -50,6 +52,13 @@ public class GiftBoxController : MonoBehaviour
         // Nếu load về = 0 → đã sẵn sàng ngay
         if (_timeRemaining <= 0f)
             SetReady(true);
+        if (SaveManager.Instance != null)
+        {
+            currentCurrency = SaveManager.Instance.TotalApple;
+
+            if (txtCurrency != null)
+                txtCurrency.text = currentCurrency.ToString();
+        }
     }
 
     private void Update()
@@ -123,29 +132,33 @@ public class GiftBoxController : MonoBehaviour
     {
         _isCollecting = true;
 
-        // 1. Phát animation nhận thưởng
+        // 1. Play animation
         if (giftAnimator != null)
         {
             giftAnimator.SetBool("IsReady", false);
             giftAnimator.SetTrigger("Collect");
         }
 
-        // 2. Cộng táo vào hệ thống
-        // ScoreManager cập nhật UI + SaveManager lưu tự động
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddAppleScore(rewardAmount);
-        else if (SaveManager.Instance != null)
+        // 2. Lưu vào SaveManager
+        if (SaveManager.Instance != null)
+        {
             SaveManager.Instance.AddApple(rewardAmount);
+            currentCurrency = SaveManager.Instance.TotalApple;
+        }
 
-        // 3. Đợi animation chạy xong (~0.5s) rồi reset
+        // 3. Cập nhật UI ngay lập tức
+        if (txtCurrency != null)
+            txtCurrency.text = currentCurrency.ToString();
+
+        // 4. Đợi animation
         yield return new WaitForSeconds(0.5f);
 
-        // 4. Reset đếm ngược
+        // 5. Reset countdown
         _timeRemaining = countdownDuration;
         SetReady(false);
         _isCollecting = false;
 
-        // 5. Lưu thời điểm bắt đầu đếm mới
+        // 6. Lưu timer
         if (SaveManager.Instance != null)
             SaveManager.Instance.SaveGiftTimer(_timeRemaining);
     }
