@@ -20,7 +20,7 @@ public class KnifeMenuManager : MonoBehaviour
     public KnifeSlotUI defaultSlot;
 
     [Header("UI Elements (Main Menu Connection)")]
-    public SpriteRenderer imgMainKnifeOnMainMenu; // Kéo cái Img_MainKnife từ Screen_MainMenu thả vào đây
+    public Image imgMainKnifeOnMainMenu; // Kéo cái Img_MainKnife từ Screen_MainMenu thả vào đây
 
     [Header("Tiến độ thu thập (Progress)")]
     public TextMeshProUGUI txtKnifeCount;
