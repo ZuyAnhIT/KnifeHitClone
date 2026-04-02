@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -108,7 +108,1540 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1686
+        width: 428
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a0ec80ffc6fbde4cb5ab75e640d43fb
+      internalID: 603424642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_1
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 2009
+        width: 134
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6121cb79f10ebeb469419b56d5c65bd8
+      internalID: 2118587010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_2
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 2010
+        width: 84
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aba230e17b1f6b4091d4dd78785a913
+      internalID: 13530286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_3
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 2012
+        width: 74
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2072fd6c7cb1e0649bf342c59c9b296a
+      internalID: -327249463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_4
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1738
+        width: 426
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1300037131b922740968a9816be6dcd8
+      internalID: 1761297528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_5
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 2031
+        width: 133
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa25ff4ea92d8540b5554dfa58863ae
+      internalID: -2117768980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_6
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 1740
+        width: 509
+        height: 305
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1eba7fae3d874643acdc785f20c03e8
+      internalID: 1696380407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_7
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 2034
+        width: 28
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e1aaafbf1443f74095e643fa56e1c21
+      internalID: -1242792739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_8
+      rect:
+        serializedVersion: 2
+        x: 1981
+        y: 1980
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aae31a6dcac24245bbe0a224fd4b8f7
+      internalID: 579551617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_9
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 1686
+        width: 314
+        height: 321
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998122c052d24b743833bcb563d7e67d
+      internalID: -1194401359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_10
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 1737
+        width: 133
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef1c3217e48809241a461e2289ca8227
+      internalID: -1257326323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_11
+      rect:
+        serializedVersion: 2
+        x: 1825
+        y: 1740
+        width: 86
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad8d781f6e5f19f41a16afe23c317e11
+      internalID: -1630691774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_12
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 1978
+        width: 23
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c29a154bf870412469c3070cee042f3c
+      internalID: 282950755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_13
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 1890
+        width: 65
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f928f616915e66b40843d7f6be2fefeb
+      internalID: -562703759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_14
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 1739
+        width: 64
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ea8ff189844dd409aef43a1ac4802f
+      internalID: -1815702222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_15
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1119
+        width: 565
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c7cdc607fea5d148900f2cc9562a79e
+      internalID: 1202926702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_16
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 1594
+        width: 107
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54136699caea5124a807ffc977b83756
+      internalID: 1985878800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_17
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 1594
+        width: 37
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e034e7c85ab847349a6fa37bbbadf3dc
+      internalID: 1118946557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_18
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 1669
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e339ed5efe5aa949bb839a5ac7c4ca6
+      internalID: -1145627820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_19
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 1172
+        width: 563
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c26728e3f43f79946950e27957d9afc5
+      internalID: 293589048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_20
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1175
+        width: 542
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53fe436063b7ee4297588b6a9d8fddb
+      internalID: -1941035540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_21
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 1559
+        width: 141
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ad256457c25a740b11cee2a87cec30
+      internalID: 167713366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_22
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 1661
+        width: 17
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26bb33f4439c012419b75831718f0a2d
+      internalID: 277234476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_23
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 1640
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99133c031be41954b8822d7e7924a923
+      internalID: -1932565964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_24
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 1555
+        width: 21
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3de17e328d826fc469b91abda2a7866f
+      internalID: 44154907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_25
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 1594
+        width: 29
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0103419bf1302f43b4b61158172ee86
+      internalID: -573564553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_26
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1281
+        width: 172
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1118445ca03ca447bc5cc62b35546dd
+      internalID: -695068907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_27
+      rect:
+        serializedVersion: 2
+        x: 1870
+        y: 1083
+        width: 175
+        height: 470
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed47951dd4e44d4468eb375043eac841
+      internalID: 155376449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_28
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1062
+        width: 178
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b5fe2e87256fab43b8fa7aecc919c57
+      internalID: -1215198668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_29
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 606
+        width: 565
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d829c6219d036ca48a77a6908a6334cb
+      internalID: 1561912720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_30
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 1097
+        width: 20
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceeb389203fe6884d8d600ead4caa1fa
+      internalID: -1876145840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_31
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 1131
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1b619dcc5aab4c4aa99f9938af9e830
+      internalID: 179513601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_32
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 1089
+        width: 35
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 858ac3444cf6c3d45b5fc47f69c27b95
+      internalID: -596610061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_33
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 1089
+        width: 35
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d00ebbc28b8eac449e688a2e4e8c287
+      internalID: 901062793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_34
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1097
+        width: 21
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58543d66a4074fc4080c7ae8a266e67e
+      internalID: 865400809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_35
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 1159
+        width: 67
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ef84cc3e971be48b092b7437700431
+      internalID: -22642633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_36
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 1159
+        width: 60
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 829eba27ad72f12448659f7bcac76aaf
+      internalID: -1949989126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_37
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 1118
+        width: 153
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56c5a18ba7dfdea4db7f0a71964956dc
+      internalID: -1326276653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_38
+      rect:
+        serializedVersion: 2
+        x: 1402
+        y: 1113
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce142ef149cd1241b56761e17929dc5
+      internalID: 1478834206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_39
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 1113
+        width: 19
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec71b68ee5edc347bd4ec1280dc5e4d
+      internalID: -1930151001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_40
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 1112
+        width: 36
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d9ec2043cf8d84d9a8684acc33e996
+      internalID: -912455646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_41
+      rect:
+        serializedVersion: 2
+        x: 1571
+        y: 1097
+        width: 68
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6d04dd05a3266948898c52777718e46
+      internalID: 1347064576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_42
+      rect:
+        serializedVersion: 2
+        x: 1621
+        y: 1091
+        width: 178
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb0597fd95095dc4bb36aee46276a629
+      internalID: 189248675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_43
+      rect:
+        serializedVersion: 2
+        x: 1780
+        y: 1097
+        width: 69
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c92a679815105144b4ae4a8afed9c55
+      internalID: 269624408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_44
+      rect:
+        serializedVersion: 2
+        x: 1831
+        y: 1112
+        width: 36
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 855e734864ab02d428a5403737ae60ad
+      internalID: -507491033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_45
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 552
+        width: 565
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff828c0ce1386341ae17dd03a4fe3d1
+      internalID: 1873166705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_46
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 1099
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c6f70bca01a5b4fb853532e6899a07
+      internalID: 964525689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_47
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 1099
+        width: 28
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d797152cf1f24ca4283ce0fad532ea67
+      internalID: 1485122369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_48
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 1083
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2131cd136efec914f8eabe5860255c5e
+      internalID: 2018856049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_49
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1083
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 593bd94037e2c4b4a86e0daa2d59285b
+      internalID: -671158430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_50
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 1084
+        width: 59
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d09500ac2d251d14ebd8679c28f24200
+      internalID: -1205804401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_51
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 605
+        width: 665
+        height: 476
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43fc614a10cd7a5498172398599de428
+      internalID: -2033917475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_52
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 1065
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2570a8193a8165f4980edeeb074f6421
+      internalID: -261551940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_53
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 1011
+        width: 87
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5493737ce6877174b8fa1b26e393055c
+      internalID: 1022974646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_54
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 1039
+        width: 53
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11ecdb80cf3561844bbaf7e3819fde50
+      internalID: -819917603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_55
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 1018
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89259f58c944c1b4ab2705d96ecb6947
+      internalID: 1411032176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_56
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 964
+        width: 48
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b587a66846bb5be49b46431761baaa45
+      internalID: -1756691880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_57
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 953
+        width: 79
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e57aa63bb091434da7a7ce4e6ac9944
+      internalID: 413004696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_58
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 795
+        width: 53
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db0e025fe4047646a6eb5108bb8a105
+      internalID: -561112244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_59
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 824
+        width: 178
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03780d332b5df2a4a9c73a6d9c56d6fb
+      internalID: 566158985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_60
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 552
+        width: 182
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b986cc28d3d8d7c4cba5e69216812001
+      internalID: 40914671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_61
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 2
+        width: 594
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ac091f128e43c145bbd26e9cd460b65
+      internalID: 1269763084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_62
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 480
+        width: 134
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a66d295d587e9534ab2532990a24c93c
+      internalID: -1864180819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_63
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 480
+        width: 134
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aeabd422a9df704094047e1bb538a76
+      internalID: 1930260876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_64
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 480
+        width: 134
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04860fae5d2502f4a9e8fd1dfbe981d9
+      internalID: 491122480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_65
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 480
+        width: 134
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff5ed7e13f173e47905737088e0989a
+      internalID: -1696476069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_66
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 588
+        width: 57
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ec151503d23e449a9d2d0bc020ddd3
+      internalID: 1163437915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_67
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 595
+        width: 56
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e616853d9cf8b449a6d7faea74d0557
+      internalID: 554337808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_68
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 758
+        height: 548
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f117ff0cbb7b344c8685d94d7fb755a
+      internalID: -380178704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_69
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 480
+        width: 80
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75fe14ed5d471f64b8ae79610878f4d4
+      internalID: -1144331063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_70
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 481
+        width: 59
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a924081ce2e1c80408d746fc96764143
+      internalID: -1319182923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_71
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 2
+        width: 665
+        height: 476
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ccbbd59098e11540a9b460e4a6c8fc7
+      internalID: -1558091180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_kingdom_72
+      rect:
+        serializedVersion: 2
+        x: 2026
+        y: 2
+        width: 17
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b5cf3768b98ecb4897a1e41c40a2e62
+      internalID: 1518230153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +1652,80 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      challenge_bosses_kingdom_0: 603424642
+      challenge_bosses_kingdom_1: 2118587010
+      challenge_bosses_kingdom_10: -1257326323
+      challenge_bosses_kingdom_11: -1630691774
+      challenge_bosses_kingdom_12: 282950755
+      challenge_bosses_kingdom_13: -562703759
+      challenge_bosses_kingdom_14: -1815702222
+      challenge_bosses_kingdom_15: 1202926702
+      challenge_bosses_kingdom_16: 1985878800
+      challenge_bosses_kingdom_17: 1118946557
+      challenge_bosses_kingdom_18: -1145627820
+      challenge_bosses_kingdom_19: 293589048
+      challenge_bosses_kingdom_2: 13530286
+      challenge_bosses_kingdom_20: -1941035540
+      challenge_bosses_kingdom_21: 167713366
+      challenge_bosses_kingdom_22: 277234476
+      challenge_bosses_kingdom_23: -1932565964
+      challenge_bosses_kingdom_24: 44154907
+      challenge_bosses_kingdom_25: -573564553
+      challenge_bosses_kingdom_26: -695068907
+      challenge_bosses_kingdom_27: 155376449
+      challenge_bosses_kingdom_28: -1215198668
+      challenge_bosses_kingdom_29: 1561912720
+      challenge_bosses_kingdom_3: -327249463
+      challenge_bosses_kingdom_30: -1876145840
+      challenge_bosses_kingdom_31: 179513601
+      challenge_bosses_kingdom_32: -596610061
+      challenge_bosses_kingdom_33: 901062793
+      challenge_bosses_kingdom_34: 865400809
+      challenge_bosses_kingdom_35: -22642633
+      challenge_bosses_kingdom_36: -1949989126
+      challenge_bosses_kingdom_37: -1326276653
+      challenge_bosses_kingdom_38: 1478834206
+      challenge_bosses_kingdom_39: -1930151001
+      challenge_bosses_kingdom_4: 1761297528
+      challenge_bosses_kingdom_40: -912455646
+      challenge_bosses_kingdom_41: 1347064576
+      challenge_bosses_kingdom_42: 189248675
+      challenge_bosses_kingdom_43: 269624408
+      challenge_bosses_kingdom_44: -507491033
+      challenge_bosses_kingdom_45: 1873166705
+      challenge_bosses_kingdom_46: 964525689
+      challenge_bosses_kingdom_47: 1485122369
+      challenge_bosses_kingdom_48: 2018856049
+      challenge_bosses_kingdom_49: -671158430
+      challenge_bosses_kingdom_5: -2117768980
+      challenge_bosses_kingdom_50: -1205804401
+      challenge_bosses_kingdom_51: -2033917475
+      challenge_bosses_kingdom_52: -261551940
+      challenge_bosses_kingdom_53: 1022974646
+      challenge_bosses_kingdom_54: -819917603
+      challenge_bosses_kingdom_55: 1411032176
+      challenge_bosses_kingdom_56: -1756691880
+      challenge_bosses_kingdom_57: 413004696
+      challenge_bosses_kingdom_58: -561112244
+      challenge_bosses_kingdom_59: 566158985
+      challenge_bosses_kingdom_6: 1696380407
+      challenge_bosses_kingdom_60: 40914671
+      challenge_bosses_kingdom_61: 1269763084
+      challenge_bosses_kingdom_62: -1864180819
+      challenge_bosses_kingdom_63: 1930260876
+      challenge_bosses_kingdom_64: 491122480
+      challenge_bosses_kingdom_65: -1696476069
+      challenge_bosses_kingdom_66: 1163437915
+      challenge_bosses_kingdom_67: 554337808
+      challenge_bosses_kingdom_68: -380178704
+      challenge_bosses_kingdom_69: -1144331063
+      challenge_bosses_kingdom_7: -1242792739
+      challenge_bosses_kingdom_70: -1319182923
+      challenge_bosses_kingdom_71: -1558091180
+      challenge_bosses_kingdom_72: 1518230153
+      challenge_bosses_kingdom_8: 579551617
+      challenge_bosses_kingdom_9: -1194401359
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

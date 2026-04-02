@@ -215,6 +215,34 @@ public class KnifeThrower : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
+    // PUBLIC METHODS - REVIVE
+    // ═══════════════════════════════════════════
+    public void Revive()
+    {
+        _isGameOver = false;
+        _canThrow = true;
+
+        // 1. Dọn sạch con dao vừa đâm hỏng (đang bị nảy văng ra)
+        GameObject[] flyingKnives = GameObject.FindGameObjectsWithTag("Knife");
+        foreach (var k in flyingKnives)
+        {
+            if (k != null) Destroy(k);
+        }
+
+        // 2. Trả lại 1 con dao vừa ném hỏng vào kho
+        _knivesRemaining++;
+
+        // 3. Cập nhật lại HUD UI đếm dao (Mở lại icon dao bị mờ)
+        OnKnifeCountChanged?.Invoke(_knivesRemaining);
+
+        // Đoạn này tùy thuộc vào logic HUDManager của bạn, nếu bạn muốn icon chưa ném sáng lại:
+        // Bạn có thể gọi thêm HUDManager.Instance.ReviveKnifeIcon(); nếu có viết hàm đó.
+
+        // 4. Sinh dao mới ra đế ném tiếp
+        SpawnNextKnife();
+    }
+
+    // ═══════════════════════════════════════════
     // GETTERS
     // ═══════════════════════════════════════════
     public int KnivesRemaining => _knivesRemaining;
