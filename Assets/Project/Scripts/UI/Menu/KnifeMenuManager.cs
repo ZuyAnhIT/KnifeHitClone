@@ -21,6 +21,9 @@ public class KnifeMenuManager : MonoBehaviour
 
     [Header("UI Elements (Main Menu Connection)")]
     public Image imgMainKnifeOnMainMenu; // Kéo cái Img_MainKnife từ Screen_MainMenu thả vào đây
+    // ---> THÊM 2 DÒNG NÀY <---
+    public GameObject screenMainMenu;   // Kéo object Screen_MainMenu vào đây
+    public GameObject screenKnifeMenu;  // Kéo object Screen_KnifeMenu vào đây
 
     [Header("Tiến độ thu thập (Progress)")]
     public TextMeshProUGUI txtKnifeCount;
@@ -28,7 +31,7 @@ public class KnifeMenuManager : MonoBehaviour
 
     [Header("Hệ thống Gacha (Bốc thăm)")]
     public TextMeshProUGUI txtRandomPrice; // Kéo chữ "250" trên nút bấm vào đây
-    public int currentApples = 1000;       // Giả lập số táo bạn đang có (sau này link với file Save)
+    public TextMeshProUGUI txtTotalApples; // <--- THÊM BIẾN NÀY (Kéo Text hiện số táo ở góc trên vào đây)
     public int[] pagePrices = { 250, 500, 0, 0, 0, 0, 0, 0, 0, 0 };// Mảng lưu giá tiền: Vị trí 0 (Page 1) = 250, Vị trí 1 (Page 2) = 500
     private int currentPageIndex = 0;      // Mặc định vừa vào là Page 1 (Index = 0)
     private bool isSpinning = false;
@@ -83,6 +86,12 @@ public class KnifeMenuManager : MonoBehaviour
     public Image imgBarFillPacks;
     public TextMeshProUGUI txtBarProgressPacks;
 
+    [Header("Âm thanh UI (Click)")]
+    public AudioSource uiAudioSource;      // Nguồn phát âm thanh (Cái loa)
+    public AudioClip soundUnlockedClick;   // File âm thanh khi bấm dao ĐÃ MỞ
+    public AudioClip soundLockedClick;     // File âm thanh khi bấm dao BỊ KHÓA
+    public AudioClip soundRouletteTick;    // Tiếng "tạch" khi viền nhảy
+    public AudioClip soundRouletteWin;     // Tiếng "Ting/Tada" chốt hạ trúng thưởng
 
     // =========================================================
     // KHU VỰC 2: HÀM KHỞI TẠO (INITIALIZATION)
@@ -97,9 +106,32 @@ public class KnifeMenuManager : MonoBehaviour
         }
 
         UpdateKnifeProgress();
+        // ---> CHÈN DÒNG NÀY VÀO <---
+        LoadRealApples();
     }
 
+    public void LoadRealApples()
+    {
+        // Chỉ cần gọi cập nhật UI, UI sẽ tự lấy số liệu gốc
+        UpdateAppleTextUI();
+    }
 
+    public void UpdateAppleTextUI()
+    {
+        // Lấy số táo thật trực tiếp từ SaveManager
+        int realApples = 0;
+        if (SaveManager.Instance != null)
+        {
+            realApples = SaveManager.Instance.TotalApple;
+        }
+        else
+        {
+            realApples = PlayerPrefs.GetInt("TotalApple", 0); // Fallback an toàn
+        }
+
+        // Cập nhật con số lên màn hình
+        if (txtTotalApples != null) txtTotalApples.text = realApples.ToString();
+    }
     // =========================================================
     // KHU VỰC 3: XỬ LÝ LỰA CHỌN & GIAO DIỆN (SELECTION & UI)
     // =========================================================
@@ -107,6 +139,31 @@ public class KnifeMenuManager : MonoBehaviour
     // Hàm xử lý khi người chơi bấm vào 1 ô dao
     public void SelectKnife(KnifeSlotUI selectedSlot)
     {
+        // ---> 1. KIỂM TRA NẾU BẤM VÀO ĐÚNG DAO ĐANG CHỌN (ĐÃ MỞ KHÓA) <---
+        if (currentSelectedSlot == selectedSlot && selectedSlot.isUnlocked == true)
+        {
+            // Bật màn hình chính, Tắt màn hình chọn dao
+            if (screenMainMenu != null) screenMainMenu.SetActive(true);
+            if (screenKnifeMenu != null) screenKnifeMenu.SetActive(false);
+
+            // Dừng hàm ở đây luôn, không chạy các lệnh bên dưới nữa
+            return;
+        }
+        // ---> CHÈN ĐOẠN PHÁT ÂM THANH NÀY VÀO ĐẦU HÀM <---
+        if (uiAudioSource != null)
+        {
+            if (selectedSlot.isUnlocked == true)
+            {
+                // Nếu dao đã có -> Phát tiếng Ting/Tách nhẹ nhàng
+                if (soundUnlockedClick != null) uiAudioSource.PlayOneShot(soundUnlockedClick);
+            }
+            else
+            {
+                // Nếu dao chưa có -> Phát tiếng Cạch/Bíp báo hiệu bị khóa
+                if (soundLockedClick != null) uiAudioSource.PlayOneShot(soundLockedClick);
+            }
+        }
+        // ---> KẾT THÚC PHÁT ÂM THANH <---
         // Lưu lại ô dao đang được bấm để lát nữa biết đường mà mua
         currentSelectedSlot = selectedSlot;
         RectTransform slotRect = selectedSlot.GetComponent<RectTransform>();
@@ -118,6 +175,25 @@ public class KnifeMenuManager : MonoBehaviour
             yellowFrame.SetParent(slotRect);
             yellowFrame.anchoredPosition = Vector2.zero;
             yellowFrame.SetAsLastSibling();
+
+            // ---> THÊM ĐOẠN NÀY ĐỂ ĐỔI MÀU VIỀN <---
+            Image frameImage = yellowFrame.GetComponent<Image>();
+            if (frameImage != null)
+            {
+                if (selectedSlot.isUnlocked == true)
+                {
+                    // Đã mở khóa -> Viền Vàng Gold theo mã của bạn
+                    ColorUtility.TryParseHtmlString("#E0C225", out Color customYellow);
+                    frameImage.color = customYellow;
+                }
+                else
+                {
+                    // Chưa mở khóa -> Viền Xám tối
+                    ColorUtility.TryParseHtmlString("#808080", out Color grayColor);
+                    frameImage.color = grayColor;
+                }
+            }
+            // ---> KẾT THÚC ĐOẠN ĐỔI MÀU <---
         }
 
         // --- 1. CẬP NHẬT DAO KHỔNG LỒ (GIỮ NGUYÊN LOGIC CŨ CHO MỌI TRANG) ---
@@ -410,7 +486,9 @@ public class KnifeMenuManager : MonoBehaviour
 
         int cost = pagePrices[currentPageIndex];
 
-        if (currentApples < cost)
+        int realApples = SaveManager.Instance != null ? SaveManager.Instance.TotalApple : PlayerPrefs.GetInt("TotalApple", 0);
+
+        if (realApples < cost)
         {
             Debug.Log("Không đủ Táo để mua!");
             return;
@@ -448,8 +526,13 @@ public class KnifeMenuManager : MonoBehaviour
             return chieuDocA.CompareTo(chieuDocB);
         });
 
-        // Trừ táo trước khi quay để an toàn
-        currentApples -= cost;
+        // Trừ táo ở Menu để hiển thị
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.AddApple(-cost);
+        }
+
+        UpdateAppleTextUI();
 
         // BẮT ĐẦU CHẠY HIỆU ỨNG VÒNG QUAY VIỀN VÀNG
         StartCoroutine(SpinRouletteRoutine(lockedKnives));
@@ -483,6 +566,13 @@ public class KnifeMenuManager : MonoBehaviour
                 yellowFrame.anchoredPosition = Vector2.zero;
                 yellowFrame.SetAsLastSibling();
             }
+            // ---> PHÁT ÂM THANH TẠCH TẠCH Ở ĐÂY <---
+            if (uiAudioSource != null && soundRouletteTick != null)
+            {
+                // Chỉnh pitch (độ thanh) hơi ngẫu nhiên một xíu để nghe đỡ nhàm chán
+                uiAudioSource.pitch = Random.Range(0.95f, 1.05f);
+                uiAudioSource.PlayOneShot(soundRouletteTick);
+            }
 
             // 4. Hiệu ứng hồi hộp: Chậm dần ở 6 nhịp nhảy cuối cùng
             if (i >= totalJumps - 6)
@@ -495,6 +585,12 @@ public class KnifeMenuManager : MonoBehaviour
         }
 
         // --- KẾT THÚC VÒNG QUAY: MỞ KHÓA VÀ GÁN DỮ LIỆU ---
+        // ---> PHÁT ÂM THANH CHỐT HẠ TRÚNG THƯỞNG <---
+        if (uiAudioSource != null && soundRouletteWin != null)
+        {
+            uiAudioSource.pitch = 1f; // Trả lại pitch mặc định
+            uiAudioSource.PlayOneShot(soundRouletteWin);
+        }
         luckyKnife.isUnlocked = true;
         luckyKnife.UpdateVisuals();
 
@@ -514,9 +610,20 @@ public class KnifeMenuManager : MonoBehaviour
         int pageIndex = currentSelectedSlot.transform.parent.GetSiblingIndex();
         int cost = directBuyPrices[pageIndex];
 
-        if (currentApples >= cost)
+        // Lấy số táo thực tế
+        int realApples = SaveManager.Instance != null ? SaveManager.Instance.TotalApple : PlayerPrefs.GetInt("TotalApple", 0);
+
+        if (realApples >= cost)
         {
-            currentApples -= cost;
+            // ---> BỎ DÒNG TRỪ TÁO CŨ (currentApples -= cost;) ĐI <---
+
+            // Báo cho SaveManager trừ táo trong kho
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.AddApple(-cost);
+            }
+
+            UpdateAppleTextUI();
 
             currentSelectedSlot.isUnlocked = true;
             currentSelectedSlot.UpdateVisuals();
