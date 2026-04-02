@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LogRotator logRotator;
     [SerializeField] private LogItemPlacer logItemPlacer;
 
+    [Header("── Environment (Background) ──")]
+    [Tooltip("Kéo object Background vào đây")]
+    [SerializeField] private SpriteRenderer backgroundRenderer;
+    [Tooltip("Ảnh nền xanh đen gốc của màn thường")]
+    [SerializeField] private Sprite defaultBackgroundSprite;
+
     [Header("── HUD References ──")]
     [SerializeField] private TextMeshProUGUI txtStageName;
     [SerializeField] private TextMeshProUGUI txtBossName;
@@ -56,14 +62,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip targetAppearSound;
 
-    [Header("── Boss Transition UI ──")]
+    [Header("── UI Transitions ──")]
     [SerializeField] private BossTransitionUI bossTransitionUI;
+    [SerializeField] private ContinueUI continueUI; // Giao diện Hồi sinh
 
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
     private GameState _state = GameState.Idle;
     private LevelData _currentLevel;
+    private Sprite _originalLogSprite; // Lưu gỗ thường gốc
 
     // ═══════════════════════════════════════════
     // EVENTS
@@ -89,8 +97,44 @@ public class GameManager : MonoBehaviour
     {
         knifeThrower.OnAllKnivesStuck += HandleStageClear;
         knifeThrower.OnGameOver += HandleGameOver;
+
+        _originalLogSprite = defaultLogSprite; // Lưu lại gỗ chuẩn ban đầu
+
+        ApplyGameModeSettings(); // BƯỚC MỚI: Mặc áo trước khi chơi
+
         StartStage();
     }
+
+    // ═══════════════════════════════════════════
+    // PRIVATE — SETUP GAME MODE (CHALLENGE / NORMAL)
+    // ═══════════════════════════════════════════
+    private void ApplyGameModeSettings()
+    {
+        if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+        {
+            ChallengeData challenge = GameModeManager.CurrentChallenge;
+
+            // 1. Đổi ảnh nền
+            if (backgroundRenderer != null && challenge.backgroundSprite != null)
+                backgroundRenderer.sprite = challenge.backgroundSprite;
+
+            // 2. Đổi ảnh khúc gỗ (Ghi đè tạm thời defaultLogSprite)
+            if (challenge.logSprite != null)
+                defaultLogSprite = challenge.logSprite;
+
+            Debug.Log($"GameManager: Load Challenge -> {challenge.challengeName}");
+        }
+        else
+        {
+            // Trả về Normal
+            if (backgroundRenderer != null && defaultBackgroundSprite != null)
+                backgroundRenderer.sprite = defaultBackgroundSprite;
+
+            if (_originalLogSprite != null)
+                defaultLogSprite = _originalLogSprite;
+        }
+    }
+
 
     // ═══════════════════════════════════════════
     // PUBLIC
@@ -103,9 +147,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartCurrentStage()
     {
-        // XÓA điều kiện check state
-        // Cho phép gọi từ bất kỳ đâu
-
         _state = GameState.Playing;
 
         // Reset tất cả
@@ -146,7 +187,7 @@ public class GameManager : MonoBehaviour
             {
                 bossTransitionUI.PlayTransition(() =>
                 {
-                    // BƯỚC QUAN TRỌNG 2: Hiện lại khúc gỗ sau khi 2 thanh đao đã rớt xuống
+                    // Hiện lại khúc gỗ sau khi 2 thanh đao đã rớt xuống
                     if (logSpriteRenderer != null)
                         logSpriteRenderer.enabled = true;
 
@@ -236,7 +277,6 @@ public class GameManager : MonoBehaviour
 
         OnStageClear?.Invoke();
 
-        // CHỈ CÒN NHƯ THẾ NÀY (Đã xóa đoạn bossTransitionUI đi)
         List<GameObject> stuck = knifeThrower.GetStuckKnives();
         logBreakEffect.OnBreakComplete += HandleBreakComplete;
         logBreakEffect.PlayBreak(stuck);
@@ -256,7 +296,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
-    // PRIVATE — GAME OVER
+    // PRIVATE — GAME OVER & CONTINUE
     // ═══════════════════════════════════════════
     private void HandleGameOver()
     {
@@ -266,10 +306,18 @@ public class GameManager : MonoBehaviour
         logRotator.SetActive(false);
         knifeThrower.SetCanThrow(false);
 
-        Debug.Log("GameManager: Game Over!");
-        OnGameOver?.Invoke();
+        Debug.Log("GameManager: Dao va cham! Cho man hinh Continue...");
 
-        StartCoroutine(GameOverRoutine());
+        // Gọi UI Continue lên trước
+        if (continueUI != null)
+        {
+            continueUI.ShowPanel();
+        }
+        else
+        {
+            // Nếu quên gắn UI Continue thì mới hiện Game Over luôn
+            ShowFinalGameOver();
+        }
     }
 
     private IEnumerator GameOverRoutine()
@@ -282,9 +330,31 @@ public class GameManager : MonoBehaviour
             SaveManager.Instance.UpdateBestScore(
                 ScoreManager.Instance.KnifeThrown);
 
-        // KHÔNG tự restart nữa
-        // GameOverUI sẽ xử lý khi người chơi nhấn RESTART
-        OnGameOver?.Invoke(); // Báo cho GameOverUI hiện panel
+        // Báo cho GameOverUI hiện panel
+        OnGameOver?.Invoke();
+    }
+
+    // ═══════════════════════════════════════════
+    // PUBLIC — REVIVE (HỒI SINH TỪ CONTINUE UI)
+    // ═══════════════════════════════════════════
+
+    public void ReviveGame()
+    {
+        _state = GameState.Playing;
+        logRotator.SetActive(true); // Gỗ quay trở lại
+
+        if (knifeThrower != null)
+        {
+            knifeThrower.Revive(); // Mở khóa ném dao
+        }
+
+        Debug.Log("GameManager: Da hoi sinh thanh cong!");
+    }
+
+    public void ShowFinalGameOver()
+    {
+        // Khởi chạy tiến trình Game Over thực sự (Lưu điểm và hiện bảng)
+        StartCoroutine(GameOverRoutine());
     }
 
     // ═══════════════════════════════════════════
@@ -311,9 +381,6 @@ public class GameManager : MonoBehaviour
         // ẨN Stage Name thường
         if (txtStageName != null)
             txtStageName.gameObject.SetActive(false);
-
-        // txtBossName đã được set trong UpdateBossNameHUD()
-        // được gọi trước UpdateStageHUD trong StartBossStage()
     }
 
     private void UpdateHUDNormal(LevelData data)
@@ -330,11 +397,21 @@ public class GameManager : MonoBehaviour
         if (txtBossName != null)
             txtBossName.gameObject.SetActive(false);
 
-        // HIỆN Stage Name
+        // HIỆN Stage Name & Đổi chữ theo chế độ
         if (txtStageName != null)
         {
             txtStageName.gameObject.SetActive(true);
-            txtStageName.text = $"STAGE {data.stageNumber}";
+
+            // BƯỚC MỚI: Cập nhật chữ nếu đang ở chế độ Challenge
+            if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+            {
+                txtStageName.text = $"{GameModeManager.CurrentChallenge.challengeName.ToUpper()} CHALLENGE {data.stageNumber}";
+            }
+            else
+            {
+                txtStageName.text = $"STAGE {data.stageNumber}";
+            }
+
             txtStageName.color = Color.white;
         }
 
