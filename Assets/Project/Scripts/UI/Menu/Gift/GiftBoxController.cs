@@ -26,6 +26,8 @@ public class GiftBoxController : MonoBehaviour
     public Animator giftAnimator;       // Animator trên GiftIcon
     public TextMeshProUGUI txtCurrency;
 
+    [Header("── Effect ──")]
+    [SerializeField] private GiftRewardEffect rewardEffect;
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
@@ -139,8 +141,28 @@ public class GiftBoxController : MonoBehaviour
             giftAnimator.SetTrigger("Collect");
         }
 
+
+        // ── Lấy tâm màn hình trong hệ tọa độ Canvas ──
+        Vector2 spawnPos = Vector2.zero; // anchoredPosition (0,0) = tâm Canvas
+
+        // Nếu Canvas dùng Screen Space - Camera hoặc World Space
+        // thì dùng đoạn dưới thay thế:
+        // RectTransform canvasRT = rewardEffect.GetComponent<RectTransform>()
+        //     .root.GetComponent<RectTransform>();
+        // spawnPos = Vector2.zero; // vẫn là (0,0) với pivot = 0.5
+
+        // Phát hiệu ứng táo bay ra
+        if (rewardEffect != null)
+            rewardEffect.Play(rewardAmount, spawnPos);
+
+        // Cộng táo
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddAppleScore(rewardAmount);
+        }
+           
+        else if (SaveManager.Instance != null)
         // 2. Lưu vào SaveManager
-        if (SaveManager.Instance != null)
         {
             SaveManager.Instance.AddApple(rewardAmount);
             currentCurrency = SaveManager.Instance.TotalApple;
