@@ -93,21 +93,51 @@ public class KnifeMenuManager : MonoBehaviour
     public AudioClip soundRouletteTick;    // Tiếng "tạch" khi viền nhảy
     public AudioClip soundRouletteWin;     // Tiếng "Ting/Tada" chốt hạ trúng thưởng
 
+    [Header("Knife Database")]
+    public KnifeDatabase knifeDatabase; // Kéo file KnifeDatabase (ScriptableObject) vào đây
+                                        // Dùng chung 1 asset này cho cả KnifeThrower ở Gameplay
+
     // =========================================================
     // KHU VỰC 2: HÀM KHỞI TẠO (INITIALIZATION)
     // =========================================================
 
     void Start()
     {
-        // Chọn dao mặc định
-        if (defaultSlot != null)
-        {
-            SelectKnife(defaultSlot);
-        }
-
         UpdateKnifeProgress();
         // ---> CHÈN DÒNG NÀY VÀO <---
         LoadRealApples();
+
+        // Thử khôi phục đúng dao người chơi đã chọn từ lần chơi trước
+        // Đọc pageIndex và slotIndex đã lưu trong SaveManager → tìm đúng KnifeSlotUI → gọi SelectKnife
+        bool restored = false;
+        if (SaveManager.Instance != null && contentContainer != null)
+        {
+            int savedPage = SaveManager.Instance.SelectedKnifePage;
+            int savedSlot = SaveManager.Instance.SelectedKnifeSlot;
+
+            // Kiểm tra trang và ô có tồn tại không trước khi truy cập
+            if (savedPage < contentContainer.childCount)
+            {
+                Transform page = contentContainer.GetChild(savedPage);
+                if (savedSlot < page.childCount)
+                {
+                    KnifeSlotUI savedKnifeSlot = page.GetChild(savedSlot).GetComponent<KnifeSlotUI>();
+                    // Chỉ khôi phục nếu dao đó vẫn còn được mở khóa (tránh bug edge case)
+                    if (savedKnifeSlot != null && savedKnifeSlot.isUnlocked)
+                    {
+                        SelectKnife(savedKnifeSlot);
+                        restored = true;
+                        Debug.Log($"KnifeMenu: Khôi phục dao đã chọn → Page={savedPage}, Slot={savedSlot}");
+                    }
+                }
+            }
+        }
+
+        // Nếu không khôi phục được (lần đầu chơi, hoặc dao bị khóa) → dùng dao mặc định như cũ
+        if (!restored && defaultSlot != null)
+        {
+            SelectKnife(defaultSlot);
+        }
     }
 
     public void LoadRealApples()
@@ -203,7 +233,18 @@ public class KnifeMenuManager : MonoBehaviour
             topPreviewKnife.SetNativeSize();
         }
 
-        // --- 2. BẬT/TẮT BẢNG TRẠNG THÁI BOSS (HIỆN Ở PAGE 4 VÀ PAGE 5) ---
+        // --- 2. LƯU DAO ĐÃ CHỌN VÀO SAVEMANAGER (CHỈ KHI ĐÃ MỞ KHÓA) ---
+        // Mục đích: Gameplay đọc lại thông tin này để hiện đúng hình dao khi spawn
+        // pageIndex = thứ tự trang trong contentContainer (0 = Page 1, 1 = Page 2, ...)
+        // slotIndex = thứ tự ô dao trong trang đó (0 → 24)
+        if (selectedSlot.isUnlocked && SaveManager.Instance != null)
+        {
+            int pageIndex = selectedSlot.transform.parent.GetSiblingIndex();
+            int slotIndex = selectedSlot.transform.GetSiblingIndex();
+            SaveManager.Instance.SaveSelectedKnife(pageIndex, slotIndex);
+        }
+
+        // --- 3. BẬT/TẮT BẢNG TRẠNG THÁI BOSS (HIỆN Ở PAGE 4 VÀ PAGE 5) ---
         int pageIndexPreview = selectedSlot.transform.parent.GetSiblingIndex();
 
         if (pageIndexPreview == 3 || pageIndexPreview == 4 || pageIndexPreview == 5 || pageIndexPreview == 6) // PAGE 4, 5, 6

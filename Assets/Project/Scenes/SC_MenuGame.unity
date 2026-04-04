@@ -1652,6 +1652,7 @@ MonoBehaviour:
   soundLockedClick: {fileID: 8300000, guid: 6828b3aeeb73ec64ca584d850cb29434, type: 3}
   soundRouletteTick: {fileID: 8300000, guid: 6828b3aeeb73ec64ca584d850cb29434, type: 3}
   soundRouletteWin: {fileID: 8300000, guid: a227fb6e18915194c91363f8828f9c28, type: 3}
+  knifeDatabase: {fileID: 11400000, guid: cb1053ecc7d8a3a468fae2b7ff81ead7, type: 2}
 --- !u!82 &65492822
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22143,6 +22144,10 @@ MonoBehaviour:
   txtStage: {fileID: 1889685047}
   txtScore: {fileID: 1468197443}
   txtApple: {fileID: 1845062469}
+  panelShopKnife: {fileID: 65492819}
+  panelMenu: {fileID: 424225182}
+  imgMainKnife: {fileID: 1774882102}
+  knifeDatabase: {fileID: 11400000, guid: cb1053ecc7d8a3a468fae2b7ff81ead7, type: 2}
 --- !u!1 &1279322182
 GameObject:
   m_ObjectHideFlags: 0

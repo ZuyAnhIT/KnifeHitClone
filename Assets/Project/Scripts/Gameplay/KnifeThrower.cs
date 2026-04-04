@@ -6,6 +6,9 @@ using System.Collections.Generic;
 /// Quản lý việc ném dao:
 /// Nhận input → Gọi Launch() → Spawn dao tiếp theo
 /// Đếm số dao còn lại → Báo hết dao khi xong màn
+///
+/// [MỚI] Đọc sprite dao đã chọn từ KnifeDatabase + SaveManager
+/// và áp lên dao khi spawn.
 /// </summary>
 public class KnifeThrower : MonoBehaviour
 {
@@ -24,6 +27,14 @@ public class KnifeThrower : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip throwSound;
 
+    // ─────────────────────────────────────────────────────────────
+    // [MỚI] Kéo file KnifeDatabase (ScriptableObject) vào đây.
+    // Dùng chung 1 asset duy nhất cho cả Menu lẫn Gameplay.
+    // ─────────────────────────────────────────────────────────────
+    [Header("── Knife Database ──")]
+    [Tooltip("Kéo file KnifeDatabase vào đây (dùng chung với KnifeMenuManager)")]
+    [SerializeField] private KnifeDatabase knifeDatabase;
+
     // ═══════════════════════════════════════════
     // PRIVATE
     // ═══════════════════════════════════════════
@@ -32,6 +43,9 @@ public class KnifeThrower : MonoBehaviour
     private bool _canThrow = false;
     private bool _isGameOver = false;
     private List<GameObject> _stuckKnives = new List<GameObject>();
+
+    // [MỚI] Sprite dao được chọn, tính 1 lần lúc SetupLevel
+    private Sprite _selectedKnifeSprite = null;
 
     // ═══════════════════════════════════════════
     // EVENTS
@@ -43,17 +57,6 @@ public class KnifeThrower : MonoBehaviour
     // ═══════════════════════════════════════════
     // UNITY LIFECYCLE
     // ═══════════════════════════════════════════
-    //private void Start()
-    //{
-    //    _knivesRemaining = totalKnives;
-
-    //    // Setup HUD queue ngay từ đầu
-    //    if (HUDManager.Instance != null)
-    //        HUDManager.Instance.SetupKnifeQueue(totalKnives);
-
-    //    SpawnNextKnife();
-    //}
-
     private void Update()
     {
         if (!_canThrow) return;
@@ -81,9 +84,25 @@ public class KnifeThrower : MonoBehaviour
         _isGameOver = false;
         _canThrow = false;
 
-        // Reset HUD queue
+        // ─────────────────────────────────────────
+        // [MỚI] Lấy sprite dao đã chọn từ KnifeDatabase
+        // ─────────────────────────────────────────
+        _selectedKnifeSprite = null;
+        if (knifeDatabase != null && SaveManager.Instance != null)
+        {
+            int page = SaveManager.Instance.SelectedKnifePage;
+            int slot = SaveManager.Instance.SelectedKnifeSlot;
+            _selectedKnifeSprite = knifeDatabase.GetSprite(page, slot);
+            Debug.Log($"KnifeThrower: Dùng dao Page={page}, Slot={slot}");
+        }
+        else
+        {
+            Debug.LogWarning("KnifeThrower: Chưa gán KnifeDatabase hoặc SaveManager chưa sẵn sàng!");
+        }
+
+        // Setup HUD queue — truyền sprite để icon HUD hiện đúng hình dao
         if (HUDManager.Instance != null)
-            HUDManager.Instance.SetupKnifeQueue(knifeCount);
+            HUDManager.Instance.SetupKnifeQueue(knifeCount, null);
 
         SpawnNextKnife();
     }
@@ -109,7 +128,6 @@ public class KnifeThrower : MonoBehaviour
             audioSource.PlayOneShot(throwSound);
         }
 
-        // Cập nhật HUD icon dao
         if (HUDManager.Instance != null)
             HUDManager.Instance.OnKnifeThrown();
     }
@@ -134,19 +152,32 @@ public class KnifeThrower : MonoBehaviour
 
         if (_isGameOver) yield break;
 
-        // Tạo dao mới tại SpawnPoint
-        GameObject knifeObj = Instantiate(
-            knifePrefab,
-            spawnPoint.position,
-            Quaternion.identity
-        );
-
+        GameObject knifeObj = Instantiate(knifePrefab, spawnPoint.position, Quaternion.identity);
         _currentKnife = knifeObj.GetComponent<KnifeController>();
 
         if (_currentKnife == null)
         {
             Debug.LogError("KnifeThrower: PRE_Knife thiếu KnifeController!");
             yield break;
+        }
+
+        // ─────────────────────────────────────────
+        // [MỚI] Áp sprite dao đã chọn lên con dao vừa spawn
+        // ─────────────────────────────────────────
+        if (_selectedKnifeSprite != null)
+        {
+            // Thử SpriteRenderer trước (dao dạng 2D object)
+            SpriteRenderer sr = knifeObj.GetComponentInChildren<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.sprite = _selectedKnifeSprite;
+            }
+            else
+            {
+                // Nếu dao dùng UI Image
+                UnityEngine.UI.Image img = knifeObj.GetComponentInChildren<UnityEngine.UI.Image>();
+                if (img != null) img.sprite = _selectedKnifeSprite;
+            }
         }
 
         // Đăng ký events
@@ -156,8 +187,6 @@ public class KnifeThrower : MonoBehaviour
 
         // Trừ dao
         _knivesRemaining--;
-
-        // Cập nhật HUD số dao
         OnKnifeCountChanged?.Invoke(_knivesRemaining);
 
         Debug.Log($"KnifeThrower: Spawned knife. Remaining: {_knivesRemaining}");
@@ -176,7 +205,6 @@ public class KnifeThrower : MonoBehaviour
     private void HandleGameOver()
     {
         if (_isGameOver) return;
-
         _isGameOver = true;
         _canThrow = false;
 
@@ -204,15 +232,8 @@ public class KnifeThrower : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetStuckKnives()
-    {
-        return new List<GameObject>(_stuckKnives);
-    }
-
-    public void ClearAllKnivesPublic()
-    {
-        ClearAllKnives();
-    }
+    public List<GameObject> GetStuckKnives() => new List<GameObject>(_stuckKnives);
+    public void ClearAllKnivesPublic() => ClearAllKnives();
 
     // ═══════════════════════════════════════════
     // PUBLIC METHODS - REVIVE

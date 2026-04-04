@@ -14,11 +14,15 @@ public class SaveManager : MonoBehaviour
     private const string KEY_TOTAL_APPLE = "TotalApple";
     private const string KEY_GIFT_CLOSE_TIME = "GiftCloseTime";
     private const string KEY_GIFT_TIME_REMAINING = "GiftTimeRemaining";
+    private const string KEY_SELECTED_KNIFE_PAGE = "SelectedKnifePage"; // [MỚI] Trang dao đã chọn4/4
+    private const string KEY_SELECTED_KNIFE_SLOT = "SelectedKnifeSlot"; // [MỚI] Ô dao đã chọn4/4
 
     // ── Cached values ──
     private int _bestStage;
     private int _bestScore;
     private int _totalApple;
+    private int _selectedKnifePage; // [MỚI]4/4
+    private int _selectedKnifeSlot; // [MỚI]4/4
 
     private void Awake()
     {
@@ -40,11 +44,14 @@ public class SaveManager : MonoBehaviour
         _bestStage = PlayerPrefs.GetInt(KEY_BEST_STAGE, 0);
         _bestScore = PlayerPrefs.GetInt(KEY_BEST_SCORE, 0);
         _totalApple = PlayerPrefs.GetInt(KEY_TOTAL_APPLE, 0);
+        _selectedKnifePage = PlayerPrefs.GetInt(KEY_SELECTED_KNIFE_PAGE, 0); // [MỚI]4/4
+        _selectedKnifeSlot = PlayerPrefs.GetInt(KEY_SELECTED_KNIFE_SLOT, 0); // [MỚI]4/4
 
         Debug.Log($"SaveManager: Loaded | " +
                   $"BestStage={_bestStage} | " +
                   $"BestScore={_bestScore} | " +
-                  $"TotalApple={_totalApple}");
+                  $"TotalApple={_totalApple} | " +
+                  $"SelectedKnife=Page{_selectedKnifePage}_Slot{_selectedKnifeSlot}");
     }
 
     // ═══════════════════════════════════════════
@@ -103,6 +110,25 @@ public class SaveManager : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
+    // SAVE — SELECTED KNIFE [MỚI]
+    // ═══════════════════════════════════════════
+
+    /// <summary>
+    /// Lưu dao đã chọn theo pageIndex và slotIndex.
+    /// Gọi từ KnifeMenuManager khi người chơi chọn dao đã mở khóa.
+    /// </summary>
+    public void SaveSelectedKnife(int pageIndex, int slotIndex)
+    {
+        _selectedKnifePage = pageIndex;
+        _selectedKnifeSlot = slotIndex;
+        PlayerPrefs.SetInt(KEY_SELECTED_KNIFE_PAGE, _selectedKnifePage);
+        PlayerPrefs.SetInt(KEY_SELECTED_KNIFE_SLOT, _selectedKnifeSlot);
+        PlayerPrefs.Save();
+
+        Debug.Log($"SaveManager: SelectedKnife saved → Page={pageIndex}, Slot={slotIndex}");
+    }
+
+    // ═══════════════════════════════════════════
     // SAVE — GIFT BOX TIMER
     // ═══════════════════════════════════════════
     public void SaveGiftTimer(float timeRemaining)
@@ -141,4 +167,6 @@ public class SaveManager : MonoBehaviour
     public int BestStage => _bestStage;
     public int BestScore => _bestScore;
     public int TotalApple => _totalApple;
+    public int SelectedKnifePage => _selectedKnifePage; // [MỚI]4/4
+    public int SelectedKnifeSlot => _selectedKnifeSlot; // [MỚI]4/4
 }
