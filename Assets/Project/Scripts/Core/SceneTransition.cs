@@ -51,4 +51,10 @@ public class SceneTransition : MonoBehaviour
     {
         SceneManager.LoadScene(SCENE_CHALLENGE);
     }
+
+    public void OpenShopKnife()
+    {
+        PlayerPrefs.SetInt("OpenShopKnife", 1);
+        SceneManager.LoadScene(SCENE_MENU);
+    }
 }
