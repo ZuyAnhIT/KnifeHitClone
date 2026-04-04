@@ -21,11 +21,15 @@ public class SceneTransition : MonoBehaviour
     // ═══════════════════════════════════════════
 
     /// <summary>
-    /// Chuyển sang màn chơi game
+    /// Chuyển sang màn chơi game (Mặc định là màn Normal)
     /// Gắn vào Btn_Play trong SC_MenuGame
     /// </summary>
     public void GoToGameplay()
     {
+        // ── BƯỚC SỬA LỖI Ở ĐÂY ──
+        // Ép game trở về chế độ chơi thường trước khi load Scene
+        GameModeManager.SetNormalMode();
+
         SceneManager.LoadScene(SCENE_GAMEPLAY);
     }
 
@@ -38,11 +42,11 @@ public class SceneTransition : MonoBehaviour
         SceneManager.LoadScene(SCENE_MENU);
     }
 
-
     public void GoToStore()
     {
         SceneManager.LoadScene(SCENE_STORE);
     }
+
     public void GoToChallenge()
     {
         SceneManager.LoadScene(SCENE_CHALLENGE);

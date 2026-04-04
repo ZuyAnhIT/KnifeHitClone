@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -108,7 +108,1246 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1799
+        width: 302
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aee53dad25d83f489b999bda26937b7
+      internalID: 1654492247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_1
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1828
+        width: 380
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c3883b674d8184f8eaef9fa4fbd67f
+      internalID: 932384887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_2
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 1816
+        width: 134
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b14937951bc60a049a67bee7001848ce
+      internalID: -1810829389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_3
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 1822
+        width: 193
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7644c3dde2798a4d9f9a58b9367797d
+      internalID: -239961102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_4
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 1764
+        width: 134
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ab2f62f73fb0c478eac10809b88f14
+      internalID: 865837921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_5
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 1784
+        width: 227
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdbc90ddc5632e148a754aa30611d92f
+      internalID: -1242959005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_6
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 1901
+        width: 224
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b013c539de2b7c845bbae98b1acfee64
+      internalID: 242610850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_7
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 1901
+        width: 101
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17ebbc82266ebf042b5ad77da7b2d216
+      internalID: 924071063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_8
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1389
+        width: 216
+        height: 437
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfd17c6cbc2386841b4f9576c386657c
+      internalID: 1719921773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_9
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1377
+        width: 214
+        height: 437
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f92cf06910ef074082899e419e10b70
+      internalID: -268311565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_10
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 1377
+        width: 103
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1c21e38e7e0c4b49ac581784ad64386
+      internalID: -1877871435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_11
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 1808
+        width: 312
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218c2edaa02811a498caa07a70620e9e
+      internalID: -1747010734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_12
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 1597
+        width: 131
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f2010a79da2a124e879c3fd52643f4e
+      internalID: -970502403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_13
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 1812
+        width: 79
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd2b4abbea7bad499457b0db8011e2d
+      internalID: -399333500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1389
+        width: 349
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a6a36e664e46124ebfc9b3c95ce9148
+      internalID: -598597426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_15
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 1456
+        width: 249
+        height: 326
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b637a7bf03f924b8abdcbc4df6096d
+      internalID: -977418842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_16
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 1639
+        width: 254
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3978e2b7c5097044a97ea681be20ccab
+      internalID: 1115353690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_17
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 1731
+        width: 110
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eb116e53e6e0f24eb525ecdb58fbf57
+      internalID: 1372619571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_18
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 1523
+        width: 167
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e102370e92ebd4ca84262238d78f28
+      internalID: -318900400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_19
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 1414
+        width: 223
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aaf1d2189b35ae42a63846813e9a97a
+      internalID: 173576733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_20
+      rect:
+        serializedVersion: 2
+        x: 1693
+        y: 1333
+        width: 140
+        height: 262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 279ee941eedb0a645b9447125c4eaf3f
+      internalID: -1807597400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_21
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 1590
+        width: 139
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159d62a35f80c80449b6a194430f3165
+      internalID: -912650984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_22
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 1298
+        width: 417
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e194cd6852bb7f64e9d2f9fc9f3b310c
+      internalID: 2108996860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_23
+      rect:
+        serializedVersion: 2
+        x: 1835
+        y: 1445
+        width: 136
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4805e9cbbb3129747b51a5eae1fdeaa2
+      internalID: 1758028410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_24
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1134
+        width: 521
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18549bc2f0a29bf439cd6fcbfc3899ec
+      internalID: -576048710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_25
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1212
+        width: 415
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef3e502c516b8f4fb8aef84bf09d5fc
+      internalID: -1220036697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_26
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 1333
+        width: 325
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8264e936aa9645841b36232edf3087d2
+      internalID: -1037235854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_27
+      rect:
+        serializedVersion: 2
+        x: 1835
+        y: 1226
+        width: 164
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdeef81a762d3e348bae5d719b0e05e1
+      internalID: -1454377294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_28
+      rect:
+        serializedVersion: 2
+        x: 986
+        y: 1035
+        width: 440
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67eec6a0088a9914da28144372b2ed48
+      internalID: 259334376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_29
+      rect:
+        serializedVersion: 2
+        x: 1428
+        y: 1227
+        width: 361
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4a2589294f1814eb3e3e0d3e4c39aa
+      internalID: -1155256508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_30
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1134
+        width: 110
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3a9952edf2d1947b4af63e7077fa7b
+      internalID: -1743204723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_31
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 962
+        width: 326
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d56edf3ce6a3b814c84f9e687ae49e17
+      internalID: -61416676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_32
+      rect:
+        serializedVersion: 2
+        x: 1428
+        y: 1089
+        width: 357
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a039c9693bec98e4daaefd912b5fb596
+      internalID: -472238942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_33
+      rect:
+        serializedVersion: 2
+        x: 1787
+        y: 1122
+        width: 54
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf8d967e7ea4cd4f83c767b6b1c4c8e
+      internalID: -1377784613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_34
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 1067
+        width: 63
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03f78be4b142c4f45b13313888fd76a9
+      internalID: -90213094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_35
+      rect:
+        serializedVersion: 2
+        x: 1830
+        y: 1098
+        width: 126
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3813464c1000eb4bba8c967fc88a412
+      internalID: 1411193911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_36
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 569
+        width: 563
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694f356ae231c874c8964bc55a86a03f
+      internalID: 1095510761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_37
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 569
+        width: 89
+        height: 515
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c620def0bf489cb4291d0b6dfd8b1cce
+      internalID: 267413098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_38
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 839
+        width: 326
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84d2d0000d15138498829727cebae52f
+      internalID: 126709809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_39
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 1064
+        width: 66
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e95ac5e92f677df4ea6e3fbbad4986af
+      internalID: 762843544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_40
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 807
+        width: 441
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 276c514f4c9dc4646bb0fcc28dc97e49
+      internalID: 438043608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_41
+      rect:
+        serializedVersion: 2
+        x: 1771
+        y: 840
+        width: 158
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be10fb1c6436cd84d988ed8da1cb839c
+      internalID: 1200090482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_42
+      rect:
+        serializedVersion: 2
+        x: 1932
+        y: 980
+        width: 78
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cabfa88544132094397985a6281c54e7
+      internalID: 662541709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_43
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 567
+        width: 340
+        height: 393
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a758c7459c1532a4eacdaacac99bcc29
+      internalID: -1729610431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_44
+      rect:
+        serializedVersion: 2
+        x: 1932
+        y: 839
+        width: 81
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94a6d80fb3770b4f85a23b63ea47ffe
+      internalID: -1905306816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_45
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 592
+        width: 512
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acb054c43666b744882345994bcabd6e
+      internalID: -1759882667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_46
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 731
+        width: 363
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb2e806672ae4b54eb142a7ccdd2412e
+      internalID: -1751660213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_47
+      rect:
+        serializedVersion: 2
+        x: 1879
+        y: 731
+        width: 137
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d9fcc0762ce2e4a81ebc5bf9e9b948
+      internalID: 1738585481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_48
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 592
+        width: 83
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d9e645fdd1917940bda3ec0502c436d
+      internalID: 1525685678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_49
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 433
+        width: 422
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dc10678083a11f498f874ffe3012b90
+      internalID: 801758397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_50
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 565
+        height: 565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf0f544efd8e694eb36af2d6bb8b35d
+      internalID: -1586674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_51
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 2
+        width: 563
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d563adaf958d6874ea8274c5c1e3edb1
+      internalID: 855700714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_52
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 493
+        width: 219
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a664d17ff398fa4493eee3f969a2bb3
+      internalID: -114796678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_53
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 500
+        width: 211
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6789a2d400136984a9707f1cd52f07de
+      internalID: 1076079889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_54
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 210
+        width: 451
+        height: 281
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dde4fa62672f6974b9f318dc46c31df9
+      internalID: 1032576988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_55
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 210
+        width: 439
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de6af3bdbdf9759468edc244be47c7b3
+      internalID: -1390702249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_56
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 2
+        width: 560
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9779dbf96546fce449496f0b361f1618
+      internalID: 1569506436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_57
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 2
+        width: 288
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1805b377b05fd0428d0e0973b7d169f
+      internalID: 718679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: challenge_bosses_monsters3_58
+      rect:
+        serializedVersion: 2
+        x: 1986
+        y: 2
+        width: 45
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b62746e13dde5439a219b3c57bb532
+      internalID: -436465523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +1358,66 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      challenge_bosses_monsters3_0: 1654492247
+      challenge_bosses_monsters3_1: 932384887
+      challenge_bosses_monsters3_10: -1877871435
+      challenge_bosses_monsters3_11: -1747010734
+      challenge_bosses_monsters3_12: -970502403
+      challenge_bosses_monsters3_13: -399333500
+      challenge_bosses_monsters3_14: -598597426
+      challenge_bosses_monsters3_15: -977418842
+      challenge_bosses_monsters3_16: 1115353690
+      challenge_bosses_monsters3_17: 1372619571
+      challenge_bosses_monsters3_18: -318900400
+      challenge_bosses_monsters3_19: 173576733
+      challenge_bosses_monsters3_2: -1810829389
+      challenge_bosses_monsters3_20: -1807597400
+      challenge_bosses_monsters3_21: -912650984
+      challenge_bosses_monsters3_22: 2108996860
+      challenge_bosses_monsters3_23: 1758028410
+      challenge_bosses_monsters3_24: -576048710
+      challenge_bosses_monsters3_25: -1220036697
+      challenge_bosses_monsters3_26: -1037235854
+      challenge_bosses_monsters3_27: -1454377294
+      challenge_bosses_monsters3_28: 259334376
+      challenge_bosses_monsters3_29: -1155256508
+      challenge_bosses_monsters3_3: -239961102
+      challenge_bosses_monsters3_30: -1743204723
+      challenge_bosses_monsters3_31: -61416676
+      challenge_bosses_monsters3_32: -472238942
+      challenge_bosses_monsters3_33: -1377784613
+      challenge_bosses_monsters3_34: -90213094
+      challenge_bosses_monsters3_35: 1411193911
+      challenge_bosses_monsters3_36: 1095510761
+      challenge_bosses_monsters3_37: 267413098
+      challenge_bosses_monsters3_38: 126709809
+      challenge_bosses_monsters3_39: 762843544
+      challenge_bosses_monsters3_4: 865837921
+      challenge_bosses_monsters3_40: 438043608
+      challenge_bosses_monsters3_41: 1200090482
+      challenge_bosses_monsters3_42: 662541709
+      challenge_bosses_monsters3_43: -1729610431
+      challenge_bosses_monsters3_44: -1905306816
+      challenge_bosses_monsters3_45: -1759882667
+      challenge_bosses_monsters3_46: -1751660213
+      challenge_bosses_monsters3_47: 1738585481
+      challenge_bosses_monsters3_48: 1525685678
+      challenge_bosses_monsters3_49: 801758397
+      challenge_bosses_monsters3_5: -1242959005
+      challenge_bosses_monsters3_50: -1586674
+      challenge_bosses_monsters3_51: 855700714
+      challenge_bosses_monsters3_52: -114796678
+      challenge_bosses_monsters3_53: 1076079889
+      challenge_bosses_monsters3_54: 1032576988
+      challenge_bosses_monsters3_55: -1390702249
+      challenge_bosses_monsters3_56: 1569506436
+      challenge_bosses_monsters3_57: 718679
+      challenge_bosses_monsters3_58: -436465523
+      challenge_bosses_monsters3_6: 242610850
+      challenge_bosses_monsters3_7: 924071063
+      challenge_bosses_monsters3_8: 1719921773
+      challenge_bosses_monsters3_9: -268311565
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

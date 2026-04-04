@@ -35,6 +35,9 @@ public class LogBreakEffect : MonoBehaviour
     private bool _isBossStage = false;
     private Color _bossColor = Color.yellow;
 
+    // Biến lưu trữ ảnh mảnh vỡ custom của màn Challenge
+    private Sprite[] _customBrokenSprites;
+
     // ── Event ──
     public System.Action OnBreakComplete;
 
@@ -53,11 +56,13 @@ public class LogBreakEffect : MonoBehaviour
 
     /// <summary>
     /// Gọi từ GameManager khi bắt đầu boss/normal stage
+    /// Truyền thêm mảng customSprites nếu là màn Challenge
     /// </summary>
-    public void SetBossMode(bool isBoss, Color color)
+    public void SetBossMode(bool isBoss, Color color, Sprite[] customSprites = null)
     {
         _isBossStage = isBoss;
         _bossColor = color;
+        _customBrokenSprites = customSprites;
         Debug.Log($"LogBreakEffect: BossMode={isBoss} | Color={color}");
     }
 
@@ -111,7 +116,7 @@ public class LogBreakEffect : MonoBehaviour
         }
         else
         {
-            // ── THƯỜNG: Mảnh vỡ gỗ ──
+            // ── THƯỜNG: Mảnh vỡ gỗ (hoặc quái vật custom) ──
             SpawnBreakPieces();
         }
 
@@ -195,6 +200,17 @@ public class LogBreakEffect : MonoBehaviour
                 Quaternion.Euler(0f, 0f,
                     Random.Range(0f, 360f))
             );
+
+            // ── ÉP ẢNH MẢNH VỠ NẾU ĐANG Ở MÀN CHALLENGE ──
+            if (_customBrokenSprites != null && _customBrokenSprites.Length > 0)
+            {
+                SpriteRenderer pieceSr = piece.GetComponentInChildren<SpriteRenderer>();
+                if (pieceSr != null)
+                {
+                    // Lấy ngẫu nhiên 1 trong số các ảnh mảnh vỡ (1/2, 1/3, 1/4) đã cấu hình
+                    pieceSr.sprite = _customBrokenSprites[Random.Range(0, _customBrokenSprites.Length)];
+                }
+            }
 
             BreakPiece bp = piece.GetComponent<BreakPiece>();
             if (bp != null)

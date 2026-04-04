@@ -8,16 +8,25 @@ public class ChallengeData : ScriptableObject
     public string challengeName = "Monsters";
     public int rewardApples = 100; // Phần thưởng khi hoàn thành toàn bộ thử thách
 
-    [Header("── Giao diện (Lớp áo) ──")]
-    public Sprite backgroundSprite; // Ảnh nền phía sau
-    public Sprite logSprite;        // Ảnh mục tiêu (thay cho khúc gỗ)
-    public Color explodeColor = Color.white; // Màu khi mục tiêu vỡ tung
+    [Tooltip("Màu chủ đạo cho HUD (Chấm tròn, Dao boss, Chuyển cảnh)")]
+    public Color themeColor = new Color(1f, 0.7f, 0f, 1f); // Mặc định là màu Vàng/Cam
 
-    [Header("── Âm thanh ──")]
-    public AudioClip[] hitSounds;   // Mảng âm thanh khi dao cắm vào mục tiêu
+    [Header("── Giao diện Nền ──")]
+    public Sprite backgroundSprite; // Ảnh nền phía sau của riêng Challenge này
 
-    [Header("── Độ khó ──")]
-    [Tooltip("Danh sách các màn chơi nhỏ trong thử thách này")]
-    // Bạn có thể tận dụng luôn LevelData cũ để cấu hình độ khó, số dao, táo... cho từng stage của Challenge
+    [Tooltip("Kéo 3 mảnh vỡ (1/2, 1/3, 1/4) của gỗ màn này vào đây")]
+    public Sprite[] normalBrokenSprites;
+
+    [Header("── Màn Thường (Normal Stage) ──")]
+    public Sprite normalLogSprite;                 // Ảnh mục tiêu thường (Ví dụ: Quái vật nhỏ)
+    public Color normalExplodeColor = Color.white; // Màu hạt vỡ khi mục tiêu thường nổ tung
+    public AudioClip[] hitSounds;                  // Âm thanh khi đâm dao trúng mục tiêu thường
+
+    [Header("── Màn Boss (Boss Stage) ──")]
+    [Tooltip("Danh sách Boss sẽ xuất hiện (Vòng 1 đánh Boss ở index 0, Vòng 2 đánh index 1...)")]
+    public List<BossLogData> challengeBosses;
+
+    [Header("── Độ khó (Tùy chọn) ──")]
+    [Tooltip("Danh sách cấu hình tốc độ, số dao... riêng biệt cho thử thách này")]
     public List<LevelData> challengeStages;
 }

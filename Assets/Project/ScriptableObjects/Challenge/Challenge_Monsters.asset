@@ -14,8 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   challengeName: Monsters
   rewardApples: 100
-  backgroundSprite: {fileID: 21300000, guid: e9546b9cb31168b4ba87fd7fcd9d041c, type: 3}
-  logSprite: {fileID: 1202926702, guid: 2f638d832f8bc424f8260a8f69e57976, type: 3}
-  explodeColor: {r: 1, g: 1, b: 1, a: 1}
+  themeColor: {r: 0.46226418, g: 0.03706836, b: 0.23184238, a: 1}
+  backgroundSprite: {fileID: 21300000, guid: d315fc5ed390a9343a2abf05fa227330, type: 3}
+  normalBrokenSprites:
+  - {fileID: 1914231738, guid: 5284a6dca13f7f44483feb8183d55c28, type: 3}
+  - {fileID: 1152340353, guid: 628d1401ec6bd8f4f90d466a57fce7c9, type: 3}
+  - {fileID: 126709809, guid: 8ba886e4f32aa5e4db050862f1f3617d, type: 3}
+  normalLogSprite: {fileID: -1586674, guid: 8ba886e4f32aa5e4db050862f1f3617d, type: 3}
+  normalExplodeColor: {r: 1, g: 1, b: 1, a: 1}
   hitSounds: []
-  challengeStages: []
+  challengeBosses:
+  - {fileID: 11400000, guid: 8da3129b7589b9c49b8c37307663638c, type: 2}
+  challengeStages:
+  - stageNumber: 0
+    cycleNumber: 0
+    stageInCycle: 0
+    isBossStage: 0
+    knifeCount: 0
+    preplacedCount: 0
+    appleCount: 0
+    logSpeed: 0
+    canReverse: 0
+    reverseInterval: 0
+    logSpriteIndex: 0
+  - stageNumber: 0
+    cycleNumber: 0
+    stageInCycle: 0
+    isBossStage: 0
+    knifeCount: 0
+    preplacedCount: 0
+    appleCount: 0
+    logSpeed: 0
+    canReverse: 0
+    reverseInterval: 0
+    logSpriteIndex: 0
+  - stageNumber: 0
+    cycleNumber: 0
+    stageInCycle: 0
+    isBossStage: 0
+    knifeCount: 0
+    preplacedCount: 0
+    appleCount: 0
+    logSpeed: 0
+    canReverse: 0
+    reverseInterval: 0
+    logSpriteIndex: 0
