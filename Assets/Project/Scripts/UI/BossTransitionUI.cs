@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // BƯỚC MỚI: Thêm thư viện này để dùng TextMeshPro
 using System.Collections;
 
 public class BossTransitionUI : MonoBehaviour
@@ -11,6 +12,18 @@ public class BossTransitionUI : MonoBehaviour
     [Header("── Center Group (Chữ + Icon chéo) ──")]
     [SerializeField] private CanvasGroup centerGroup;
     [SerializeField] private GameObject clashIcon;
+
+    // BƯỚC MỚI: Thêm biến này để đổi màu Text BOSS FIGHT!
+    [Tooltip("Kéo text BOSS FIGHT! vào đây")]
+    [SerializeField] private TextMeshProUGUI txtBossFight;
+
+    [Header("── Cấu hình Đổi Màu (Theme) ──")]
+    [Tooltip("Image của thanh kiếm bay lên bên trái")]
+    [SerializeField] private Image leftSwordIcon;
+    [Tooltip("Image của thanh kiếm bay lên bên phải")]
+    [SerializeField] private Image rightSwordIcon;
+    [Tooltip("Image của icon hai kiếm chéo nhau ở giữa (nếu có)")]
+    [SerializeField] private Image clashIconImage;
 
     [Header("── Âm thanh ──")]
     [SerializeField] private AudioSource audioSource;
@@ -27,10 +40,18 @@ public class BossTransitionUI : MonoBehaviour
     [SerializeField] private Vector2 leftClashPos = new Vector2(-50f, -100f);
     [SerializeField] private Vector2 rightClashPos = new Vector2(50f, -100f);
 
-    private void Start()
+
+    /// <summary>
+    /// Hàm này được GameManager gọi để đổi màu kiếm trước khi chạy hiệu ứng
+    /// </summary>
+    public void SetThemeColor(Color color)
     {
-        // Ẩn UI đi ở frame đầu tiên để tránh lỗi vòng đời của Unity (Đừng dùng Awake)
-        gameObject.SetActive(false);
+        if (leftSwordIcon != null) leftSwordIcon.color = color;
+        if (rightSwordIcon != null) rightSwordIcon.color = color;
+        if (clashIconImage != null) clashIconImage.color = color;
+
+        // BƯỚC MỚI: Đổi màu cho chữ BOSS FIGHT!
+        if (txtBossFight != null) txtBossFight.color = color;
     }
 
     public void PlayTransition(System.Action onComplete)

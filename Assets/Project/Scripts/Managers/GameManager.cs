@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     [Header("── HUD References ──")]
     [SerializeField] private TextMeshProUGUI txtStageName;
+    [SerializeField] private float normalFontSize = 65f;     // Cỡ chữ màn thường
+    [SerializeField] private float challengeFontSize = 45f;  // Cỡ chữ màn Challenge (nhỏ hơn)
     [SerializeField] private TextMeshProUGUI txtBossName;
     [SerializeField] private List<Image> stageDots;
     [SerializeField] private Image bossDotIcon;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     [Header("── UI Transitions ──")]
     [SerializeField] private BossTransitionUI bossTransitionUI;
     [SerializeField] private ContinueUI continueUI; // Giao diện Hồi sinh
+    [SerializeField] private ChallengeCompleteUI challengeCompleteUI; // BƯỚC MỚI: Giao diện Chúc mừng Challenge
 
     // ═══════════════════════════════════════════
     // PRIVATE
@@ -72,6 +75,9 @@ public class GameManager : MonoBehaviour
     private GameState _state = GameState.Idle;
     private LevelData _currentLevel;
     private Sprite _originalLogSprite; // Lưu gỗ thường gốc
+
+    // Đếm vị trí Stage trong chu kỳ Challenge (1, 2, 3, 4, 5)
+    private int _challengeStageInCycle = 1;
 
     // ═══════════════════════════════════════════
     // EVENTS
@@ -99,8 +105,9 @@ public class GameManager : MonoBehaviour
         knifeThrower.OnGameOver += HandleGameOver;
 
         _originalLogSprite = defaultLogSprite; // Lưu lại gỗ chuẩn ban đầu
+        _challengeStageInCycle = 1;
 
-        ApplyGameModeSettings(); // BƯỚC MỚI: Mặc áo trước khi chơi
+        ApplyGameModeSettings(); // Mặc áo trước khi chơi
 
         StartStage();
     }
@@ -110,6 +117,8 @@ public class GameManager : MonoBehaviour
     // ═══════════════════════════════════════════
     private void ApplyGameModeSettings()
     {
+        Color currentThemeColor = new Color(1f, 0.7f, 0f, 1f); // Vàng mặc định
+
         if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
         {
             ChallengeData challenge = GameModeManager.CurrentChallenge;
@@ -118,9 +127,12 @@ public class GameManager : MonoBehaviour
             if (backgroundRenderer != null && challenge.backgroundSprite != null)
                 backgroundRenderer.sprite = challenge.backgroundSprite;
 
-            // 2. Đổi ảnh khúc gỗ (Ghi đè tạm thời defaultLogSprite)
-            if (challenge.logSprite != null)
-                defaultLogSprite = challenge.logSprite;
+            // 2. Đổi ảnh khúc gỗ thường
+            if (challenge.normalLogSprite != null)
+                defaultLogSprite = challenge.normalLogSprite;
+
+            // 3. Lấy màu chủ đạo
+            currentThemeColor = challenge.themeColor;
 
             Debug.Log($"GameManager: Load Challenge -> {challenge.challengeName}");
         }
@@ -133,8 +145,13 @@ public class GameManager : MonoBehaviour
             if (_originalLogSprite != null)
                 defaultLogSprite = _originalLogSprite;
         }
-    }
 
+        // Truyền màu chủ đạo sang UI va kiếm
+        if (bossTransitionUI != null)
+        {
+            bossTransitionUI.SetThemeColor(currentThemeColor);
+        }
+    }
 
     // ═══════════════════════════════════════════
     // PUBLIC
@@ -148,6 +165,7 @@ public class GameManager : MonoBehaviour
     public void RestartCurrentStage()
     {
         _state = GameState.Playing;
+        _challengeStageInCycle = 1; // Reset vòng stage khi thua chơi lại
 
         // Reset tất cả
         ScoreManager.Instance?.ResetScore();
@@ -158,7 +176,7 @@ public class GameManager : MonoBehaviour
         if (knifeThrower != null)
             knifeThrower.SetCanThrow(true);
 
-        // Bắt đầu lại Stage 1
+        // Bắt đầu lại
         StartStage();
 
         Debug.Log("GameManager: Restarted!");
@@ -173,6 +191,14 @@ public class GameManager : MonoBehaviour
     private void StartStage()
     {
         _currentLevel = LevelGenerator.Instance.GenerateNext();
+
+        // ĐÁNH CHẶN LOGIC CHO CHALLENGE (ÉP VỀ 5 STAGE NHƯ BÌNH THƯỜNG)
+        if (GameModeManager.CurrentMode == GameMode.Challenge)
+        {
+            _currentLevel.stageInCycle = _challengeStageInCycle;
+            _currentLevel.isBossStage = (_challengeStageInCycle == 5); // Màn 5 là Boss
+        }
+
         _state = GameState.Playing;
 
         UpdateStageHUD(_currentLevel);
@@ -216,7 +242,23 @@ public class GameManager : MonoBehaviour
 
     private void StartBossStage()
     {
-        BossLogData boss = bossLogManager.GetRandomBoss();
+        BossLogData boss = null;
+
+        // Lấy Boss riêng từ ChallengeData thay vì Random toàn game
+        if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+        {
+            var bosses = GameModeManager.CurrentChallenge.challengeBosses;
+            if (bosses != null && bosses.Count > 0)
+            {
+                // Lấy boss theo Level (Lặp lại vòng nếu level lớn hơn số lượng boss cài sẵn)
+                int index = (GameModeManager.CurrentChallengeLevel - 1) % bosses.Count;
+                boss = bosses[index];
+            }
+        }
+
+        // Fallback về Boss ngẫu nhiên nếu là màn Normal
+        if (boss == null) boss = bossLogManager.GetRandomBoss();
+
         bossLogManager.ApplyBossLog(boss);
         logRotator.SetActive(true);
 
@@ -224,9 +266,9 @@ public class GameManager : MonoBehaviour
         if (logBreakEffect != null)
             logBreakEffect.SetBossMode(true, boss.explodeColor);
 
-        logItemPlacer.Setup(
-            _currentLevel.preplacedCount,
-            _currentLevel.appleCount);
+        // ── KHÔNG ĐẺ TÁO TRONG CHALLENGE ──
+        int spawnApples = (GameModeManager.CurrentMode == GameMode.Challenge) ? 0 : _currentLevel.appleCount;
+        logItemPlacer.Setup(_currentLevel.preplacedCount, spawnApples);
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
         UpdateBossNameHUD(boss);
@@ -242,16 +284,25 @@ public class GameManager : MonoBehaviour
     {
         ResetLogSprite();
 
-        // Reset về normal mode
+        Color breakColor = Color.white;
+        Sprite[] customBrokenSprites = null; // Biến lưu mảng ảnh vỡ
+
+        // Lấy màu vỡ và ảnh vỡ của gỗ thường trong Challenge
+        if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+        {
+            breakColor = GameModeManager.CurrentChallenge.normalExplodeColor;
+            customBrokenSprites = GameModeManager.CurrentChallenge.normalBrokenSprites; // Lấy ảnh vỡ
+        }
+
         if (logBreakEffect != null)
-            logBreakEffect.SetBossMode(false, Color.white);
+            logBreakEffect.SetBossMode(false, breakColor, customBrokenSprites); // Truyền ảnh vỡ xuống Effect
 
         logRotator.SetPattern(_currentLevel);
         logRotator.SetActive(true);
 
-        logItemPlacer.Setup(
-            _currentLevel.preplacedCount,
-            _currentLevel.appleCount);
+        // ── KHÔNG ĐẺ TÁO TRONG CHALLENGE ──
+        int spawnApples = (GameModeManager.CurrentMode == GameMode.Challenge) ? 0 : _currentLevel.appleCount;
+        logItemPlacer.Setup(_currentLevel.preplacedCount, spawnApples);
 
         knifeThrower.SetupLevel(_currentLevel.knifeCount);
 
@@ -291,7 +342,36 @@ public class GameManager : MonoBehaviour
         if (_currentLevel.isBossStage)
             ResetLogSprite();
 
-        // Stage tự tăng tiếp, KHÔNG reset LevelGenerator
+        // BƯỚC MỚI: XỬ LÝ CHUYỂN STAGE TRONG CHALLENGE VÀ HIỆN BẢNG CHÚC MỪNG
+        if (GameModeManager.CurrentMode == GameMode.Challenge)
+        {
+            if (_challengeStageInCycle == 5) // Đã qua màn Boss (vòng 5)
+            {
+                _challengeStageInCycle = 1; // Quay lại vòng mới
+
+                // ── BƯỚC SỬA LỖI: ẨN LOG KHỎI MÀN HÌNH CHỜ HIỆN BẢNG ──
+                if (logSpriteRenderer != null) logSpriteRenderer.enabled = false;
+                if (logRotator != null) logRotator.SetActive(false);
+
+                // HIỆN BẢNG CHÚC MỪNG VÀ DỪNG LẠI CHỜ NGƯỜI CHƠI BẤM NÚT
+                if (challengeCompleteUI != null)
+                {
+                    challengeCompleteUI.ShowPanel();
+                    return; // Ngắt hàm, không tự động gọi StartStage() nữa!
+                }
+                else
+                {
+                    // Fallback an toàn nếu bạn quên gắn Panel
+                    GameModeManager.CompleteCurrentAndMoveToNext();
+                }
+            }
+            else
+            {
+                _challengeStageInCycle++;
+            }
+        }
+
+        // Stage tự tăng tiếp (Nếu là màn thường hoặc chưa qua Boss Challenge)
         StartStage();
     }
 
@@ -315,7 +395,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Nếu quên gắn UI Continue thì mới hiện Game Over luôn
             ShowFinalGameOver();
         }
     }
@@ -356,6 +435,23 @@ public class GameManager : MonoBehaviour
         // Khởi chạy tiến trình Game Over thực sự (Lưu điểm và hiện bảng)
         StartCoroutine(GameOverRoutine());
     }
+
+    // ═══════════════════════════════════════════
+    // BƯỚC MỚI: PUBLIC — GỌI KHI BẤM NÚT "NEXT" TRÊN BẢNG CHÚC MỪNG
+    // ═══════════════════════════════════════════
+    /// <summary>
+    /// Gọi từ ChallengeCompleteUI khi người chơi bấm "Next Challenge"
+    /// </summary>
+    public void StartNextChallengeFromUI()
+    {
+        _state = GameState.Playing;
+        ScoreManager.Instance?.ResetScore();
+        LevelGenerator.Instance.Reset();
+
+        if (knifeThrower != null) knifeThrower.SetCanThrow(true);
+        StartStage(); // Bắt đầu màn chơi của Challenge tiếp theo
+    }
+
 
     // ═══════════════════════════════════════════
     // PRIVATE — HUD UPDATE
@@ -402,14 +498,16 @@ public class GameManager : MonoBehaviour
         {
             txtStageName.gameObject.SetActive(true);
 
-            // BƯỚC MỚI: Cập nhật chữ nếu đang ở chế độ Challenge
+            // Tự động chỉnh cỡ chữ cho gọn và xuống dòng
             if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
             {
-                txtStageName.text = $"{GameModeManager.CurrentChallenge.challengeName.ToUpper()} CHALLENGE {data.stageNumber}";
+                txtStageName.text = $"{GameModeManager.CurrentChallenge.challengeName.ToUpper()}\nCHALLENGE {GameModeManager.CurrentChallengeLevel}";
+                txtStageName.fontSize = challengeFontSize; // Thu nhỏ chữ
             }
             else
             {
                 txtStageName.text = $"STAGE {data.stageNumber}";
+                txtStageName.fontSize = normalFontSize; // Trả về chữ to
             }
 
             txtStageName.color = Color.white;
@@ -421,34 +519,52 @@ public class GameManager : MonoBehaviour
 
     private void UpdateStageDots(int currentPos)
     {
+        // Lấy màu chủ đạo
+        Color activeColor = new Color(1f, 0.7f, 0f, 1f); // Mặc định vàng
+        if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+        {
+            activeColor = GameModeManager.CurrentChallenge.themeColor;
+        }
+
         for (int i = 0; i < stageDots.Count; i++)
         {
             if (stageDots[i] == null) continue;
+            stageDots[i].gameObject.SetActive(true); // Luôn hiện đủ các dot
 
             bool isPassed = (i + 1) < currentPos;
             bool isCurrent = (i + 1) == currentPos;
 
+            // Tô màu theo Theme
             if (isCurrent)
-                stageDots[i].color =
-                    new Color(1f, 0.7f, 0f, 1f);   // Vàng
+                stageDots[i].color = activeColor;
             else if (isPassed)
-                stageDots[i].color =
-                    new Color(1f, 1f, 1f, 0.4f);   // Trắng mờ
+                stageDots[i].color = new Color(1f, 1f, 1f, 0.4f);   // Trắng mờ
             else
-                stageDots[i].color =
-                    new Color(1f, 1f, 1f, 0.8f);   // Trắng
+                stageDots[i].color = new Color(1f, 1f, 1f, 0.8f);   // Trắng
         }
 
-        // Boss icon luôn trắng ở màn thường
+        // Tô màu cho Icon Boss nếu đang chuẩn bị đánh boss (Vòng 5)
         if (bossDotIcon != null)
-            bossDotIcon.color = new Color(1f, 1f, 1f, 0.8f);
+        {
+            bool isBossNext = (currentPos == 5);
+            bossDotIcon.color = isBossNext ? activeColor : new Color(1f, 1f, 1f, 0.8f);
+        }
     }
 
     private void UpdateBossNameHUD(BossLogData boss)
     {
-        if (txtBossName == null || boss == null) return;
+        if (txtBossName == null) return;
 
-        txtBossName.text = $"BOSS: {boss.bossName}";
+        // Nếu là Boss Challenge -> Ghi "TÊN CHALLENGE (Cấp độ)"
+        if (GameModeManager.CurrentMode == GameMode.Challenge && GameModeManager.CurrentChallenge != null)
+        {
+            txtBossName.text = $"{GameModeManager.CurrentChallenge.challengeName.ToUpper()} CHALLENGE {GameModeManager.CurrentChallengeLevel}";
+        }
+        else
+        {
+            txtBossName.text = $"BOSS: {boss?.bossName}";
+        }
+
         txtBossName.color = new Color(1f, 0.2f, 0.2f, 1f);
         txtBossName.gameObject.SetActive(true);
     }
