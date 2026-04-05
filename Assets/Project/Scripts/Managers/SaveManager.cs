@@ -17,6 +17,11 @@ public class SaveManager : MonoBehaviour
     private const string KEY_SELECTED_KNIFE_PAGE = "SelectedKnifePage"; // [MỚI] Trang dao đã chọn4/4
     private const string KEY_SELECTED_KNIFE_SLOT = "SelectedKnifeSlot"; // [MỚI] Ô dao đã chọn4/4
 
+
+    // ── [MỚI] Key cho trạng thái unlock dao ──5/4
+    // Format: "KnifeUnlock_P{pageIndex}_S{slotIndex}" → ví dụ "KnifeUnlock_P0_S3"
+    private const string KEY_KNIFE_UNLOCK_PREFIX = "KnifeUnlock_P";
+
     // ── Cached values ──
     private int _bestStage;
     private int _bestScore;
@@ -126,6 +131,32 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log($"SaveManager: SelectedKnife saved → Page={pageIndex}, Slot={slotIndex}");
+    }
+
+    // ═══════════════════════════════════════════
+    // [MỚI] SAVE / LOAD — TRẠNG THÁI UNLOCK DAO
+    // ═══════════════════════════════════════════
+
+    /// <summary>
+    /// Lưu trạng thái unlock của 1 con dao theo pageIndex và slotIndex.
+    /// Gọi ngay sau khi set isUnlocked = true trong KnifeMenuManager.
+    /// </summary>
+    public void SaveKnifeUnlock(int pageIndex, int slotIndex)
+    {
+        string key = KEY_KNIFE_UNLOCK_PREFIX + pageIndex + "_S" + slotIndex;
+        PlayerPrefs.SetInt(key, 1);
+        PlayerPrefs.Save();
+        Debug.Log($"SaveManager: KnifeUnlocked saved → Page={pageIndex}, Slot={slotIndex}");
+    }
+
+    /// <summary>
+    /// Kiểm tra xem dao (pageIndex, slotIndex) có được unlock chưa.
+    /// Trả về true nếu đã lưu unlock, false nếu chưa.
+    /// </summary>
+    public bool LoadKnifeUnlock(int pageIndex, int slotIndex)
+    {
+        string key = KEY_KNIFE_UNLOCK_PREFIX + pageIndex + "_S" + slotIndex;
+        return PlayerPrefs.GetInt(key, 0) == 1;
     }
 
     // ═══════════════════════════════════════════

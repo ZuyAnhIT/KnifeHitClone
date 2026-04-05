@@ -11,8 +11,8 @@
 [CreateAssetMenu(fileName = "KnifeDatabase", menuName = "KnifeHit/KnifeDatabase")]
 public class KnifeDatabase : ScriptableObject
 {
-    [Tooltip("Số ô dao trên mỗi trang (của bạn là 25)")]
-    public int slotsPerPage = 25;
+    [Tooltip("Số ô dao trên mỗi trang (của bạn là 16)")]
+    public int slotsPerPage = 16;
 
     [Tooltip("Kéo coloredSprite của từng KnifeSlotUI vào đây theo thứ tự Page→Slot")]
     public Sprite[] knifeSprites;

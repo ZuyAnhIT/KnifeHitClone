@@ -18,12 +18,18 @@ public class KnifeSlotUI : MonoBehaviour
     private Button btn;
     private RectTransform myRect;
 
+    void Awake()
+    {
+        // Khởi tạo các tham chiếu trong Awake để sẵn sàng
+        // trước khi KnifeMenuManager.Start() gọi LoadAllUnlockedKnives()
+        btn = GetComponent<Button>();
+        myRect = GetComponent<RectTransform>();
+        backgroundImage = GetComponent<Image>();
+    }
+
     void Start()
     {
         manager = FindFirstObjectByType<KnifeMenuManager>();
-        btn = GetComponent<Button>();
-        myRect = GetComponent<RectTransform>();
-        backgroundImage = GetComponent<Image>(); // Tự động lấy ô nền
 
         // Cập nhật giao diện ngay khi game chạy
         UpdateVisuals();
