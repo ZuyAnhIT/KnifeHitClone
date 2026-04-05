@@ -1189,7 +1189,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 2
+  defaultIsON: 0
+  buttonSound: {fileID: 0}
 --- !u!114 &42829479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,7 +1366,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 0
+  defaultIsON: 0
+  buttonSound: {fileID: 922662861}
 --- !u!1 &55863498
 GameObject:
   m_ObjectHideFlags: 0
@@ -17453,7 +17457,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 1
+  defaultIsON: 0
+  buttonSound: {fileID: 0}
 --- !u!114 &993202473
 MonoBehaviour:
   m_ObjectHideFlags: 0
