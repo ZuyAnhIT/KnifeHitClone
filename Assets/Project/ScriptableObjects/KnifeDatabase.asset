@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b13e2062cc088a4b9228622124abe4d, type: 3}
   m_Name: KnifeDatabase
   m_EditorClassIdentifier: 
-  slotsPerPage: 200
+  slotsPerPage: 16
   knifeSprites:
   - {fileID: 21300000, guid: ffca5c4ffa4f8bd42bdb7091ecbffdbf, type: 3}
   - {fileID: 21300000, guid: 8f33096b6840eb74183e84041ebc134d, type: 3}
@@ -206,11 +206,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3e2eb3ff0184b4c4392a2cd1cdbc1e58, type: 3}
   - {fileID: 21300000, guid: 153a39934787fd7408996d904e85621b, type: 3}
   - {fileID: 21300000, guid: 93e35265f60b3da46a9ecf6eb9c396a6, type: 3}
-  - {fileID: 21300000, guid: 154b3b86b7140b44496cbe3d457f5f0f, type: 3}
-  - {fileID: 21300000, guid: 9035ffa0cc1d7b2478b7e28d81f9d895, type: 3}
-  - {fileID: 21300000, guid: 5ffce521f7762f04f96088a30680b7c1, type: 3}
-  - {fileID: 21300000, guid: 9a32d078e62b6c94883d24e0770eaf56, type: 3}
-  - {fileID: 21300000, guid: 16966028df787d84cb9889550a2d0e3f, type: 3}
-  - {fileID: 21300000, guid: ead44b4f1ff265748b74aa540afa8daf, type: 3}
-  - {fileID: 21300000, guid: 0895accec1ffbda4f8048fd16f8e268e, type: 3}
-  - {fileID: 21300000, guid: e32afc0c6a0010245a5987168273836e, type: 3}
