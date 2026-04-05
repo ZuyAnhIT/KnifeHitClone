@@ -1184,7 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 325294817}
-  clickSound: {fileID: 8300000, guid: a697cd87a650ae5498111c1d85b6c982, type: 3}
+  clickSound: {fileID: 8300000, guid: 6828b3aeeb73ec64ca584d850cb29434, type: 3}
 --- !u!82 &325294817
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1195,7 +1195,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a697cd87a650ae5498111c1d85b6c982, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6828b3aeeb73ec64ca584d850cb29434, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

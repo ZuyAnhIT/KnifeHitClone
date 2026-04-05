@@ -1942,11 +1942,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1307c7db0c5bf414fa68703e8d772639, type: 3}
+      objectReference: {fileID: 21300000, guid: f53cbb4adce8133429d5e0357e001a13, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1307c7db0c5bf414fa68703e8d772639, type: 3}
+      objectReference: {fileID: 21300000, guid: f53cbb4adce8133429d5e0357e001a13, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (5)
@@ -3823,11 +3823,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: d4e56a29589475f4fa69d9aaa8ad73a1, type: 3}
+      objectReference: {fileID: 21300000, guid: 8cbf39eea2794374da41d03d6fc01a02, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d4e56a29589475f4fa69d9aaa8ad73a1, type: 3}
+      objectReference: {fileID: 21300000, guid: 8cbf39eea2794374da41d03d6fc01a02, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (10)
@@ -3940,11 +3940,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8977b38c18a54e54482f11f39e9b108c, type: 3}
+      objectReference: {fileID: 21300000, guid: e1a7afbb737b1bf429ce3a03b5780edf, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8977b38c18a54e54482f11f39e9b108c, type: 3}
+      objectReference: {fileID: 21300000, guid: e1a7afbb737b1bf429ce3a03b5780edf, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (2)
@@ -4328,11 +4328,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6772fa46c5b2a6744b0ff1ab26a11980, type: 3}
+      objectReference: {fileID: 21300000, guid: cfbe5993519d96a42a9c9774d8d795e9, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6772fa46c5b2a6744b0ff1ab26a11980, type: 3}
+      objectReference: {fileID: 21300000, guid: cfbe5993519d96a42a9c9774d8d795e9, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (14)
@@ -11368,11 +11368,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 077022e36b7ef054e84c5517734af62d, type: 3}
+      objectReference: {fileID: 21300000, guid: 5ddc417c81ab5284f9d6e414cea4b886, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 077022e36b7ef054e84c5517734af62d, type: 3}
+      objectReference: {fileID: 21300000, guid: 5ddc417c81ab5284f9d6e414cea4b886, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (6)
@@ -12075,7 +12075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2090748060, guid: 4c87de72a406aa041a48fe5eac6ee4d8, type: 3}
+  m_Sprite: {fileID: 865354103, guid: eb66a74513597bd4b97aac52cfe1e71a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -13658,11 +13658,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7bf0c5634c2a32c4b8f55b0f38c30036, type: 3}
+      objectReference: {fileID: 21300000, guid: b72c96edd22df4c4883e0f8c0b1dc5c2, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7bf0c5634c2a32c4b8f55b0f38c30036, type: 3}
+      objectReference: {fileID: 21300000, guid: b72c96edd22df4c4883e0f8c0b1dc5c2, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (9)
@@ -15432,11 +15432,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4b345a340640d634f94ccebb5df6a8aa, type: 3}
+      objectReference: {fileID: 21300000, guid: 09cbef20aa56a1a46bab6ffe6e9d4b39, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4b345a340640d634f94ccebb5df6a8aa, type: 3}
+      objectReference: {fileID: 21300000, guid: 09cbef20aa56a1a46bab6ffe6e9d4b39, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (7)
@@ -15624,11 +15624,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: bb66ddad5b82085489da068767cac15f, type: 3}
+      objectReference: {fileID: 21300000, guid: 3e744c54cfead1d40b142032960718c1, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: bb66ddad5b82085489da068767cac15f, type: 3}
+      objectReference: {fileID: 21300000, guid: 3e744c54cfead1d40b142032960718c1, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (3)
@@ -16064,11 +16064,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8251118be6cef0048b17153b56f5e051, type: 3}
+      objectReference: {fileID: 21300000, guid: 03d19f0e7f665b247adc0f160c9cb59b, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8251118be6cef0048b17153b56f5e051, type: 3}
+      objectReference: {fileID: 21300000, guid: 03d19f0e7f665b247adc0f160c9cb59b, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (13)
@@ -18842,7 +18842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -689089532, guid: 4c87de72a406aa041a48fe5eac6ee4d8, type: 3}
+  m_Sprite: {fileID: 1142914192, guid: eb66a74513597bd4b97aac52cfe1e71a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -20338,11 +20338,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 21d3e4cd30556c2459f9b05610e2ec1e, type: 3}
+      objectReference: {fileID: 21300000, guid: 8f70399b362ea7840b44b5e1505cd2c8, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 21d3e4cd30556c2459f9b05610e2ec1e, type: 3}
+      objectReference: {fileID: 21300000, guid: 8f70399b362ea7840b44b5e1505cd2c8, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (12)
@@ -24927,7 +24927,7 @@ PrefabInstance:
       objectReference: {fileID: 65492821}
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: isUnlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: shadowSprite
@@ -30060,11 +30060,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: d9a12317247eee749a460fb2129dc19a, type: 3}
+      objectReference: {fileID: 21300000, guid: 6927534083ed7be44a5224e64e33f9dd, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d9a12317247eee749a460fb2129dc19a, type: 3}
+      objectReference: {fileID: 21300000, guid: 6927534083ed7be44a5224e64e33f9dd, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (8)
@@ -30932,11 +30932,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8f33096b6840eb74183e84041ebc134d, type: 3}
+      objectReference: {fileID: 21300000, guid: 26a05b56a13c9784cacb80fd8d8b2e33, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8f33096b6840eb74183e84041ebc134d, type: 3}
+      objectReference: {fileID: 21300000, guid: 26a05b56a13c9784cacb80fd8d8b2e33, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (1)
@@ -31975,7 +31975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -175901300, guid: 4c87de72a406aa041a48fe5eac6ee4d8, type: 3}
+  m_Sprite: {fileID: -12735927, guid: eb66a74513597bd4b97aac52cfe1e71a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -32008,7 +32008,7 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ab71dacc91f9a354a957babd2621600a, type: 3}
+      objectReference: {fileID: 21300000, guid: 4e739f784cad0c741adf4ec827c5da71, type: 3}
     - target: {fileID: 2307552493859421362, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_SizeDelta.x
       value: 79
@@ -32020,7 +32020,7 @@ PrefabInstance:
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ab71dacc91f9a354a957babd2621600a, type: 3}
+      objectReference: {fileID: 21300000, guid: 4e739f784cad0c741adf4ec827c5da71, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (15)
@@ -35744,11 +35744,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 54b03fd98bd813346b35755f851c3c29, type: 3}
+      objectReference: {fileID: 21300000, guid: 4895811b1d9b68241b208876ce14aca9, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 54b03fd98bd813346b35755f851c3c29, type: 3}
+      objectReference: {fileID: 21300000, guid: 4895811b1d9b68241b208876ce14aca9, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (11)
@@ -37824,11 +37824,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 998e11301b49d954b956ab14cfa2f3ee, type: 3}
+      objectReference: {fileID: 21300000, guid: e5e2f8895818f164495579318fac35d3, type: 3}
     - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 998e11301b49d954b956ab14cfa2f3ee, type: 3}
+      objectReference: {fileID: 21300000, guid: e5e2f8895818f164495579318fac35d3, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab (4)
@@ -38487,7 +38487,7 @@ PrefabInstance:
       objectReference: {fileID: 65492821}
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: isUnlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: shadowSprite
@@ -38496,7 +38496,11 @@ PrefabInstance:
     - target: {fileID: -7690410392864496543, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: coloredSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ffca5c4ffa4f8bd42bdb7091ecbffdbf, type: 3}
+      objectReference: {fileID: 21300000, guid: 3e4fbd9beb013c94aba192f2c47c51d0, type: 3}
+    - target: {fileID: 3579639705485623027, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e4fbd9beb013c94aba192f2c47c51d0, type: 3}
     - target: {fileID: 4282689853722935876, guid: ae92947d239ca844a990aae1eeed3636, type: 3}
       propertyPath: m_Name
       value: Bnt_KnifeSlot_Prefab
@@ -38655,7 +38659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 348926612, guid: 4c87de72a406aa041a48fe5eac6ee4d8, type: 3}
+  m_Sprite: {fileID: -2146754101, guid: eb66a74513597bd4b97aac52cfe1e71a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -103,6 +103,9 @@ public class KnifeMenuManager : MonoBehaviour
 
     void Start()
     {
+        // [MỚI] Load trạng thái unlock tất cả dao từ PlayerPrefs trước mọi thứ
+        LoadAllUnlockedKnives();
+
         UpdateKnifeProgress();
         // ---> CHÈN DÒNG NÀY VÀO <---
         LoadRealApples();
@@ -138,6 +141,31 @@ public class KnifeMenuManager : MonoBehaviour
         {
             SelectKnife(defaultSlot);
         }
+    }
+
+    // [MỚI] Load toàn bộ trạng thái unlock dao từ PlayerPrefs và áp lên từng KnifeSlotUI
+    private void LoadAllUnlockedKnives()
+    {
+        if (SaveManager.Instance == null || contentContainer == null) return;
+
+        for (int pageIndex = 0; pageIndex < contentContainer.childCount; pageIndex++)
+        {
+            Transform page = contentContainer.GetChild(pageIndex);
+            for (int slotIndex = 0; slotIndex < page.childCount; slotIndex++)
+            {
+                KnifeSlotUI knife = page.GetChild(slotIndex).GetComponent<KnifeSlotUI>();
+                if (knife == null) continue;
+
+                // Nếu PlayerPrefs ghi nhận dao này đã unlock → áp lên component
+                if (SaveManager.Instance.LoadKnifeUnlock(pageIndex, slotIndex))
+                {
+                    knife.isUnlocked = true;
+                    knife.UpdateVisuals();
+                }
+            }
+        }
+
+        Debug.Log("KnifeMenuManager: Đã load xong trạng thái unlock tất cả dao.");
     }
 
     public void LoadRealApples()
@@ -635,6 +663,14 @@ public class KnifeMenuManager : MonoBehaviour
         luckyKnife.isUnlocked = true;
         luckyKnife.UpdateVisuals();
 
+        // [MỚI] Lưu trạng thái unlock xuống PlayerPrefs để tồn tại sau khi đổi scene
+        if (SaveManager.Instance != null)
+        {
+            int pageIdx = luckyKnife.transform.parent.GetSiblingIndex();
+            int slotIdx = luckyKnife.transform.GetSiblingIndex();
+            SaveManager.Instance.SaveKnifeUnlock(pageIdx, slotIdx);
+        }
+
         SelectKnife(luckyKnife); // Tự động load dao trúng thưởng lên bảng to
         UpdateKnifeProgress();
 
@@ -669,6 +705,14 @@ public class KnifeMenuManager : MonoBehaviour
             currentSelectedSlot.isUnlocked = true;
             currentSelectedSlot.UpdateVisuals();
 
+            // [MỚI] Lưu trạng thái unlock xuống PlayerPrefs để tồn tại sau khi đổi scene
+            if (SaveManager.Instance != null)
+            {
+                int pageIdx = currentSelectedSlot.transform.parent.GetSiblingIndex();
+                int slotIdx = currentSelectedSlot.transform.GetSiblingIndex();
+                SaveManager.Instance.SaveKnifeUnlock(pageIdx, slotIdx);
+            }
+
             SelectKnife(currentSelectedSlot);
             UpdateKnifeProgress();
             Debug.Log("Mua đứt con dao thành công với giá " + cost);
@@ -688,6 +732,14 @@ public class KnifeMenuManager : MonoBehaviour
 
         currentSelectedSlot.isUnlocked = true;
         currentSelectedSlot.UpdateVisuals();
+
+        // [MỚI] Lưu trạng thái unlock xuống PlayerPrefs để tồn tại sau khi đổi scene
+        if (SaveManager.Instance != null)
+        {
+            int pageIdx = currentSelectedSlot.transform.parent.GetSiblingIndex();
+            int slotIdx = currentSelectedSlot.transform.GetSiblingIndex();
+            SaveManager.Instance.SaveKnifeUnlock(pageIdx, slotIdx);
+        }
 
         SelectKnife(currentSelectedSlot);
         UpdateKnifeProgress();
