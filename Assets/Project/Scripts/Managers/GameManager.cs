@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     [Header("── UI Transitions ──")]
     [SerializeField] private BossTransitionUI bossTransitionUI;
     [SerializeField] private ContinueUI continueUI; // Giao diện Hồi sinh
-    [SerializeField] private ChallengeCompleteUI challengeCompleteUI; // BƯỚC MỚI: Giao diện Chúc mừng Challenge
+    [SerializeField] private ChallengeCompleteUI challengeCompleteUI; // Giao diện Chúc mừng Challenge
 
     // ═══════════════════════════════════════════
     // PRIVATE
@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
 
     // Đếm vị trí Stage trong chu kỳ Challenge (1, 2, 3, 4, 5)
     private int _challengeStageInCycle = 1;
+
+    // Danh sách lưu trữ các con dao/táo bị giấu đi lúc Game Over / Hoàn thành Challenge
+    private List<GameObject> _hiddenObjects = new List<GameObject>();
 
     // ═══════════════════════════════════════════
     // EVENTS
@@ -186,10 +189,60 @@ public class GameManager : MonoBehaviour
     public LevelData CurrentLevel => _currentLevel;
 
     // ═══════════════════════════════════════════
+    // QUẢN LÝ ẨN/HIỆN GIAO DIỆN GAMEPLAY SẠCH SẼ
+    // ═══════════════════════════════════════════
+    private void HideAllGameplayObjects()
+    {
+        // 1. Tắt các đối tượng chính (Gỗ, Effect)
+        if (logRotator != null) logRotator.gameObject.SetActive(false);
+        if (logBreakEffect != null) logBreakEffect.gameObject.SetActive(false);
+        if (logSpriteRenderer != null) logSpriteRenderer.gameObject.SetActive(false);
+
+        // 2. Quét và giấu tất cả các con dao và táo bơ vơ trên màn hình
+        _hiddenObjects.Clear();
+        string[] targetTags = { "Knife", "StuckKnife", "Apple" };
+
+        foreach (string tag in targetTags)
+        {
+            try
+            {
+                GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+                foreach (GameObject obj in objs)
+                {
+                    if (obj.activeInHierarchy)
+                    {
+                        obj.SetActive(false);
+                        _hiddenObjects.Add(obj); // Lưu lại để phục hồi nếu cần (Hồi sinh)
+                    }
+                }
+            }
+            catch { /* Bỏ qua nếu project chưa khai báo tag đó */ }
+        }
+    }
+
+    private void ShowAllGameplayObjects()
+    {
+        // 1. Bật lại gỗ
+        if (logRotator != null) logRotator.gameObject.SetActive(true);
+        if (logBreakEffect != null) logBreakEffect.gameObject.SetActive(true);
+        if (logSpriteRenderer != null) logSpriteRenderer.gameObject.SetActive(true);
+
+        // 2. Bật lại các con dao/táo đã giấu
+        foreach (GameObject obj in _hiddenObjects)
+        {
+            if (obj != null) obj.SetActive(true);
+        }
+        _hiddenObjects.Clear();
+    }
+
+    // ═══════════════════════════════════════════
     // PRIVATE — STAGE FLOW
     // ═══════════════════════════════════════════
     private void StartStage()
     {
+        // ĐẢM BẢO GỖ (VÀ DAO/TÁO) LUÔN ĐƯỢC BẬT KHI BẮT ĐẦU MÀN MỚI
+        ShowAllGameplayObjects();
+
         _currentLevel = LevelGenerator.Instance.GenerateNext();
 
         // ĐÁNH CHẶN LOGIC CHO CHALLENGE (ÉP VỀ 5 STAGE NHƯ BÌNH THƯỜNG)
@@ -342,16 +395,15 @@ public class GameManager : MonoBehaviour
         if (_currentLevel.isBossStage)
             ResetLogSprite();
 
-        // BƯỚC MỚI: XỬ LÝ CHUYỂN STAGE TRONG CHALLENGE VÀ HIỆN BẢNG CHÚC MỪNG
+        // XỬ LÝ CHUYỂN STAGE TRONG CHALLENGE VÀ HIỆN BẢNG CHÚC MỪNG
         if (GameModeManager.CurrentMode == GameMode.Challenge)
         {
             if (_challengeStageInCycle == 5) // Đã qua màn Boss (vòng 5)
             {
                 _challengeStageInCycle = 1; // Quay lại vòng mới
 
-                // ── BƯỚC SỬA LỖI: ẨN LOG KHỎI MÀN HÌNH CHỜ HIỆN BẢNG ──
-                if (logSpriteRenderer != null) logSpriteRenderer.enabled = false;
-                if (logRotator != null) logRotator.SetActive(false);
+                // ẨN SẠCH MÀN HÌNH TRƯỚC KHI HIỆN BẢNG CHÚC MỪNG
+                HideAllGameplayObjects();
 
                 // HIỆN BẢNG CHÚC MỪNG VÀ DỪNG LẠI CHỜ NGƯỜI CHƠI BẤM NÚT
                 if (challengeCompleteUI != null)
@@ -385,6 +437,9 @@ public class GameManager : MonoBehaviour
         _state = GameState.GameOver;
         logRotator.SetActive(false);
         knifeThrower.SetCanThrow(false);
+
+        // ẨN TOÀN BỘ GỖ VÀ DAO GĂM KHI HIỆN BẢNG CONTINUE
+        HideAllGameplayObjects();
 
         Debug.Log("GameManager: Dao va cham! Cho man hinh Continue...");
 
@@ -420,6 +475,10 @@ public class GameManager : MonoBehaviour
     public void ReviveGame()
     {
         _state = GameState.Playing;
+
+        // HIỆN LẠI GỖ, DAO VÀ TÁO ĐỂ CHƠI TIẾP
+        ShowAllGameplayObjects();
+
         logRotator.SetActive(true); // Gỗ quay trở lại
 
         if (knifeThrower != null)
@@ -437,7 +496,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ═══════════════════════════════════════════
-    // BƯỚC MỚI: PUBLIC — GỌI KHI BẤM NÚT "NEXT" TRÊN BẢNG CHÚC MỪNG
+    // PUBLIC — GỌI KHI BẤM NÚT "NEXT" TRÊN BẢNG CHÚC MỪNG
     // ═══════════════════════════════════════════
     /// <summary>
     /// Gọi từ ChallengeCompleteUI khi người chơi bấm "Next Challenge"

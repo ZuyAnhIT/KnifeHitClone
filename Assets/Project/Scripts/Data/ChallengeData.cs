@@ -29,4 +29,7 @@ public class ChallengeData : ScriptableObject
     [Header("── Độ khó (Tùy chọn) ──")]
     [Tooltip("Danh sách cấu hình tốc độ, số dao... riêng biệt cho thử thách này")]
     public List<LevelData> challengeStages;
+
+    [Tooltip("Icon đại diện cố định (Hiện trên Banner Game Over/Win)")]
+    public Sprite challengeBadgeIcon;
 }
