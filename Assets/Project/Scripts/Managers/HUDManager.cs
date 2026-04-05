@@ -16,8 +16,12 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private float iconSpacing = 48f;     // Khoảng cách giữa các icon dao
 
     [Header("── Position cố định ──")]
-    [SerializeField] private float fixedPosX = 107f;  // Tọa độ X cố định của cụm icon
+    // [ĐÃ XÓA] fixedPosX → thay bằng 2 giá trị riêng bên dưới
     [SerializeField] private float fixedPosY = -500f; // Tọa độ Y cố định của cụm icon
+
+    // [MỚI] Thay vì 1 posX cố định, nay có 2 posX cho 2 chế độ tay
+    [SerializeField] private float posX_RightHand = 107f;  // Tọa độ X khi tay PHẢI (mặc định)
+    [SerializeField] private float posX_LeftHand = -107f; // Tọa độ X khi tay TRÁI
 
     [Header("── Icon Colors ──")]
     // Màu icon khi dao CHƯA được ném (sáng bình thường)
@@ -39,7 +43,6 @@ public class HUDManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton: Đảm bảo chỉ tồn tại 1 HUDManager duy nhất trong scene
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -48,79 +51,80 @@ public class HUDManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        // Lắng nghe event từ toggle Left Hand trong Settings
+        CodeToggle.OnLeftHandChanged += OnLeftHandChanged;
+    }
+
+    private void OnDisable()
+    {
+        CodeToggle.OnLeftHandChanged -= OnLeftHandChanged;
+    }
+
+    private void Start()
+    {
+        // Áp đúng vị trí ngay khi vào scene, không cần chờ người chơi bấm toggle
+        bool isLeft = SaveManager.Instance != null && SaveManager.Instance.LeftHandEnabled;
+        ApplyQueuePosition(isLeft);
+    }
+
     // ═══════════════════════════════════════════
     // PUBLIC METHODS
     // ═══════════════════════════════════════════
 
     /// <summary>
     /// Khởi tạo hàng icon dao ở đầu mỗi màn chơi.
-    ///
     /// Gọi từ: KnifeThrower.SetupLevel()
-    ///
-    /// [THAM SỐ]
-    ///   total       : Tổng số dao trong màn, dùng để tạo đúng số icon.
-    ///   knifeSprite : (Tùy chọn) Sprite của con dao người chơi đang dùng.
-    ///                 - Nếu truyền vào → icon HUD hiện đúng hình dao đã chọn ở Menu.
-    ///                 - Nếu để trống (null) → icon dùng sprite mặc định của prefab,
-    ///                   không ảnh hưởng đến các chỗ gọi cũ trong nhóm.
-    ///
-    /// [CÁCH DÙNG CŨ - vẫn hoạt động bình thường, không cần sửa]
-    ///   HUDManager.Instance.SetupKnifeQueue(7);
-    ///
-    /// [CÁCH DÙNG MỚI - truyền thêm sprite dao đã chọn]
-    ///   HUDManager.Instance.SetupKnifeQueue(7, _selectedKnifeSprite);
     /// </summary>
     public void SetupKnifeQueue(int total, Sprite knifeSprite = null)
     {
         _totalKnives = total;
         _knivesThrown = 0;
 
-        // Xóa toàn bộ icon cũ trước khi tạo lại cho màn mới
         ClearIcons();
 
         for (int i = 0; i < total; i++)
         {
-            // Tạo 1 icon dao và đặt vào đúng vị trí trong hàng
             GameObject iconObj = Instantiate(knifeIconPrefab, knifeQueueParent);
 
             RectTransform rt = iconObj.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(0f, -i * iconSpacing); // Icon từ trên xuống dưới
+            rt.anchoredPosition = new Vector2(0f, -i * iconSpacing);
 
             Image img = iconObj.GetComponent<Image>();
-            img.color = activeColor; // Tất cả icon bắt đầu ở trạng thái sáng (chưa ném)
+            img.color = activeColor;
 
-            // [MỚI] Nếu có truyền sprite dao vào → áp lên icon để khớp với dao người chơi đang dùng
-            // Nếu knifeSprite == null → giữ nguyên sprite mặc định của prefab, không ảnh hưởng gì
             if (knifeSprite != null)
                 img.sprite = knifeSprite;
 
             _knifeIcons.Add(img);
         }
 
-        // Cố định vị trí X Y của cụm icon, không bị dịch chuyển dù số lượng thay đổi
+        // Cập nhật kích thước parent
         RectTransform parentRT = knifeQueueParent.GetComponent<RectTransform>();
         if (parentRT != null)
         {
-            parentRT.anchoredPosition = new Vector2(fixedPosX, fixedPosY);
             parentRT.sizeDelta = new Vector2(
                 parentRT.sizeDelta.x,
-                total * iconSpacing // Chiều cao cụm icon tự động co giãn theo số dao
+                total * iconSpacing
             );
         }
 
-        Debug.Log($"HUDManager: Setup {total} icons tại X={fixedPosX} Y={fixedPosY}");
+        // [MỚI] Đặt vị trí X đúng theo chế độ tay hiện tại
+        // (SetupLevel gọi lại mỗi màn → vị trí phải luôn đúng)
+        bool isLeft = SaveManager.Instance != null && SaveManager.Instance.LeftHandEnabled;
+        ApplyQueuePosition(isLeft);
+
+        Debug.Log($"HUDManager: Setup {total} icons | LeftHand={isLeft}");
     }
 
     /// <summary>
     /// Gọi mỗi khi người chơi ném 1 dao.
-    /// Icon từ TRÊN xuống DƯỚI sẽ chuyển sang màu tối (usedColor) lần lượt.
-    /// Dao đầu tiên ném → icon trên cùng (index 0) tối trước.
-    ///
+    /// Icon từ trên xuống dưới sẽ chuyển sang màu tối lần lượt.
     /// Gọi từ: KnifeThrower.TryThrow()
     /// </summary>
     public void OnKnifeThrown()
     {
-        // Bảo vệ: Không vượt quá số icon hiện có
         if (_knivesThrown >= _knifeIcons.Count) return;
 
         _knifeIcons[_knivesThrown].color = usedColor;
@@ -132,20 +136,44 @@ public class HUDManager : MonoBehaviour
     // ═══════════════════════════════════════════
 
     /// <summary>
+    /// Callback từ CodeToggle.OnLeftHandChanged.
+    /// Tự động gọi khi người chơi bấm toggle Left Hand trong Settings.
+    /// </summary>
+    private void OnLeftHandChanged(bool isLeft)
+    {
+        ApplyQueuePosition(isLeft);
+    }
+
+    /// <summary>
+    /// Dịch knifeQueueParent sang đúng vị trí X theo chế độ tay.
+    /// isLeft = true  → posX_LeftHand  (bên trái màn hình)
+    /// isLeft = false → posX_RightHand (bên phải màn hình)
+    /// Y luôn giữ nguyên = fixedPosY
+    /// </summary>
+    private void ApplyQueuePosition(bool isLeft)
+    {
+        if (knifeQueueParent == null) return;
+
+        RectTransform parentRT = knifeQueueParent.GetComponent<RectTransform>();
+        if (parentRT == null) return;
+
+        float targetX = isLeft ? posX_LeftHand : posX_RightHand;
+        parentRT.anchoredPosition = new Vector2(targetX, fixedPosY);
+
+        Debug.Log($"HUDManager: KnifeQueue → {(isLeft ? "TRÁI" : "PHẢI")} (x={targetX})");
+    }
+
+    /// <summary>
     /// Dọn sạch toàn bộ icon dao cũ.
-    /// Gọi nội bộ mỗi khi SetupKnifeQueue() được gọi lại (đầu màn mới).
+    /// Gọi mỗi khi SetupKnifeQueue() được gọi lại (đầu màn mới).
     /// </summary>
     private void ClearIcons()
     {
-        // Destroy từng icon đã lưu trong danh sách
         foreach (var icon in _knifeIcons)
-        {
-            if (icon != null)
-                Destroy(icon.gameObject);
-        }
+            if (icon != null) Destroy(icon.gameObject);
+
         _knifeIcons.Clear();
 
-        // Xóa luôn các child còn sót lại trong parent (phòng trường hợp có object ngoài danh sách)
         foreach (Transform child in knifeQueueParent)
             Destroy(child.gameObject);
     }

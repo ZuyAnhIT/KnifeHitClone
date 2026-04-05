@@ -6158,8 +6158,9 @@ MonoBehaviour:
   knifeQueueParent: {fileID: 1382077438}
   knifeIconPrefab: {fileID: 5413507612687548069, guid: 43ca2659c06c1a142a0f9c84aa1da02e, type: 3}
   iconSpacing: 48
-  fixedPosX: 107
   fixedPosY: -500
+  posX_RightHand: 380
+  posX_LeftHand: -380
   activeColor: {r: 1, g: 1, b: 1, a: 1}
   usedColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 0.78431374}
 --- !u!114 &714142392
@@ -7787,7 +7788,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 0
+  defaultIsON: 0
+  buttonSound: {fileID: 862666871}
 --- !u!114 &932534770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8160,7 +8163,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 1
+  defaultIsON: 0
+  buttonSound: {fileID: 0}
 --- !u!114 &976606617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9372,7 +9377,9 @@ MonoBehaviour:
   posX_OFF: 40
   colorON: {r: 0.2, g: 0.8, b: 0.2, a: 1}
   colorOFF: {r: 1, g: 1, b: 1, a: 1}
-  isON: 0
+  toggleType: 2
+  defaultIsON: 0
+  buttonSound: {fileID: 0}
 --- !u!114 &1308587487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9947,9 +9954,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 408415977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 110, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -380, y: 0}
   m_SizeDelta: {x: 60, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1432136708
