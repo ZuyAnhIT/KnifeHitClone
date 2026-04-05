@@ -474,6 +474,9 @@ public class GameManager : MonoBehaviour
 
     public void ReviveGame()
     {
+        //Hiện quảng cáo hồi sinh
+        AdsManager.Instance.ShowInterstitial();
+
         _state = GameState.Playing;
 
         // HIỆN LẠI GỖ, DAO VÀ TÁO ĐỂ CHƠI TIẾP
