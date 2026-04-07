@@ -277,6 +277,25 @@ public class SaveManager : MonoBehaviour
 
         return Mathf.Max(0f, saved - elapsed); // Không cho về số âm
     }
+    // ═══════════════════════════════════════════════════════════════
+    // SAVE — VideoProgress
+    // ═══════════════════════════════════════════════════════════════
+    // Lưu số  lần xem quảng cáo của 1 ô dao chưa mở kháo
+    // Lưu số video còn lại cần xem cho 1 con dao cụ thể
+    public void SaveVideoProgress(int pageIndex, int slotIndex, int remaining)
+    {
+        string key = $"VideoLeft_P{pageIndex}_S{slotIndex}";
+        PlayerPrefs.SetInt(key, remaining);
+        PlayerPrefs.Save();
+    }
+
+    // Load số video còn lại (Mặc định là 4 nếu chưa bao giờ xem)
+    public int LoadVideoProgress(int pageIndex, int slotIndex)
+    {
+        string key = $"VideoLeft_P{pageIndex}_S{slotIndex}";
+        return PlayerPrefs.GetInt(key, 4); // Số 4 là giá trị mặc định ban đầu
+    }
+
 
     // ═══════════════════════════════════════════════════════════════
     // GETTERS — Đọc giá trị cached (nhanh, không đọc lại PlayerPrefs)
