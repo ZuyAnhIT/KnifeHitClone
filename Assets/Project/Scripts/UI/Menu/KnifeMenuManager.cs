@@ -36,6 +36,10 @@ public class KnifeMenuManager : MonoBehaviour
     private int currentPageIndex = 0;      // Mặc định vừa vào là Page 1 (Index = 0)
     private bool isSpinning = false;
 
+    [Header("Hiệu ứng Báo lỗi (Thiếu Táo)")]
+    public GameObject notEnoughApplesPrefab; // Kéo Prefab chữ vào đây
+    public GameObject notEnoughApplesSmallPrefab;
+
     [Header("Mua Dao Trực Tiếp (Unlock Now)")]
     public GameObject btnUnlockNowObj;        // Kéo cả cái object Btn_UnlockNow vào đây để Bật/Tắt
     public GameObject btnWatchVideoObj;       // Nút Xem Video (Màu Xanh)  
@@ -47,6 +51,7 @@ public class KnifeMenuManager : MonoBehaviour
     public GameObject groupProgressBar;    // Kéo Group_ProgressBar vào đây
     public Image imgBarFill;               // Kéo Img_BarFill vào đây
     public TextMeshProUGUI txtBarProgress; // Kéo Txt_ProgressAmount vào đây
+    public TextMeshProUGUI txtWatchVideoLeft; // Kéo cái Text hiện chữ "4 LEFT" vào đây
 
     [Header("Các nút cần ẩn ở Page 3")]
     public GameObject btnUnlockRandomMain; // Kéo cụm nút Unlock Random (250/500 táo) vào đây
@@ -413,6 +418,12 @@ public class KnifeMenuManager : MonoBehaviour
                 // NẾU LÀ PAGE 3 (Dao VIP) -> HIỆN nút Video, ẨN nút Táo
                 if (btnUnlockNowObj != null) btnUnlockNowObj.SetActive(false);
                 if (btnWatchVideoObj != null) btnWatchVideoObj.SetActive(true);
+                if (txtWatchVideoLeft != null && SaveManager.Instance != null)
+                {
+                    int slotIndex = selectedSlot.transform.GetSiblingIndex();
+                    int left = SaveManager.Instance.LoadVideoProgress(2, slotIndex);
+                    txtWatchVideoLeft.text = left + " LEFT";
+                }
             }
             else if (pageIndex >= 3 && pageIndex <= 9)
             {
@@ -546,7 +557,54 @@ public class KnifeMenuManager : MonoBehaviour
     // =========================================================
     // KHU VỰC 4: HỆ THỐNG MUA/MỞ KHÓA DAO (UNLOCK SYSTEM)
     // =========================================================
+    // =========================================================
+    // HỆ THỐNG HIỆU ỨNG CHỮ BAY (FLOATING TEXT)
+    // =========================================================
+    private void ShowNotEnoughApples(Transform targetButton, GameObject prefabToUse, float yOffset)
+    {
+        if (prefabToUse == null || targetButton == null) return;
 
+        // Tạo chữ từ Prefab được truyền vào
+        GameObject popup = Instantiate(prefabToUse, targetButton.parent);
+
+        popup.transform.position = targetButton.position;
+
+        // Đẩy lên trên dựa vào thông số yOffset truyền vào
+        RectTransform popupRect = popup.GetComponent<RectTransform>();
+        popupRect.anchoredPosition += new Vector2(0, yOffset);
+
+        StartCoroutine(AnimateFloatingText(popup));
+    }
+
+    private IEnumerator AnimateFloatingText(GameObject popup)
+    {
+        TextMeshProUGUI txt = popup.GetComponent<TextMeshProUGUI>();
+        RectTransform rect = popup.GetComponent<RectTransform>();
+        if (txt == null || rect == null) { Destroy(popup); yield break; }
+
+        float duration = 1.0f;    // Thời gian sống của chữ (1 giây)
+        float floatSpeed = 150f;  // Tốc độ bay lên trên
+
+        float elapsed = 0f;
+        Color startColor = txt.color;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration; // Chạy từ 0 đến 1
+
+            // Bay dần lên trên
+            rect.anchoredPosition += new Vector2(0, floatSpeed * Time.deltaTime);
+
+            // Mờ dần (Giảm Alpha)
+            txt.color = new Color(startColor.r, startColor.g, startColor.b, 1f - t);
+
+            yield return null;
+        }
+
+        // Chạy xong 1 giây thì xóa object cho nhẹ máy
+        Destroy(popup);
+    }
     // Hàm 1: Nút bấm Bốc thăm ngẫu nhiên (Đã kiểm tra điều kiện quay)
     public void UnlockRandomKnife()
     {
@@ -560,7 +618,8 @@ public class KnifeMenuManager : MonoBehaviour
         if (realApples < cost)
         {
             Debug.Log("Không đủ Táo để mua!");
-            return;
+            // ---> THÊM LỆNH GỌI HIỆU ỨNG TẠI ĐÂY <---
+            ShowNotEnoughApples(btnUnlockRandomMain.transform, notEnoughApplesPrefab, 80f); return;
         }
 
         Transform activePage = contentContainer.GetChild(currentPageIndex);
@@ -720,6 +779,7 @@ public class KnifeMenuManager : MonoBehaviour
         else
         {
             Debug.Log("Không đủ Táo để mua con dao này!");
+            ShowNotEnoughApples(btnUnlockNowObj.transform, notEnoughApplesSmallPrefab, 60f);
         }
     }
 
@@ -728,26 +788,80 @@ public class KnifeMenuManager : MonoBehaviour
     {
         if (currentSelectedSlot == null || currentSelectedSlot.isUnlocked == true) return;
 
-        Debug.Log("Đang bật Video Quảng Cáo... Đợi người chơi xem xong...");
-
-        currentSelectedSlot.isUnlocked = true;
-        currentSelectedSlot.UpdateVisuals();
-
-        // [MỚI] Lưu trạng thái unlock xuống PlayerPrefs để tồn tại sau khi đổi scene
-        if (SaveManager.Instance != null)
+        if (AdsManager.Instance != null)
         {
-            int pageIdx = currentSelectedSlot.transform.parent.GetSiblingIndex();
-            int slotIdx = currentSelectedSlot.transform.GetSiblingIndex();
-            SaveManager.Instance.SaveKnifeUnlock(pageIdx, slotIdx);
-        }
+            Debug.Log("Đang bật Video Quảng Cáo...");
 
-        SelectKnife(currentSelectedSlot);
-        UpdateKnifeProgress();
-        UpdateSpecialPageProgress(2);
-        Debug.Log("Nhận dao VIP thành công nhờ xem Video!");
+            AdsManager.Instance.ShowRewarded(() =>
+            {
+                // Lấy thông tin vị trí con dao đang chọn
+                int pageIdx = currentSelectedSlot.transform.parent.GetSiblingIndex();
+                int slotIdx = currentSelectedSlot.transform.GetSiblingIndex();
+
+                // Lấy số lần còn lại hiện tại từ máy
+                int currentLeft = SaveManager.Instance.LoadVideoProgress(pageIdx, slotIdx);
+
+                // Giảm đi 1
+                currentLeft--;
+
+                if (currentLeft <= 0)
+                {
+                    // --- TRƯỜNG HỢP 1: ĐÃ XEM ĐỦ 4 LẦN -> MỞ KHÓA DAO ---
+                    currentSelectedSlot.isUnlocked = true;
+                    currentSelectedSlot.UpdateVisuals();
+                    SaveManager.Instance.SaveKnifeUnlock(pageIdx, slotIdx);
+
+                    // Reset lại số lần về 4 
+                    SaveManager.Instance.SaveVideoProgress(pageIdx, slotIdx, 4);
+
+                    // ---> THÊM 2 DÒNG NÀY ĐỂ TRÁNH VĂNG RA MAIN MENU <---
+                    KnifeSlotUI unlockedKnife = currentSelectedSlot;
+                    currentSelectedSlot = null; // Xóa trí nhớ tạm thời
+
+                    SelectKnife(unlockedKnife); // Code sẽ trang bị dao bình thường
+                    UpdateKnifeProgress();
+                    UpdateSpecialPageProgress(2);
+                    Debug.Log("Chúc mừng! Đã xem đủ 4 video và nhận dao!");
+                }
+                else
+                {
+                    // --- TRƯỜNG HỢP 2: CHƯA ĐỦ 4 LẦN -> CHỈ LƯU TIẾN TRÌNH ---
+                    SaveManager.Instance.SaveVideoProgress(pageIdx, slotIdx, currentLeft);
+
+                    // Cập nhật ngay con số trên nút bấm
+                    if (txtWatchVideoLeft != null) txtWatchVideoLeft.text = currentLeft + " LEFT";
+
+                    Debug.Log($"Đã xem xong 1 video. Con dao này còn {currentLeft} lần nữa.");
+                }
+            });
+        }
     }
 
+    // Hàm 4: Xem quảng cáo để nhận 50 Táo miễn phí
+    public void GetFreeApplesByWatchingVideo()
+    {
+        if (AdsManager.Instance != null)
+        {
+            Debug.Log("Đang bật Video Quảng Cáo...");
 
+            // Gọi AdsManager và truyền lệnh cộng táo vào bên trong dấu ngoặc
+            AdsManager.Instance.ShowRewarded(() =>
+            {
+                // ---> TOÀN BỘ CODE Ở ĐÂY SẼ CHỈ CHẠY KHI NGƯỜI CHƠI XEM XONG VIDEO <---
+                if (SaveManager.Instance != null)
+                {
+                    SaveManager.Instance.AddApple(50); // Cộng 50 táo vào kho
+                }
+                UpdateAppleTextUI(); // Cập nhật số táo lên màn hình
+
+                Debug.Log("Đã xem xong Video! Nhận 50 Táo thành công!");
+            });
+        }
+        else
+        {
+            Debug.Log("Lỗi: Không tìm thấy AdsManager trong hệ thống!");
+        }
+    }
     // =========================================================
     // KHU VỰC 5: HỆ THỐNG CẬP NHẬT TIẾN ĐỘ (PROGRESS TRACKING)
     // =========================================================

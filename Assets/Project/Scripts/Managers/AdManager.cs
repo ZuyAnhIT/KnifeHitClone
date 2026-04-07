@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System.Collections;
@@ -112,21 +112,38 @@ public class AdsManager : MonoBehaviour
         });
     }
 
-    public void ShowRewarded()
+    //public void ShowRewarded()
+    //{
+    //    if (_rewardedAd != null && _rewardedAd.CanShowAd())
+    //    {
+    //        _rewardedAd.Show(reward =>
+    //        {
+
+    //            if (ScoreManager.Instance != null)
+    //            {
+    //                ScoreManager.Instance.AddAppleScore(50);
+    //            }
+    //        });
+    //    }
+    //    else
+    //    {
+    //        LoadRewardedAd();
+    //    }
+    //}
+    // Bắt buộc phải có chữ Action ở trong ngoặc
+    public void ShowRewarded(Action onRewardEarned)
     {
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
             _rewardedAd.Show(reward =>
             {
-
-                if (ScoreManager.Instance != null)
-                {
-                    ScoreManager.Instance.AddAppleScore(50);
-                }
+                // Lệnh này có nghĩa là: Chạy xong video thì kích hoạt phần thưởng
+                onRewardEarned?.Invoke();
             });
         }
         else
         {
+            Debug.Log("Video chưa tải xong, đang tải lại...");
             LoadRewardedAd();
         }
     }
