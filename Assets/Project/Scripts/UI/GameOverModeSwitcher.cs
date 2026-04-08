@@ -24,18 +24,17 @@ public class GameOverModeSwitcher : MonoBehaviour
     [SerializeField] private Button btnHome;      // Kéo Btn_Home góc trái trên vào
     [SerializeField] private Button btnRestart;   // Kéo Btn_Restart màu xanh lá vào
 
-    // Dùng Awake để ghi đè sự kiện nút bấm, tránh lỗi thao tác trên Inspector
     private void Awake()
     {
+        // Gắn sự kiện bằng code. 
+        // LƯU Ý: Phải xóa sạch các sự kiện cũ trong ô On Click () của 2 nút này trên Inspector!
         if (btnHome != null)
         {
-            btnHome.onClick.RemoveAllListeners(); // Xóa các lệnh cũ gây lỗi
             btnHome.onClick.AddListener(OnHomeClicked);
         }
 
         if (btnRestart != null)
         {
-            btnRestart.onClick.RemoveAllListeners(); // Xóa các lệnh cũ gây lỗi
             btnRestart.onClick.AddListener(OnRestartClicked);
         }
     }
@@ -57,9 +56,8 @@ public class GameOverModeSwitcher : MonoBehaviour
             if (txtChallengeName != null) txtChallengeName.text = data.challengeName.ToUpper();
             if (txtChallengeFailed != null) txtChallengeFailed.text = $"CHALLENGE {GameModeManager.CurrentChallengeLevel} FAILED";
 
-            // Lấy Badge Icon (Nếu không dùng, bạn có thể comment dòng này lại)
-            if (challengeIcon != null && data.normalLogSprite != null)
-                challengeIcon.sprite = data.normalLogSprite;
+            if (challengeIcon != null && data.challengeBadgeIcon != null)
+                challengeIcon.sprite = data.challengeBadgeIcon;
         }
         else
         {
@@ -96,14 +94,8 @@ public class GameOverModeSwitcher : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // Ẩn màn hình Game Over
-        gameObject.SetActive(false);
-
-        // Gọi hàm Restart chuẩn trong GameManager.
-        // Hàm này sẽ tự động reset Điểm và Ván chơi, VẪN GIỮ NGUYÊN GameMode hiện tại!
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.RestartCurrentStage();
-        }
+        // Cách Reset an toàn nhất: Load lại y nguyên Scene hiện tại!
+        // GameModeManager sẽ tự nhớ đang chơi Normal hay Challenge để sắp xếp màn chơi
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
