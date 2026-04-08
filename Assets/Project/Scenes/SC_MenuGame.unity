@@ -1478,6 +1478,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 65492821}
+        m_TargetAssemblyTypeName: KnifeMenuManager, Assembly-CSharp
+        m_MethodName: GetFreeApplesByWatchingVideo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &55863501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,13 +1644,16 @@ MonoBehaviour:
   txtRandomPrice: {fileID: 2079539293}
   txtTotalApples: {fileID: 1845062469}
   pagePrices: fa000000f4010000
+  notEnoughApplesPrefab: {fileID: 4992883695975353841, guid: 0c94ba55716d2ef46b6192a20ca6914d, type: 3}
+  notEnoughApplesSmallPrefab: {fileID: 4565556656888460564, guid: cef7f1515a6bf1b429c61418141c6b33, type: 3}
   btnUnlockNowObj: {fileID: 1400963537}
-  btnWatchVideoObj: {fileID: 0}
+  btnWatchVideoObj: {fileID: 830442102}
   txtUnlockNowPrice: {fileID: 659681645}
   directBuyPrices: f4010000e8030000
   groupProgressBar: {fileID: 563953039}
   imgBarFill: {fileID: 1957363947}
   txtBarProgress: {fileID: 2099767962}
+  txtWatchVideoLeft: {fileID: 831758341}
   btnUnlockRandomMain: {fileID: 554273591}
   btnWatchAd50Apples: {fileID: 55863498}
   groupProgressBarBoss: {fileID: 166715218}
@@ -14321,7 +14336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &830442103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14390,6 +14405,18 @@ MonoBehaviour:
       - m_Target: {fileID: 922662861}
         m_TargetAssemblyTypeName: UIButtonSound, Assembly-CSharp
         m_MethodName: PlayClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 65492821}
+        m_TargetAssemblyTypeName: KnifeMenuManager, Assembly-CSharp
+        m_MethodName: UnlockByWatchingVideo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

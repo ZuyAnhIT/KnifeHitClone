@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System.Collections;
@@ -46,15 +46,17 @@ public class AdsManager : MonoBehaviour
 
     public void LoadBannerAd()
     {
-        DestroyBanner();
-        _bannerView = new BannerView(bannerId, AdSize.Banner, AdPosition.Bottom);
-
-        _bannerView.OnBannerAdLoadFailed += (error) =>
+        if (_bannerView == null)
         {
-            StartCoroutine(RetryLoad(LoadBannerAd, 15f));
-        };
+            _bannerView = new BannerView(bannerId, AdSize.Banner, AdPosition.Bottom);
+            _bannerView.OnBannerAdLoadFailed += (error) =>
+            {
+                StartCoroutine(RetryLoad(LoadBannerAd, 15f));
+            };
+        }
 
         _bannerView.LoadAd(CreateAdRequest());
+        _bannerView.Show();
     }
 
     public void ShowBanner() => _bannerView?.Show();
@@ -62,8 +64,11 @@ public class AdsManager : MonoBehaviour
 
     public void DestroyBanner()
     {
-        _bannerView?.Destroy();
-        _bannerView = null;
+        if (_bannerView != null)
+        {
+            _bannerView.Destroy();
+            _bannerView = null;
+        }
     }
 
     public void LoadInterstitialAd()
@@ -112,21 +117,20 @@ public class AdsManager : MonoBehaviour
         });
     }
 
-    public void ShowRewarded()
+    // Bắt buộc phải có chữ Action ở trong ngoặc
+    public void ShowRewarded(Action onRewardEarned)
     {
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
             _rewardedAd.Show(reward =>
             {
-
-                if (ScoreManager.Instance != null)
-                {
-                    ScoreManager.Instance.AddAppleScore(50);
-                }
+                // Lệnh này có nghĩa là: Chạy xong video thì kích hoạt phần thưởng
+                onRewardEarned?.Invoke();
             });
         }
         else
         {
+            Debug.Log("Video chưa tải xong, đang tải lại...");
             LoadRewardedAd();
         }
     }
@@ -145,8 +149,11 @@ public class AdsManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        DestroyBanner();
-        DestroyInterstitial();
-        DestroyRewarded();
+        if (Instance == this)
+        {
+            DestroyBanner();
+            _interAd?.Destroy();
+            _rewardedAd?.Destroy();
+        }
     }
 }
